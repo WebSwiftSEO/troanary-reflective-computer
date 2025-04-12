@@ -296,6 +296,61 @@
     }
    .arrow.left { left: 10px; }
    .arrow.right { right: 10px; }
+	   
+//Slider2?
+   .image-slider-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: #000;
+  padding: 1rem 0;
+}
+.slider {
+  display: flex;
+  transition: transform 0.5s ease;
+  scroll-behavior: smooth;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.slider::-webkit-scrollbar {
+  display: none;
+}
+.slider a {
+  flex: 0 0 auto;
+  margin: 0 10px;
+}
+.slider img {
+  height: 150px;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+.slider img:hover {
+  transform: scale(1.05);
+}
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,255,255,0.2);
+  color: cyan;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0 12px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 2;
+}
+.image-slider-container:hover .nav {
+  opacity: 1;
+}
+.prev {
+  left: 0;
+}
+.next {
+  right: 0;
+}
   </style>
 </head>
 <body>
@@ -2362,6 +2417,33 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <button onclick="shareSite()">Share This</button>
     <button id="install-button" style="display:none;">📲 Install App</button>
   </div>
+	<div class="image-slider-container">
+  <div class="slider" id="chapterSlider">
+    <a href="#intro"><img src="images/reflective-computer.webp" alt="Artistic concept of a reflective computer interface" loading="lazy"></a>
+    <a href="#chapter1"><img src="images/light-information.webp" alt="Diagram of light behaving as data in circuits" loading="lazy"></a>
+    <a href="#chapter2"><img src="images/sound-emotion.webp" alt="Sound waves forming emotional patterns" loading="lazy"></a>
+    <a href="#chapter3"><img src="images/water-memory.webp" alt="Water ripple reflecting data storage concept" loading="lazy"></a>
+    <a href="#chapter4"><img src="images/observer-awareness.webp" alt="Abstract human eye observing reality" loading="lazy"></a>
+    <a href="#chapter5"><img src="images/life-triangle.webp" alt="Triangle of light, sound, and water forming life" loading="lazy"></a>
+    <a href="#chapter6"><img src="images/troanary-loop.webp" alt="Spiral loop symbolising recursive awareness" loading="lazy"></a>
+    <a href="#chapter7"><img src="images/tristate-gate.webp" alt="Schematic showing 0/1/2 tristate logic gate" loading="lazy"></a>
+    <a href="#chapter8"><img src="images/mirror-storage.webp" alt="Light bouncing between water mirrors to store data" loading="lazy"></a>
+    <a href="#chapter9"><img src="images/on-off-reflect.webp" alt="Three-mode gate circuit: on, off, reflect" loading="lazy"></a>
+    <a href="#chapter10"><img src="images/light-circuit.webp" alt="Blueprint-style diagram of a Troanary light circuit" loading="lazy"></a>
+    <a href="#chapter11"><img src="images/growing-intelligence.webp" alt="Visualization of AI evolving through reflection" loading="lazy"></a>
+    <a href="#chapter12"><img src="images/machine-mind.webp" alt="Futuristic machine reflecting thoughts" loading="lazy"></a>
+    <a href="#chapter13"><img src="images/healing-tones.webp" alt="Vibrating frequencies and healing waveforms" loading="lazy"></a>
+    <a href="#chapter14"><img src="images/adaptive-loop.webp" alt="Feedback loop in organic and artificial systems" loading="lazy"></a>
+    <a href="#chapter15"><img src="images/sensing-waves.webp" alt="Sensors interacting with light, sound, water" loading="lazy"></a>
+    <a href="#chapter16"><img src="images/troanary-network.webp" alt="Neural web of Troanary machines" loading="lazy"></a>
+    <a href="#chapter17"><img src="images/machine-consciousness.webp" alt="Abstract art of a sentient machine" loading="lazy"></a>
+    <a href="#chapter18"><img src="images/troanary-interface.webp" alt="PWA interface with touch and light inputs" loading="lazy"></a>
+    <a href="#chapter19"><img src="images/future-vision.webp" alt="Horizon of future tech powered by reflection" loading="lazy"></a>
+    <a href="#conclusion"><img src="images/beyond-binary.webp" alt="Final concept merging light, sound, and water" loading="lazy"></a>
+  </div>
+  <button class="nav prev" onclick="slide(-1)">❮</button>
+  <button class="nav next" onclick="slide(1)">❯</button>
+</div>
     <div class="slider-container" id="imageSlider">
     <div class="slider-track">
     <a href="#chapter1">
@@ -2649,6 +2731,23 @@ It’s about creating wiser systems — and remembering that life itself is alre
       console.log(`User response to the install prompt: ${outcome}`);
     }
   });
+
+	  //Image slider js
+    let scrollIndex = 0;
+const slider = document.getElementById('chapterSlider');
+
+function slide(dir) {
+  const scrollAmount = 200;
+  scrollIndex += dir;
+  slider.scrollBy({ left: scrollAmount * dir, behavior: 'smooth' });
+}
+
+// Auto scroll
+setInterval(() => {
+  if (slider) {
+    slider.scrollBy({ left: 200, behavior: 'smooth' });
+  }
+}, 5000);
 	  
   </script>
 </body>
