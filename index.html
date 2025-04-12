@@ -18,7 +18,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png" />
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png" />
 
-  <!-- Apple iOS Support -->
+` <!-- Apple iOS Support -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -2320,6 +2320,7 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <div id="healingBar"></div>
     <p id="reflectionOutput"></p>
     <button onclick="shareSite()">Share This</button>
+    <button id="install-button" style="display:none;">📲 Install App</button>
 	<button id="installBtn" style="display: none; margin-top: 10px; padding: 10px 20px; font-size: 1em; background: #00f5cc; color: #000; border: none; border-radius: 20px; cursor: pointer;">
  	 ➕ Add to Home
 	</button>
@@ -2542,7 +2543,25 @@ It’s about creating wiser systems — and remembering that life itself is alre
         .then(reg => console.log('SW registered:', reg.scope))
         .catch(err => console.error('SW error:', err));
     });
-  }	  
+  }
+
+  let deferredPrompt;
+  const installBtn = document.getElementById('install-button');
+  
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'inline-block'; // show install button
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      console.log(`User response to the install prompt: ${outcome}`);
+    }
+  });
 	  
   </script>
 </body>
