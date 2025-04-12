@@ -1,9 +1,9 @@
 {
   "name": "Troanary Reflective Computer",
   "short_name": "Troanary",
-  "start_url": "/?utm_source=homescreen",
-  "id": "/?source=pwa",
-  "scope": ".",
+  "start_url": "./?utm_source=homescreen",
+  "id": "./?source=pwa",
+  "scope": "./",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
@@ -12,23 +12,23 @@
   "description": "A revolutionary computing system using light, sound, and reflection to evolve intelligence.",
   "icons": [
     {
-      "src": "assets/android-chrome-192x192.png",
+      "src": "./assets/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "assets/android-chrome-512x512.png",
+      "src": "./assets/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "assets/apple-touch-icon.png",
+      "src": "./assets/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "assets/maskable-icon.png",
+      "src": "./assets/maskable-icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -36,12 +36,12 @@
   ],
   "screenshots": [
     {
-      "src": "assets/screenshot1.png",
+      "src": "./assets/screenshot1.png",
       "sizes": "1080x1920",
       "type": "image/png"
     },
     {
-      "src": "assets/screenshot2.png",
+      "src": "./assets/screenshot2.png",
       "sizes": "1080x1920",
       "type": "image/png"
     }
@@ -50,12 +50,12 @@
     {
       "name": "Home",
       "short_name": "Home",
-      "url": "/",
-      "icons": [{ "src": "assets/icon-home.png", "sizes": "96x96" }]
+      "url": "./",
+      "icons": [{ "src": "./assets/icon-home.png", "sizes": "96x96" }]
     }
   ],
   "share_target": {
-    "action": "/share",
+    "action": "./share",
     "method": "POST",
     "enctype": "multipart/form-data",
     "params": {
