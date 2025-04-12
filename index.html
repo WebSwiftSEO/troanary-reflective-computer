@@ -298,11 +298,28 @@
     }
    .arrow.left { left: 10px; }
    .arrow.right { right: 10px; }
+
+   .go-top {
+     text-align: center;
+     margin: 20px 0;
+    }
+
+   .go-top a {
+     color: gold;
+     text-decoration: none;
+     font-weight: bold;
+     transition: color 0.3s;
+    }
+
+   .go-top a:hover {
+     color: cyan;
+    }
 	   
   </style>
 </head>
 <body>
-  <h1>Troanary Reflective Computer</h1>
+  <a id="top"></a>
+  <h1 id="site-title">Troanary Reflective Computer</h1>
   <div class="mantra-loader" id="mantra"></div>
   <button class="menu-toggle" onclick="toggleMenu()">☰ Menu</button>
   <div class="menu" id="menuContainer">
@@ -2525,6 +2542,10 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <button class="arrow right" onclick="nextSlide()">❯</button>
 </div>
 
+<div class="go-top">
+  <a href="#top">Top ⬆️</a>
+</div>
+
   <div class="social-icons">
     <a href="https://x.com/guitaralize/" target="_blank" title="Twitter">𝕏</a>
     <a href="https://www.facebook.com/Troanary/" target="_blank" title="Facebook">f</a>
@@ -2778,6 +2799,24 @@ It’s about creating wiser systems — and remembering that life itself is alre
       const { outcome } = await deferredPrompt.userChoice;
       deferredPrompt = null;
       console.log(`User response to the install prompt: ${outcome}`);
+    }
+  });
+
+   // Share on Home Title Click  
+   document.getElementById('site-title').addEventListener('click', async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'The Reflective Computer',
+          text: 'Explore the future of Troanary Intelligence.',
+          url: window.location.href
+        });
+        console.log('Shared successfully');
+      } catch (err) {
+        console.log('Share cancelled or failed:', err);
+      }
+    } else {
+      alert('Sharing not supported on this device.');
     }
   });
 	  
