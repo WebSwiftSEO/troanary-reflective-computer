@@ -1,13 +1,13 @@
 const CACHE_NAME = 'troanary-cache-v1';
 const urlsToCache = [
-  './index.html',
-  './assets/android-chrome-192x192.png',
-  './assets/android-chrome-512x512.png',
-  './assets/apple-touch-icon.png',
-  './assets/maskable-icon.png',
-  './assets/icon-home.png',
-  './manifest.json',
-  './favicon.ico',
+  '/troanary-reflective-computer/index.html',
+  '/troanary-reflective-computer/assets/android-chrome-192x192.png',
+  '/troanary-reflective-computer/assets/android-chrome-512x512.png',
+  '/troanary-reflective-computer/assets/apple-touch-icon.png',
+  '/troanary-reflective-computer/assets/maskable-icon.png',
+  '/troanary-reflective-computer/assets/icon-home.png',
+  '/troanary-reflective-computer/manifest.json',
+  '/troanary-reflective-computer/favicon.ico',
   'https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js'
 ];
 
