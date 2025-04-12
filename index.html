@@ -102,8 +102,11 @@
       display: block;
     }
     .reflective-tool {
-      margin: 30px auto;
-      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px; /* space between each */
+      margin-top: 20px;
     }
     .reflective-tool input, .reflective-tool select, .reflective-tool button {
       padding: 10px;
@@ -2349,7 +2352,6 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <a class="return-link" onclick="hideChapters()">Return to Menu</a>
   </div>
   <div class="reflective-tool">
-    <input type="text" id="thoughtInput" placeholder="Type your thought here...">
     <select id="toneSelect">
       <option value="Calm">Calm</option>
       <option value="Frustrated">Frustrated</option>
@@ -2357,6 +2359,7 @@ It’s about creating wiser systems — and remembering that life itself is alre
       <option value="Curious">Curious</option>
       <option value="Inspired">Inspired</option>
     </select>
+    <input type="text" id="thoughtInput" placeholder="Type your thought here...">
     <button onclick="reflectThought()">Reflect</button>
     <div id="healingBar"></div>
     <p id="reflectionOutput"></p>
