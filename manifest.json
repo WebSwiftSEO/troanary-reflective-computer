@@ -50,5 +50,9 @@
       "url": "link"
     }
   },
-  "prefer_related_applications": false
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "categories": ["education", "technology", "science"],
+  "lang": "en-AU",
+  "dir": "ltr"
 }
