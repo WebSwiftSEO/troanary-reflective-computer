@@ -1,15 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Meta Essentials -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Troanary Reflective Computer – exploring the evolution of intelligence through light, sound, and water." />
   <meta name="keywords" content="Troanary, Reflective Computer, Sound, Water, Light, Emotion, AI, Consciousness">
-  <meta property="og:title" content="Troanary Reflective Computer">
-  <meta property="og:description" content="Building emotional, logical, and reflective intelligence through light, sound, and water.">
-  <meta property="og:image" content="placeholder.jpg">
+
+  <!-- Theme + Background Colors (for splash screens etc) -->
+  <meta name="theme-color" content="#00ffff" />
+  <meta name="background-color" content="#000000" />
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+
+  <!-- Android Icons -->
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/assets/android-chrome-512x512.png" />
+
+  <!-- Apple iOS Support -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Troanary" />
+
+  <!-- Social / Open Graph -->
+  <meta property="og:title" content="Troanary Reflective Computer" />
+  <meta property="og:description" content="Building emotional, logical, and reflective intelligence through light, sound, and water." />
+  <meta property="og:image" content="/assets/android-chrome-512x512.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourdomain.com" />
+
+  <!-- Site Title + Favicon -->
   <title>Troanary Reflective Computer</title>
-  <link rel="icon" href="favicon.ico" />
+  <link rel="shortcut icon" href="/assets/favicon.ico" />
+
+  <!-- External Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>
    <style>
      body {
@@ -2510,6 +2536,14 @@ It’s about creating wiser systems — and remembering that life itself is alre
     }, 1500);
   }
 
+   if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('SW registered:', reg.scope))
+        .catch(err => console.error('SW error:', err));
+    });
+  }	  
+	  
   </script>
 </body>
 </html>
