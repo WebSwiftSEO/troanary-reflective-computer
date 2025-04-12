@@ -1,9 +1,11 @@
 {
   "name": "Troanary Reflective Computer",
   "short_name": "Troanary",
-  "start_url": ".",
+  "start_url": "/?utm_source=homescreen",
+  "id": "/?source=pwa",
   "scope": ".",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#00ffff",
@@ -30,6 +32,18 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/screenshot2.png",
+      "sizes": "1080x1920",
+      "type": "image/png"
     }
   ],
   "shortcuts": [
