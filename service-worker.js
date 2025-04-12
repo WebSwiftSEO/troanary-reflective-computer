@@ -1,50 +1,45 @@
 const CACHE_NAME = 'troanary-cache-v1';
-const OFFLINE_URL = '/offline.html';
-
-const ASSETS_TO_CACHE = [
+const urlsToCache = [
   '/',
   '/index.html',
-  '/offline.html',
   '/assets/android-chrome-192x192.png',
   '/assets/android-chrome-512x512.png',
   '/assets/apple-touch-icon.png',
-  '/assets/favicon-512x512.png',
+  '/assets/maskable-icon.png',
+  '/assets/icon-home.png',
   '/manifest.json',
-  '/styles.css',
-  '/app.js'
+  '/favicon.ico',
+  'https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js'
 ];
 
-// Install service worker
-self.addEventListener('install', event => {
+// Install: Cache core files
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS_TO_CACHE))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
   );
   self.skipWaiting();
 });
 
-// Activate and clean up old caches
-self.addEventListener('activate', event => {
+// Activate: Remove old caches
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(keys =>
+    caches.keys().then((cacheNames) =>
       Promise.all(
-        keys.filter(key => key !== CACHE_NAME)
-            .map(key => caches.delete(key))
+        cacheNames
+          .filter((name) => name !== CACHE_NAME)
+          .map((name) => caches.delete(name))
       )
     )
   );
   self.clients.claim();
 });
 
-// Fetch from cache first, then network
-self.addEventListener('fetch', event => {
+// Fetch: Serve cached or fetch fresh
+self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
-
   event.respondWith(
-    caches.match(event.request).then(response =>
-      response || fetch(event.request).catch(() => {
-        return caches.match(OFFLINE_URL);
-      })
+    caches.match(event.request).then((response) => 
+      response || fetch(event.request)
     )
   );
 });
