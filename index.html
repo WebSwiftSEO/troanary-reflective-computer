@@ -12,7 +12,7 @@
   <meta name="background-color" content="#000000" />
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="./manifest.json" />
 
   <!-- Android Icons -->
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/android-chrome-192x192.png" />
@@ -2525,7 +2525,7 @@ It’s about creating wiser systems — and remembering that life itself is alre
 
    if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js')
+      navigator.serviceWorker.register('./service-worker.js')
         .then(reg => console.log('SW registered:', reg.scope))
         .catch(err => console.error('SW error:', err));
     });
