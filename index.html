@@ -257,6 +257,45 @@
     .return-link:hover {
       text-decoration: underline;
     }
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      border-radius: 12px;
+    }
+    .slider-track {
+      display: flex;
+      transition: transform 0.5s ease;
+      will-change: transform;
+    }
+    .slider-track a {
+      flex: 0 0 100%;
+    }
+    .slider-track img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 255, 255, 0.2);
+      border: none;
+      font-size: 2rem;
+      color: cyan;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .slider-container:hover .arrow {
+      opacity: 1;
+    }
+   .arrow.left { left: 10px; }
+   .arrow.right { right: 10px; }
   </style>
 </head>
 <body>
@@ -2322,10 +2361,39 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <p id="reflectionOutput"></p>
     <button onclick="shareSite()">Share This</button>
     <button id="install-button" style="display:none;">📲 Install App</button>
-	<button id="installBtn" style="display: none; margin-top: 10px; padding: 10px 20px; font-size: 1em; background: #00f5cc; color: #000; border: none; border-radius: 20px; cursor: pointer;">
- 	 ➕ Add to Home
-	</button>
   </div>
+    <div class="slider-container" id="imageSlider">
+    <div class="slider-track">
+    <a href="#chapter1">
+      <picture>
+        <source srcset="images/light-information.webp" type="image/webp">
+        <img src="images/light-information.jpg" alt="Diagram of light behaving as data in circuits">
+      </picture>
+    </a>
+    <a href="#chapter2">
+      <picture>
+        <source srcset="images/sound-emotion.webp" type="image/webp">
+        <img src="images/sound-emotion.jpg" alt="Sound waves forming emotional patterns">
+      </picture>
+    </a>
+    <a href="#chapter3">
+      <picture>
+        <source srcset="images/water-memory.webp" type="image/webp">
+        <img src="images/water-memory.jpg" alt="Water ripple reflecting data storage concept">
+      </picture>
+    </a>
+    <a href="#chapter4">
+      <picture>
+        <source srcset="images/observer-awareness.webp" type="image/webp">
+        <img src="images/observer-awareness.jpg" alt="Abstract human eye observing reality">
+      </picture>
+    </a>
+    <!-- Add more slides here -->
+  </div>
+  <button class="arrow left" onclick="prevSlide()">❮</button>
+  <button class="arrow right" onclick="nextSlide()">❯</button>
+</div>
+
   <div class="social-icons">
     <a href="https://x.com/guitaralize/" target="_blank" title="Twitter">𝕏</a>
     <a href="https://www.facebook.com/Troanary/" target="_blank" title="Facebook">f</a>
@@ -2509,6 +2577,38 @@ It’s about creating wiser systems — and remembering that life itself is alre
         alert("Sharing not supported on this device.");
       }
     }
+	  
+     // Image Slider
+     let index = 0;
+       const track = document.querySelector('.slider-track');
+       const slides = document.querySelectorAll('.slider-track a');
+        let autoplay;
+	
+     function updateSlide() {
+	  track.style.transform = `translateX(-${index * 100}%)`;
+	}
+	
+      function nextSlide() {
+	  index = (index + 1) % slides.length;
+	  updateSlide();
+	}
+	
+       function prevSlide() {
+	  index = (index - 1 + slides.length) % slides.length;
+	  updateSlide();
+	}
+	
+	function startAutoplay() {
+	  autoplay = setInterval(nextSlide, 5000);
+	}
+	function stopAutoplay() {
+	  clearInterval(autoplay);
+	}
+	
+	document.getElementById('imageSlider').addEventListener('mouseenter', stopAutoplay);
+	document.getElementById('imageSlider').addEventListener('mouseleave', startAutoplay);
+	
+	startAutoplay();
 
   // Show iOS-specific message
   const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
