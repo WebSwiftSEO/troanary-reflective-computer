@@ -1,14 +1,13 @@
 const CACHE_NAME = 'troanary-cache-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/assets/android-chrome-192x192.png',
-  '/assets/android-chrome-512x512.png',
-  '/assets/apple-touch-icon.png',
-  '/assets/maskable-icon.png',
-  '/assets/icon-home.png',
-  '/manifest.json',
-  '/favicon.ico',
+  './index.html',
+  './assets/android-chrome-192x192.png',
+  './assets/android-chrome-512x512.png',
+  './assets/apple-touch-icon.png',
+  './assets/maskable-icon.png',
+  './assets/icon-home.png',
+  './manifest.json',
+  './favicon.ico',
   'https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js'
 ];
 
