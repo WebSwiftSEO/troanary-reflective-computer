@@ -2824,6 +2824,21 @@ It’s about creating wiser systems — and remembering that life itself is alre
       alert('Sharing not supported on this device.');
     }
   });
+
+   // Show correct chapter if there's a hash in the URL
+   window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash;
+    if (hash && document.querySelector(hash)) {
+      // Hide all chapters
+      document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
+
+      // Show the matching one
+      document.querySelector(hash).classList.add('show');
+
+      // Optional smooth scroll to anchor
+      document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
+    }
+  });
 	  
   </script>
 </body>
