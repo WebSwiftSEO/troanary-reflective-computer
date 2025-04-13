@@ -3037,8 +3037,23 @@ document.getElementById("reflect-btn").addEventListener("click", async () => {
   reflect();
 });
 
+  function setBackgroundByTime() {
+    const hour = new Date().getHours();
+    const body = document.body;
 
-	  
+    if (hour >= 6 && hour < 18) {
+      // Daytime: white or soft gold background
+      body.style.backgroundColor = "#fffbe9";  // or try "#fdf6e3" for warm tone
+      body.style.color = "#000";  // switch text for contrast
+    } else {
+      // Night: dark background (your current default)
+      body.style.backgroundColor = "#000";
+      body.style.color = "#fff";
+    }
+  }
+
+  window.addEventListener("load", setBackgroundByTime);
+  
   </script>
 </body>
 </html>
