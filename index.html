@@ -35,424 +35,391 @@
   <title>Troanary Reflective Computer</title>
   <link rel="shortcut icon" href="/troanary-reflective-computer/assets/favicon.ico" />
 	
-   <style>
-     body {
-      background-color: #000;
-      color: cyan;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2em;
-      margin-top: 1em;
-    }
-    .mantra-loader {
-      font-size: 1.2em;
-      margin: 20px;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-    .mantra-loader.show {
-      opacity: 1;
-    }
-    .menu-toggle {
-      background: cyan;
-      border: none;
-      border-radius: 12px;
-      padding: 12px 24px;
-      margin: 20px auto;
-      font-size: 1.2em;
-      cursor: pointer;
-      color: #000;
-    }
-    .menu ul {
-      list-style: none;
-      padding: 0;
-      display: none;
-    }
-    .menu.show ul {
-      display: block;
-    }
-    .menu li {
-      margin: 10px 0;
-    }
-    .menu a {
-      color: cyan;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .menu a:hover {
-      text-decoration: underline;
-    }
-    .chapter {
-      display: none;
-      border: 1px solid cyan;
-      border-radius: 8px;
-      margin: 20px auto;
-      padding: 20px;
-      width: 80%;
-      text-align: left;
-    }
-    .chapter.show {
-      display: block;
-    }
-    @keyframes shimmer {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-    .search-container {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #222;
-      padding: 10px 16px;
-      border-radius: 32px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-      display: flex;
-      align-items: center;
-      z-index: 1000;
-    }
-    .search-container input[type="text"] {
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 1em;
-      width: 220px;
-      outline: none;
-    }
-    .search-container .go-btn {
-      background: #00f5cc;
-      border: none;
-      border-radius: 20px;
-      padding: 6px 16px;
-      margin-left: 10px;
-      font-size: 1em;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 255, 200, 0.6);
-    }
-    .social-icons {
-      margin-top: 40px;
-      font-size: 24px;
-    }
-    .social-icons a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: cyan;
-    }
-    .social-icons a:hover {
-      color: gold;
-    }
-    .footer {
-      margin-top: 2em;
-      font-size: 1em;
-    }
-    .footer a {
-      color: gold;
-      text-decoration: none;
-      margin: 0 10px;
-    }
-    .footer a:hover {
-      text-decoration: underline;
-    }
-    body::after {
-      content: '';
-      display: block;
-      height: 100px;
-    }
-    a, a:visited {
-      color: gold;
-	}
-	.return-link,
-	.return-link:visited {
-	  color: gold;
-	  text-decoration: none;
-	}
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .dropdown-content {
-      display: none;
-      /*position: absolute;*/
-      background-color: #000;
-      min-width: 262px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-      border: 1px solid cyan;
-    }
-    .dropdown-content a {
-      color: cyan;
-      padding: 10px 16px;
-      text-decoration: none;
-      display: block;
-    }
-    .dropdown-content a:hover {
-      background-color: #111;
-    }
-    .dropdown.open .dropdown-content {
-      display: block;
-    }
-    .chapter {
-      display: none;
-      margin: 20px auto;
-      padding: 20px;
-      width: 80%;
-      border: 1px solid cyan;
-      border-radius: 10px;
-      text-align: left;
-    }
-    .chapter.show {
-      display: block;
-    }
-    .return-link {
-      display: block;
-      margin-top: 20px;
-      color: gold;
-      text-align: center;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .return-link:hover {
-      text-decoration: underline;
-    }
-    .slider-container {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      max-width: 800px;
-      margin: 2rem auto;
-      border-radius: 12px;
-    }
-    .slider-track {
-      display: flex;
-      transition: transform 0.5s ease;
-      will-change: transform;
-    }
-    .slider-track a {
-      flex: 0 0 100%;
-    }
-    .slider-track img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 255, 255, 0.2);
-      border: none;
-      font-size: 2rem;
-      color: cyan;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    .slider-container:hover .arrow {
-      opacity: 1;
-    }
-   .arrow.left { left: 10px; }
-   .arrow.right { right: 10px; }
+  <style>
+  body {
+    background-color: #000;
+    color: cyan;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    transition: background 2s ease, color 1s;
+  }
 
-   .go-top {
-     text-align: center;
-     margin: 20px 0;
-    }
+  h1 {
+    font-size: 2em;
+    margin-top: 1em;
+  }
 
-   .go-top a {
-     color: gold;
-     text-decoration: none;
-     font-weight: bold;
-     transition: color 0.3s;
-    }
+  .mantra-loader {
+    font-size: 1.2em;
+    margin: 20px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
 
-   .go-top a:hover {
-     color: cyan;
-    }
+  .mantra-loader.show {
+    opacity: 1;
+  }
 
-    html {
-     scroll-behavior: smooth;
-    }
+  .menu-toggle {
+    background: cyan;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    margin: 20px auto;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #000;
+  }
 
-	// Trohealer v2
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    display: none;
+  }
 
-{
-  margin: 0;
-  padding: 0;
-  background-color: #000;
-  color: #fff;
-  font-family: sans-serif;
-  transition: background-color 1.5s ease;
-}
+  .menu.show ul {
+    display: block;
+  }
 
-#trohealer-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 60px;
-}
+  .menu li {
+    margin: 10px 0;
+  }
 
-select, input, button {
-  padding: 10px;
-  font-size: 18px;
-  border: none;
-  border-radius: 8px;
-  width: 260px;
-  text-align: center;
-}
+  .menu a {
+    color: cyan;
+    text-decoration: none;
+    font-weight: bold;
+  }
 
-#tone-select, #thought-input {
-  background-color: #222;
-  color: #fff;
-}
+  .menu a:hover {
+    text-decoration: underline;
+  }
 
-#reflect-btn {
-  background: gold;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-}
+  .chapter {
+    display: none;
+    border: 1px solid cyan;
+    border-radius: 8px;
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    text-align: left;
+  }
 
-/* Healing Box */
-#healing-display {
-  margin-top: 40px;
-  position: relative;
-  width: 100%;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .chapter.show {
+    display: block;
+  }
 
-#mantra-screen {
-  width: 100%;
-  height: 90px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
 
-margin: 0;
-      font-family: system-ui, sans-serif;
-      transition: background 2s ease, color 1s;
-      text-align: center;
-    }
+  .search-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    padding: 10px 16px;
+    border-radius: 32px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+  }
 
-    .container {
-      padding: 20px;
-    }
+  .search-container input[type="text"] {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    width: 220px;
+    outline: none;
+  }
 
-    select, input, button {
-      padding: 10px;
-      margin: 10px;
-      font-size: 1.2em;
-      border-radius: 10px;
-      border: none;
-    }
+  .search-container .go-btn {
+    background: #00f5cc;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 16px;
+    margin-left: 10px;
+    font-size: 1em;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 200, 0.6);
+  }
 
-    .glow-button {
-      background: #000;
-      color: cyan;
-      border: 2px solid gold;
-      box-shadow: 0 0 10px gold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
+  .social-icons {
+    margin-top: 40px;
+    font-size: 24px;
+  }
 
-    .glow-button:hover {
-      background: gold;
-      color: black;
-    }
+  .social-icons a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: cyan;
+  }
 
-    #mantra-box {
-      margin: 30px auto;
-      padding: 20px;
-      width: 90%;
-      max-width: 500px;
-      background: rgba(0,0,0,0.7);
-      border-radius: 20px;
-      color: white;
-      font-size: 1.5em;
-      min-height: 80px;
-    }
+  .social-icons a:hover {
+    color: gold;
+  }
 
-    #reflection-box {
-      margin-top: 20px;
-      font-style: italic;
-      color: #777;
-    }
+  .footer {
+    margin-top: 2em;
+    font-size: 1em;
+  }
 
-    #visual-layer {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
+  .footer a {
+    color: gold;
+    text-decoration: none;
+    margin: 0 10px;
+  }
 
-    .visual-shape {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.2;
-      animation: pulse 4s infinite;
-    }
+  .footer a:hover {
+    text-decoration: underline;
+  }
 
-    @keyframes pulse {
-      0% { transform: scale(0.8); opacity: 0.3; }
-      50% { transform: scale(1.2); opacity: 0.6; }
-      100% { transform: scale(0.8); opacity: 0.3; }
-    }
+  body::after {
+    content: '';
+    display: block;
+    height: 100px;
+  }
 
-  button, .glow-button {
-  background: transparent;
-  color: #00ffff;
-  border: 2px solid gold;
-  border-radius: 10px;
-  padding: 10px 24px;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-shadow: 0 0 6px #00ffff;
-  box-shadow: 0 0 10px gold;
-}
+  a, a:visited {
+    color: gold;
+  }
 
-button:hover, .glow-button:hover {
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 20px gold, 0 0 10px #00ffff;
-}
+  .return-link,
+  .return-link:visited {
+    color: gold;
+    text-decoration: none;
+  }
+
+  .return-link:hover {
+    text-decoration: underline;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    background-color: #000;
+    min-width: 262px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border: 1px solid cyan;
+  }
+
+  .dropdown-content a {
+    color: cyan;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #111;
+  }
+
+  .dropdown.open .dropdown-content {
+    display: block;
+  }
+
+  .slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    border-radius: 12px;
+  }
+
+  .slider-track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .slider-track a {
+    flex: 0 0 100%;
+  }
+
+  .slider-track img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 255, 255, 0.2);
+    border: none;
+    font-size: 2rem;
+    color: cyan;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .slider-container:hover .arrow {
+    opacity: 1;
+  }
+
+  .arrow.left { left: 10px; }
+  .arrow.right { right: 10px; }
+
+  .go-top {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .go-top a {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  .go-top a:hover {
+    color: cyan;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* 🔮 TroHealer Specific Styles */
+  #trohealer-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 60px;
+  }
+
+  select, input, button {
+    padding: 10px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    width: 260px;
+    text-align: center;
+  }
+
+  #tone-select, #thought-input {
+    background-color: #222;
+    color: #fff;
+  }
+
+  #reflect-btn {
+    background: gold;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #healing-display {
+    margin-top: 40px;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #mantra-box {
+    width: 100%;
+    height: 90px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto;
+    padding: 20px;
+    color: white;
+    font-size: 1.5em;
+    min-height: 80px;
+  }
+
+  #reflection-box {
+    margin-top: 20px;
+    font-style: italic;
+    color: #777;
+  }
+
+  #visual-layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .visual-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: pulse 4s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(0.8); opacity: 0.3; }
+    50% { transform: scale(1.2); opacity: 0.6; }
+    100% { transform: scale(0.8); opacity: 0.3; }
+  }
+
+  /* ✨ Glow Buttons */
+  .glow-button {
+    background: transparent;
+    color: #00ffff;
+    border: 2px solid gold;
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    text-shadow: 0 0 6px #00ffff;
+    box-shadow: 0 0 10px gold;
+    transition: all 0.3s ease;
+  }
+
+  .glow-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 20px gold, 0 0 10px #00ffff;
+  }
 
   .reflect-button {
-  font-size: 16px;
-  padding: 8px 18px;
-  border-radius: 8px;
-  border: 2px solid gold;
-  color: #00ffff;
-  background: transparent;
-  text-shadow: 0 0 4px #00ffff;
-  box-shadow: 0 0 8px gold;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+    font-size: 16px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 2px solid gold;
+    color: #00ffff;
+    background: transparent;
+    text-shadow: 0 0 4px #00ffff;
+    box-shadow: 0 0 8px gold;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
 
-.reflect-button:hover {
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 14px gold, 0 0 6px #00ffff;
-}
-	   
-  </style>
+  .reflect-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 14px gold, 0 0 6px #00ffff;
+  }
+</style>
+
 </head>
 <body>
   <a id="top"></a>
@@ -3001,7 +2968,6 @@ function toggleDayNight() {
 
 	  
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let originalBackgroundColor, originalTextColor, lastEmotion = "calm";
 
     const emotions = {
       calm: {
@@ -3126,9 +3092,8 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     window.addEventListener("load", setBackgroundByTime);
 
-	  }
+
 	  
-  
   </script>
 </body>
 </html>
