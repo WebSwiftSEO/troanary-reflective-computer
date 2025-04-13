@@ -2919,6 +2919,9 @@ It’s about creating wiser systems — and remembering that life itself is alre
 // TroHealer v2 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
+let originalBackgroundColor;
+let originalTextColor;
+
 const emotions = {
   calm: {
     frequencies: [432, 440, 428, 444],
@@ -3023,14 +3026,9 @@ async function reflect() {
   renderVisualShapes(data.color);
   playCombinedTones(data.frequencies, 1.2);
 
-  setTimeout(() => {
-  if (isDay) {
-    document.body.style.backgroundColor = "#fffbe9";
-    document.body.style.color = "#000";
-  } else {
-    document.body.style.backgroundColor = "#000";
-    document.body.style.color = "#fff";
-  }
+setTimeout(() => {
+  document.body.style.backgroundColor = originalBackgroundColor;
+  document.body.style.color = originalTextColor;
 
   box.innerText = "";
   box.style.opacity = "1";
@@ -3043,26 +3041,26 @@ document.getElementById("reflect-btn").addEventListener("click", async () => {
   reflect();
 });
 
-  let isDay = true; // default
+function setBackgroundByTime() {
+  const hour = new Date().getHours();
+  const body = document.body;
 
-  function setBackgroundByTime() {
-    const hour = new Date().getHours();
-    const body = document.body;
-
-    if (hour >= 6 && hour < 18) {
-      // Day
-      body.style.backgroundColor = "#fffbe9";
-      body.style.color = "#000";
-      isDay = true;
-    } else {
-      // Night
-      body.style.backgroundColor = "#000";
-      body.style.color = "#fff";
-      isDay = false;
-    }
+  if (hour >= 6 && hour < 18) {
+    // Daytime
+    body.style.backgroundColor = "#fffbe9";
+    body.style.color = "#000";
+  } else {
+    // Nighttime
+    body.style.backgroundColor = "#000";
+    body.style.color = "#fff";
   }
 
-  window.addEventListener("load", setBackgroundByTime);
+  // 🔐 Store these values to restore later
+  originalBackgroundColor = body.style.backgroundColor;
+  originalTextColor = body.style.color;
+}
+
+
   
   </script>
 </body>
