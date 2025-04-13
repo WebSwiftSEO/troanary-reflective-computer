@@ -3027,50 +3027,6 @@ async function reflect() {
   playCombinedTones(data.frequencies, 1.2);
 
 
-	
-
-let originalBackgroundColor;
-let originalTextColor;
-
-// Set background based on local time
-function setBackgroundByTime() {
-  const hour = new Date().getHours();
-  const body = document.body;
-
-  if (hour >= 6 && hour < 18) {
-    // Daytime
-    body.style.backgroundColor = "#fffbe9";
-    body.style.color = "#000";
-  } else {
-    // Nighttime
-    body.style.backgroundColor = "#000";
-    body.style.color = "#fff";
-  }
-
-  // Store original theme for restoring later
-  originalBackgroundColor = body.style.backgroundColor;
-  originalTextColor = body.style.color;
-}
-
-window.addEventListener("load", setBackgroundByTime);
-
-// Hook up the Reflect button
-document.getElementById("reflect-btn").addEventListener("click", async () => {
-  if (audioCtx.state === "suspended") {
-    await audioCtx.resume();
-  }
-  reflect();
-});
-
-// ✅ Place this INSIDE your reflect() function, at the END:
-setTimeout(() => {
-  document.body.style.backgroundColor = originalBackgroundColor;
-  document.body.style.color = originalTextColor;
-
-  box.innerText = "";
-  box.style.opacity = "1";
-}, 1400);
-
   
   </script>
 </body>
