@@ -34,9 +34,6 @@
   <!-- Site Title + Favicon -->
   <title>Troanary Reflective Computer</title>
   <link rel="shortcut icon" href="/troanary-reflective-computer/assets/favicon.ico" />
-
-  <!-- External Scripts -->
-  <!--  Disable script    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.39/Tone.min.js"></script>  -->
 	
    <style>
      body {
@@ -100,42 +97,6 @@
     }
     .chapter.show {
       display: block;
-    }
-    .reflective-tool {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px; /* space between each */
-      margin-top: 44px;
-    }
-    .reflective-tool input, .reflective-tool select, .reflective-tool button {
-      padding: 10px;
-      margin: 5px;
-      font-size: 1em;
-      background: #000;
-      color: cyan;
-      border: 1px solid cyan;
-    }
-    .reflective-tool button {
-      cursor: pointer;
-      border-color: gold;
-    }
-    #reflectionOutput {
-      margin-top: 10px;
-      font-style: italic;
-      color: gold;
-    }
-    #healingBar {
-      height: 33px;
-      width: 364px;
-      margin: 10px auto;
-      background: black;
-      box-shadow: 0 0 15px 3px rgba(0, 255, 255, 0.5);
-      opacity: 0;
-      transition: background 1s ease-in-out, opacity 1s ease-in-out;
-      border-radius: 20px;
-      background-size: 400% 400%;
-      animation: shimmer 3s linear infinite alternate;
     }
     @keyframes shimmer {
       0% { background-position: 0% 50%; }
@@ -2469,22 +2430,6 @@ It’s about creating wiser systems — and remembering that life itself is alre
 </p>
     <a class="return-link" onclick="hideChapters()">Return to Menu</a>
   </div>
-	
-  <div class="reflective-tool">
-    <select id="toneSelect">
-      <option value="Calm">Calm</option>
-      <option value="Frustrated">Frustrated</option>
-      <option value="Hopeful">Hopeful</option>
-      <option value="Curious">Curious</option>
-      <option value="Inspired">Inspired</option>
-    </select>
-    <input type="text" id="thoughtInput" placeholder="Type your thought here...">
-    <button onclick="reflectThought()">Reflect</button>
-    <div id="healingBar"></div>
-    <p id="reflectionOutput"></p>
-    <button onclick="shareSite()">Share This</button>
-    <button id="install-button" style="display:none;">📲 Install App</button>
-  </div>
 
   <div id="trohealer-wrapper">
   <select id="tone-select">
@@ -2508,6 +2453,9 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <div id="visual-layer"></div>
 </div>
 
+    <button onclick="shareSite()">Share This</button>
+    <button id="install-button" style="display:none;">📲 Install App</button>
+  </div>
 
 	<!-- Image Slider -->
 <div class="slider-container" id="imageSlider">
@@ -2720,7 +2668,7 @@ It’s about creating wiser systems — and remembering that life itself is alre
     function startMantraCycle() {
       mantraEl.textContent = mantras[mantraIndex];
       mantraEl.classList.add('show');
-      setInterval(cycleMantra, 8000); // 1s fade out + 1s fade in + 6s visible
+      setInterval(cycleMantra, 8000); // 1.2s fade out + 1.2s fade in + 6.6s visible
     }
 
     startMantraCycle();
@@ -2778,72 +2726,7 @@ It’s about creating wiser systems — and remembering that life itself is alre
 	    bestMatch.classList.add('show');
 	    bestMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	  }
-	}
-
-
-    const frequencies = {
-      Calm: ["C4", "E4", "G4"],
-      Frustrated: ["D4", "F4", "A4"],
-      Hopeful: ["E4", "G#4", "B4"],
-      Curious: ["G4", "A4", "D5"],
-      Inspired: ["A4", "C#5", "E5"]
-    };
-
-    const healingColours = {
-      Calm: ["#00BFFF", "#50C878"],
-      Frustrated: ["#B22222", "#00BFFF"],
-      Hopeful: ["#50C878", "#FFD700"],
-      Curious: ["#9370DB", "#FFD700"],
-      Inspired: ["#FFD700", "#50C878"]
-    };
-
-    function playToneSet(tone) {
-      const synth = new Tone.Synth().toDestination();
-      Tone.start();
-      frequencies[tone].forEach((note, i) => {
-        synth.triggerAttackRelease(note, "8n", Tone.now() + i * 0.5);
-      });
-      const polySynth = new Tone.PolySynth().toDestination();
-      polySynth.triggerAttackRelease(frequencies[tone], "2n", Tone.now() + 1.8);
-    }
-
-    function reflectThought() {
-      const thought = document.getElementById("thoughtInput").value.trim();
-      const tone = document.getElementById("toneSelect").value;
-      const output = document.getElementById("reflectionOutput");
-      const healingBar = document.getElementById("healingBar");
-
-      if (!thought) {
-        output.textContent = "Please enter a thought to reflect on.";
-        return;
-      }
-
-      const responses = {
-        Calm: "Breathe deeply. Stillness often holds the answer.",
-        Frustrated: "Frustration is resistance — let go and flow with it.",
-        Hopeful: "Hope is a frequency. Stay tuned to your vision.",
-        Curious: "Every question is a door. You just knocked.",
-        Inspired: "Let that spark guide you to creation."
-      };
-
-      output.textContent = `${responses[tone]} You said: “${thought}”`;
-      healingBar.style.background = healingColours[tone][0];
-      healingBar.style.opacity = 1;
-
-      setTimeout(() => {
-        healingBar.style.background = healingColours[tone][1];
-      }, 1000);
-
-      setTimeout(() => {
-        healingBar.style.background = 'linear-gradient(90deg, #00BFFF, #50C878, #9370DB, #FFD700)';
-      }, 2000);
-
-      setTimeout(() => {
-        healingBar.style.opacity = 0;
-      }, 4000);
-
-      playToneSet(tone);
-    }
+	}	  
 
     function shareSite() {
       if (navigator.share) {
