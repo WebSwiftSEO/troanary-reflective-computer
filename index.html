@@ -3024,11 +3024,17 @@ async function reflect() {
   playCombinedTones(data.frequencies, 1.2);
 
   setTimeout(() => {
+  if (isDay) {
+    document.body.style.backgroundColor = "#fffbe9";
+    document.body.style.color = "#000";
+  } else {
     document.body.style.backgroundColor = "#000";
-    box.innerText = "";
-    box.style.opacity = "1";
-  }, 1400);
-}
+    document.body.style.color = "#fff";
+  }
+
+  box.innerText = "";
+  box.style.opacity = "1";
+}, 1400);
 
 document.getElementById("reflect-btn").addEventListener("click", async () => {
   if (audioCtx.state === "suspended") {
@@ -3037,18 +3043,22 @@ document.getElementById("reflect-btn").addEventListener("click", async () => {
   reflect();
 });
 
+  let isDay = true; // default
+
   function setBackgroundByTime() {
     const hour = new Date().getHours();
     const body = document.body;
 
     if (hour >= 6 && hour < 18) {
-      // Daytime: white or soft gold background
-      body.style.backgroundColor = "#fffbe9";  // or try "#fdf6e3" for warm tone
-      body.style.color = "#000";  // switch text for contrast
+      // Day
+      body.style.backgroundColor = "#fffbe9";
+      body.style.color = "#000";
+      isDay = true;
     } else {
-      // Night: dark background (your current default)
+      // Night
       body.style.backgroundColor = "#000";
       body.style.color = "#fff";
+      isDay = false;
     }
   }
 
