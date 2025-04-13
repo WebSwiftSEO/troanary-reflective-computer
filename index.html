@@ -3058,10 +3058,9 @@ function setBackgroundByTime() {
   // 🔐 Store these values to restore later
   originalBackgroundColor = body.style.backgroundColor;
   originalTextColor = body.style.color;
-}
-});
+  }
 
-
+  window.addEventListener("load", setBackgroundByTime);
   
   </script>
 </body>
