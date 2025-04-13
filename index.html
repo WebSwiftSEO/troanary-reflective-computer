@@ -2839,6 +2839,34 @@ It’s about creating wiser systems — and remembering that life itself is alre
       document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
     }
   });
+
+
+	  
+  function showChapterById(id) {
+    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
+    const target = document.getElementById(id);
+    if (target) {
+      target.classList.add('show');
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // On page load, check if there's a hash like #chapter3
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && document.getElementById(hash)) {
+      showChapterById(hash);
+    } else {
+      showChapterById('introduction'); // default
+    }
+  });
+
+  // Also update on internal navigation (like clicking slider image)
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#', '');
+    showChapterById(hash);
+  });
+
 	  
   </script>
 </body>
