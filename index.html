@@ -3060,8 +3060,6 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const box = document.getElementById("mantra-box");
       const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
 
-      document.getElementById("reflect-again").style.display = "none";
-      document.getElementById("reflection-box").style.display = "none";
 
       for (let i = 0; i < 4; i++) {
         document.body.style.background = `linear-gradient(135deg, ${data.color}, #ffffff20)`;
@@ -3082,7 +3080,6 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         document.body.style.color = originalTextColor;
         box.innerText = "";
         box.style.opacity = "1";
-                document.getElementById("reflection-box").style.display = "block";
       }, 1200);
     }
 
