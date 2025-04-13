@@ -2703,6 +2703,10 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <a href="#top">Top ⬆️</a>
 </div>
 
+<button onclick="toggleDayNight()" style="margin: 20px auto; display: block;" class="glow-button">
+  🌗 Toggle Day/Night
+</button>
+
   <div class="social-icons">
     <a href="https://x.com/guitaralize/" target="_blank" title="Twitter">𝕏</a>
     <a href="https://www.facebook.com/Troanary/" target="_blank" title="Facebook">f</a>
@@ -2726,6 +2730,44 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <button class="go-btn" onclick="searchChapters()">Go</button>
   </div>
   <script>
+
+
+let originalBackgroundColor;
+let originalTextColor;
+let isManualOverride = false;
+let isDay = true;
+
+function setBackgroundByTime() {
+  if (isManualOverride) return; // Skip if user toggled manually
+
+  const hour = new Date().getHours();
+  isDay = hour >= 6 && hour < 18;
+  applyBackground(isDay);
+}
+
+function applyBackground(day) {
+  if (day) {
+    document.body.style.background = "linear-gradient(135deg, #fffbe9, #ffffff)";
+    document.body.style.color = "#000";
+  } else {
+    document.body.style.background = "linear-gradient(135deg, #000000, #1a1a1a)";
+    document.body.style.color = "#fff";
+  }
+
+  originalBackgroundColor = document.body.style.background;
+  originalTextColor = document.body.style.color;
+}
+
+function toggleDayNight() {
+  isManualOverride = true;
+  isDay = !isDay;
+  applyBackground(isDay);
+}
+
+
+
+
+	  
     const mantras = [
       "Reflection is intelligence in mirrored motion...♾️🪞🎼",
       "Water remembers, light reveals, sound feels...🪞🎼🕸️",
@@ -3084,6 +3126,7 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     window.addEventListener("load", setBackgroundByTime);
 
+	  
   
   </script>
 </body>
