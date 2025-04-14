@@ -350,23 +350,19 @@
     margin-right: auto;
   }
 
-  #mantra-box {
-    font-size: 1.6em;
-    color: white;
-    background: rgba(255,255,255,0.08);
-    padding: 20px;
-    margin: 30px auto;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.2);
-    transition: all 1s ease;
-    text-shadow: 0 0 6px #333;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 80px;
-  }
+    #mantra-box {
+      font-size: 1.6em;
+      color: white;
+      background: rgba(255,255,255,0.08);
+      padding: 20px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 1s ease;
+      text-shadow: 0 0 6px #333;
+    }
 
   #reflection-box {
     margin-top: 20px;
@@ -385,12 +381,23 @@
   z-index: 0; /* make sure it's *under* all UI */
   }
 
-.visual-shape {
+  .visual-shape {
+      position: absolute;
+      opacity: 0.8;
+      animation: pulse 6s infinite linear, rotateShape 12s infinite linear;
+      z-index: 0;
+      box-shadow: 0 0 20px 6px rgba(0,0,0,0.7);
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    
+   #trohealer-visual-layer {
   position: absolute;
-  opacity: 0.2;
-  transition: all 0.3s ease;
-  border-radius: 50%;
-  }
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+   }
 
 
   @keyframes pulse {
@@ -2520,23 +2527,10 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <option value="curious">Curious</option>
     <option value="inspired">Inspired</option>
   </select>
-
   <input type="text" id="thought-input" placeholder="What's on your mind?" />
-
-  <button id="reflect-btn" class="glow-button" style="padding: 10px 20px;">Reflect 🌀</button>
-
+  <button id="reflect-btn">Reflect 🌀</button>
   <div id="mantra-box">🧘 Waiting for your reflection...</div>
-
-  <div id="reflection-box" style="display:none;">
-    What came to mind? Write it down or simply breathe it in.
-  </div>
-</div>
-
-<!-- Healing Output -->
-<div id="healing-display">
-  <div id="mantra-screen"></div>
   <div id="visual-layer"></div>
-</div>
 
 <!-- 🔍 Chapter Search -->
 <div class="search-container">
@@ -2983,145 +2977,122 @@ window.addEventListener('hashchange', () => {
 
 // === TROALARA SHAPE HEALING TOOL ===
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const clipPaths = {
+      circle: 'circle(50%)',
+      triangle: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+      star: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+      pentagon: 'polygon(50% 0%, 95% 35%, 77% 90%, 23% 90%, 5% 35%)',
+      hexagon: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
+    };
 
-const emotions = {
-  calm: {
-    frequencies: [432, 440, 428, 444],
-    colors: ["#88ccaa", "#aaddbb", "#77ccaa", "#99eebb"],
-    shape: "circle",
-    mantras: [
-      "🧘 Breathe in peace 🧘", "🛡️ You are safe here 🛡️", "🌊 Stillness is strength 🌊", "🌬️ Let go of tension 🌬️",
-      "🎯 Return to centre 🎯", "🤫 Silence speaks truth 🤫", "💧 Be like water 💧", "🧠 Relax the mind 🧠",
-      "⛰️ Feel the stillness ⛰️", "🪞 You are whole 🪞", "🌌 Quiet restores 🌌", "🍃 Let it pass 🍃"
-    ]
-  },
-  frustrated: {
-    frequencies: [520, 540, 500, 560],
-    colors: ["#cc6644", "#dd7755", "#ee8866", "#bb5544"],
-    shape: "triangle",
-    mantras: [
-      "🔥 Let the fire move through 🔥", "💬 Speak your truth wisely 💬", "👂 You are heard 👂",
-      "⚡ Anger is energy — guide it ⚡", "🧭 Clarity will come 🧭", "🪨 Break the cycle gently 🪨",
-      "🚀 Frustration is fuel 🚀", "🌊 You can respond with calm 🌊", "🧘 Release the tension 🧘",
-      "💓 You're allowed to feel 💓", "🌿 Ground your storm 🌿", "🌬️ Return to your breath 🌬️"
-    ]
-  },
-  hopeful: {
-    frequencies: [444, 456, 460, 472],
-    colors: ["#ccff88", "#ddff99", "#eeffaa", "#bbff77"],
-    shape: "hexagon",
-    mantras: [
-      "🌅 Hope lives here 🌅", "🌞 New light is coming 🌞", "👣 One step forward 👣", "🌈 Believe in better 🌈",
-      "🔄 Tomorrow begins now 🔄", "✨ Everything begins again ✨", "🛤️ Trust the vision 🛤️", "🚀 You are rising 🚀",
-      "🌍 Let the future pull you 🌍", "☮️ Peace begins in you ☮️", "🌄 The dawn is near 🌄", "🔧 Be the change 🔧"
-    ]
-  },
-  curious: {
-    frequencies: [500, 512, 522, 534],
-    colors: ["#88ccff", "#99ddff", "#aaddff", "#66bbff"],
-    shape: "star",
-    mantras: [
-      "❓ Follow the question ❓", "🧭 Let wonder lead 🧭", "🔍 Discovery starts inside 🔍",
-      "🤔 Curiosity is strength 🤔", "👁️ Open your senses 👁️", "🧠 Every thought holds power 🧠",
-      "🔎 The answer is near 🔎", "👀 Observe everything 👀", "📚 You are learning 📚", "🧩 Let go of assumptions 🧩",
-      "🔁 Ask again 🔁", "🛤️ New paths await 🛤️"
-    ]
-  },
-  inspired: {
-    frequencies: [600, 620, 640, 660],
-    colors: ["#ffdd55", "#ffe066", "#ffcc44", "#ffbb33"],
-    shape: "pentagon",
-    mantras: [
-      "🎨 Create from the soul 🎨", "💡 Inspiration flows 💡", "🔥 You are the spark 🔥", "🌱 Fuel the fire 🌱",
-      "📣 Your voice matters 📣", "🌟 Shine bright 🌟", "🌺 Let ideas bloom 🌺", "💖 Act from love 💖",
-      "🏗️ Make beauty real 🏗️", "🎼 You are the muse 🎼", "✍️ Turn thought into action ✍️", "🏛️ Build your dream 🏛️"
-    ]
-  }
-};
+    const emotions = {
+      calm: {
+        frequencies: [432, 436, 440],
+        colors: ["#88ccaa", "#aaffcc", "#66bb99"],
+        shape: 'circle',
+        shapeColor: '#cc88cc',
+        mantras: [
+          "🧘 Breathe in peace 🧘", "💧 Flow gently 💧", "🌿 Nature is within 🌿",
+          "🌬️ Slow exhale 🌬️", "🌌 Still mind, calm soul 🌌", "🤍 You are safe 🤍"
+        ]
+      },
+      frustrated: {
+        frequencies: [520, 530, 540],
+        colors: ["#cc6644", "#ff7755", "#bb5544"],
+        shape: 'triangle',
+        shapeColor: '#66ccff',
+        mantras: [
+          "🔥 Let go 🔥", "🌪️ Storm passes 🌪️", "🧘 Return to centre 🧘",
+          "🧠 Stretch the mind 🧠", "💥 Breathe out fire 💥", "⚖️ Balance returns ⚖️"
+        ]
+      },
+      hopeful: {
+        frequencies: [444, 456, 468],
+        colors: ["#ccff88", "#ddff99", "#bbff77"],
+        shape: 'hexagon',
+        shapeColor: '#8866cc',
+        mantras: [
+          "🌅 Hope rises 🌅", "✨ Shine again ✨", "🌈 Believe 🌈",
+          "🦋 Light within awakens 🦋", "🌠 Reach forward 🌠", "🎯 Vision grows 🎯"
+        ]
+      },
+      curious: {
+        frequencies: [500, 512, 524],
+        colors: ["#88ccff", "#99ddff", "#66bbff"],
+        shape: 'star',
+        shapeColor: '#ffcc88',
+        mantras: [
+          "🔍 Seek more 🔍", "🧠 Wonder leads 🧠", "💡 Stay curious 💡",
+          "📚 Learn and grow 📚", "🛤️ Explore paths 🛤️", "🔎 Everything is a clue 🔎"
+        ]
+      },
+      inspired: {
+        frequencies: [600, 612, 624],
+        colors: ["#ffdd55", "#ffe066", "#ffcc44"],
+        shape: 'pentagon',
+        shapeColor: '#55aaff',
+        mantras: [
+          "💡 Spark ideas 💡", "🎨 Create 🎨", "🔥 Ignite passion 🔥",
+          "🏗️ Build your dream 🏗️", "🎶 Express freely 🎶", "🌟 You are a light 🌟"
+        ]
+      }
+    };
 
-function getClipPath(type) {
-  const clipPaths = {
-    circle: 'circle(50%)',
-    triangle: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-    star: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
-    pentagon: 'polygon(50% 0%, 95% 35%, 77% 90%, 23% 90%, 5% 35%)',
-    hexagon: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
-  };
-  return clipPaths[type] || clipPaths.circle;
-}
+    function playTone(freq, duration = 2.4) {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration - 0.2);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
 
-function renderVisualShapes(shapeType, color) {
-  const layer = document.getElementById("visual-layer");
-  layer.innerHTML = "";
-  for (let i = 0; i < 3; i++) {
-    const shape = document.createElement("div");
-    shape.className = "visual-shape";
-    shape.style.backgroundColor = color;
-    const size = Math.floor(Math.random() * 80) + 40;
-    shape.style.width = shape.style.height = size + "px";
-    shape.style.left = Math.random() * 90 + "%";
-    shape.style.top = Math.random() * 80 + "%";
-    shape.style.clipPath = getClipPath(shapeType);
-    layer.appendChild(shape);
-  }
-}
+    function renderVisual(shapeKey, color) {
+      const layer = document.getElementById('visual-layer');
+      layer.innerHTML = '';
+      for (let i = 0; i < 6; i++) {
+        const el = document.createElement('div');
+        el.className = 'visual-shape';
+        el.style.background = color;
+        el.style.width = el.style.height = `${Math.random() * 80 + 40}px`;
+        el.style.left = `${Math.random() * 90}%`;
+        el.style.top = `${Math.random() * 80}%`;
+        el.style.clipPath = clipPaths[shapeKey] || 'circle(50%)';
+        layer.appendChild(el);
+      }
+    }
 
-function playTone(freq, duration = 2.4) {
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = "sine";
-  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + duration);
-}
+    async function reflect() {
+      const emotionKey = document.getElementById('tone-select').value;
+      const emotion = emotions[emotionKey];
+      const box = document.getElementById('mantra-box');
+      const mantras = [...emotion.mantras].sort(() => 0.5 - Math.random());
+      const colors = emotion.colors;
+      const freqs = emotion.frequencies;
+      if (audioCtx.state === "suspended") await audioCtx.resume();
 
-function playCombinedTones(freqs, duration = 1.2) {
-  freqs.forEach(f => playTone(f, duration));
-}
+      for (let i = 0; i < 3; i++) {
+        const toneColor = colors[i % colors.length];
+        document.body.style.background = toneColor;
+        box.innerText = mantras[i];
+        renderVisual(emotion.shape, emotion.shapeColor);
+        playTone(freqs[i]);
+        await new Promise(r => setTimeout(r, 2400));
+      }
 
-let lastEmotion = null;
+      box.innerText = "🌀 Integration Complete 🌀\n" + mantras[3 % mantras.length];
+      renderVisual(emotion.shape, emotion.shapeColor);
+      freqs.forEach(f => playTone(f, 1.2));
+      document.body.style.background = colors[2];
+    }
 
-async function reflect(repeat = false) {
-  const emotion = repeat ? lastEmotion : document.getElementById("tone-select").value;
-  const data = emotions[emotion];
-  if (!data) return;
+    document.getElementById('reflect-btn').addEventListener('click', reflect);
 
-  lastEmotion = emotion;
-  const box = document.getElementById("mantra-box");
-  const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
-
-  for (let i = 0; i < 4; i++) {
-    const toneColor = data.colors[i];
-    document.body.style.background = `linear-gradient(135deg, ${toneColor}, #ffffff20)`;
-    renderVisualShapes(data.shape, toneColor);
-    box.innerText = mantras[i];
-    box.style.opacity = "1";
-    playTone(data.frequencies[i]);
-    await new Promise(r => setTimeout(r, 2400));
-    box.style.opacity = "0.3";
-  }
-
-  box.innerText = "🌀 Integrating healing frequencies 🌀";
-  renderVisualShapes(data.shape, data.colors[0]);
-  playCombinedTones(data.frequencies, 1.2);
-
-  setTimeout(() => {
-    document.body.style.background = originalBackgroundColor;
-    document.body.style.color = originalTextColor;
-    box.innerText = "";
-    box.style.opacity = "1";
-  }, 1200);
-}
-
-document.getElementById("reflect-btn").addEventListener("click", async () => {
-  if (audioCtx.state === "suspended") await audioCtx.resume();
-  reflect();
-});
-
-window.addEventListener("load", setBackgroundByTime);
 </script>
 
 
