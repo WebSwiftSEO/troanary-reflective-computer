@@ -2980,39 +2980,62 @@ window.addEventListener('hashchange', () => {
   showChapterById(hash);
 });
 
+
 // === TROALARA SHAPE HEALING TOOL ===
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 const emotions = {
   calm: {
     frequencies: [432, 440, 428, 444],
-    color: "#88ccaa",
+    colors: ["#88ccaa", "#aaddbb", "#77ccaa", "#99eebb"],
     shape: "circle",
-    mantras: ["🧘 Breathe in peace 🧘", "🌬️ Let go of tension 🌬️", "🌊 Stillness is strength 🌊"]
+    mantras: [
+      "🧘 Breathe in peace 🧘", "🛡️ You are safe here 🛡️", "🌊 Stillness is strength 🌊", "🌬️ Let go of tension 🌬️",
+      "🎯 Return to centre 🎯", "🤫 Silence speaks truth 🤫", "💧 Be like water 💧", "🧠 Relax the mind 🧠",
+      "⛰️ Feel the stillness ⛰️", "🪞 You are whole 🪞", "🌌 Quiet restores 🌌", "🍃 Let it pass 🍃"
+    ]
   },
   frustrated: {
     frequencies: [520, 540, 500, 560],
-    color: "#cc6644",
+    colors: ["#cc6644", "#dd7755", "#ee8866", "#bb5544"],
     shape: "triangle",
-    mantras: ["🔥 Let the fire move through 🔥", "🧘 Release the tension 🧘", "🌬️ Return to your breath 🌬️"]
+    mantras: [
+      "🔥 Let the fire move through 🔥", "💬 Speak your truth wisely 💬", "👂 You are heard 👂",
+      "⚡ Anger is energy — guide it ⚡", "🧭 Clarity will come 🧭", "🪨 Break the cycle gently 🪨",
+      "🚀 Frustration is fuel 🚀", "🌊 You can respond with calm 🌊", "🧘 Release the tension 🧘",
+      "💓 You're allowed to feel 💓", "🌿 Ground your storm 🌿", "🌬️ Return to your breath 🌬️"
+    ]
   },
   hopeful: {
     frequencies: [444, 456, 460, 472],
-    color: "#ccff88",
+    colors: ["#ccff88", "#ddff99", "#eeffaa", "#bbff77"],
     shape: "hexagon",
-    mantras: ["🌅 Hope lives here 🌅", "🌈 Believe in better 🌈", "🔧 Be the change 🔧"]
+    mantras: [
+      "🌅 Hope lives here 🌅", "🌞 New light is coming 🌞", "👣 One step forward 👣", "🌈 Believe in better 🌈",
+      "🔄 Tomorrow begins now 🔄", "✨ Everything begins again ✨", "🛤️ Trust the vision 🛤️", "🚀 You are rising 🚀",
+      "🌍 Let the future pull you 🌍", "☮️ Peace begins in you ☮️", "🌄 The dawn is near 🌄", "🔧 Be the change 🔧"
+    ]
   },
   curious: {
     frequencies: [500, 512, 522, 534],
-    color: "#88ccff",
+    colors: ["#88ccff", "#99ddff", "#aaddff", "#66bbff"],
     shape: "star",
-    mantras: ["🔍 Discovery starts inside 🔍", "🤔 Curiosity is strength 🤔", "🧠 Every thought holds power 🧠"]
+    mantras: [
+      "❓ Follow the question ❓", "🧭 Let wonder lead 🧭", "🔍 Discovery starts inside 🔍",
+      "🤔 Curiosity is strength 🤔", "👁️ Open your senses 👁️", "🧠 Every thought holds power 🧠",
+      "🔎 The answer is near 🔎", "👀 Observe everything 👀", "📚 You are learning 📚", "🧩 Let go of assumptions 🧩",
+      "🔁 Ask again 🔁", "🛤️ New paths await 🛤️"
+    ]
   },
   inspired: {
     frequencies: [600, 620, 640, 660],
-    color: "#ffdd55",
+    colors: ["#ffdd55", "#ffe066", "#ffcc44", "#ffbb33"],
     shape: "pentagon",
-    mantras: ["💡 Inspiration flows 💡", "🎼 You are the muse 🎼", "🏛️ Build your dream 🏛️"]
+    mantras: [
+      "🎨 Create from the soul 🎨", "💡 Inspiration flows 💡", "🔥 You are the spark 🔥", "🌱 Fuel the fire 🌱",
+      "📣 Your voice matters 📣", "🌟 Shine bright 🌟", "🌺 Let ideas bloom 🌺", "💖 Act from love 💖",
+      "🏗️ Make beauty real 🏗️", "🎼 You are the muse 🎼", "✍️ Turn thought into action ✍️", "🏛️ Build your dream 🏛️"
+    ]
   }
 };
 
@@ -3071,8 +3094,9 @@ async function reflect(repeat = false) {
   const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
 
   for (let i = 0; i < 4; i++) {
-    document.body.style.background = `linear-gradient(135deg, ${data.color}, #ffffff20)`;
-    renderVisualShapes(data.shape, data.color);
+    const toneColor = data.colors[i];
+    document.body.style.background = `linear-gradient(135deg, ${toneColor}, #ffffff20)`;
+    renderVisualShapes(data.shape, toneColor);
     box.innerText = mantras[i];
     box.style.opacity = "1";
     playTone(data.frequencies[i]);
@@ -3081,7 +3105,7 @@ async function reflect(repeat = false) {
   }
 
   box.innerText = "🌀 Integrating healing frequencies 🌀";
-  renderVisualShapes(data.shape, data.color);
+  renderVisualShapes(data.shape, data.colors[0]);
   playCombinedTones(data.frequencies, 1.2);
 
   setTimeout(() => {
