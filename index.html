@@ -3076,7 +3076,9 @@ async function reflect(repeat = false) {
   const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
 
   for (let i = 0; i < 4; i++) {
-    document.body.style.background = `linear-gradient(135deg, ${data.color}, #ffffff20)`;
+    const toneColor = `hsl(${Math.floor(Math.random() * 360)}, 60%, 70%)`; // new dynamic color
+    document.body.style.background = `linear-gradient(135deg, ${toneColor}, #ffffff20)`;
+    renderVisualShapes(toneColor);
     renderVisualShapes(data.color);
     box.innerText = mantras[i];
     box.style.opacity = "1";
