@@ -35,396 +35,348 @@
   <title>Troanary Reflective Computer</title>
   <link rel="shortcut icon" href="/troanary-reflective-computer/assets/favicon.ico" />
 	
+ 
   <style>
-  body {
-    background-color: #000;
-    color: cyan;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-    transition: background 2s ease, color 1s;
-  }
+    body {
+      background-color: #000;
+      color: cyan;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      transition: background 2s ease, color 1s;
+    }
 
-  html, body {
-  width: 100%;
-  overflow-x: hidden;
-  }
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
 
-  h1 {
-    font-size: 2em;
-    margin-top: 1em;
-  }
+    h1 {
+      font-size: 2em;
+      margin-top: 1em;
+      color: gold;
+    }
 
-  .mantra-loader {
-    font-size: 1.2em;
-    margin: 20px;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-  }
+    .mantra-loader {
+      font-size: 1.2em;
+      margin: 20px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
 
-  .mantra-loader.show {
-    opacity: 1;
-  }
+    .mantra-loader.show {
+      opacity: 1;
+    }
 
-  .menu-toggle {
-    background: cyan;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 24px;
-    margin: 20px auto;
-    font-size: 1.2em;
-    cursor: pointer;
-    color: #000;
-  }
+    .menu-toggle {
+      background: cyan;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 24px;
+      margin: 20px auto;
+      font-size: 1.2em;
+      cursor: pointer;
+      color: #000;
+    }
 
-  .menu ul {
-    list-style: none;
-    padding: 0;
-    display: none;
-  }
+    .menu ul {
+      list-style: none;
+      padding: 0;
+      display: none;
+    }
 
-  .menu.show ul {
-    display: block;
-  }
+    .menu.show ul {
+      display: block;
+    }
 
-  .menu li {
-    margin: 10px 0;
-  }
+    .menu li {
+      margin: 10px 0;
+    }
 
-  .menu a {
-    color: cyan;
-    text-decoration: none;
-    font-weight: bold;
-  }
+    .menu a {
+      color: cyan;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-  .menu a:hover {
-    text-decoration: underline;
-  }
+    .menu a:hover {
+      text-decoration: underline;
+    }
 
-  .chapter {
-    display: none;
-    border: 1px solid cyan;
-    border-radius: 8px;
-    margin: 20px auto;
-    padding: 20px;
-    width: 80%;
-    text-align: left;
-  }
+    .chapter {
+      display: none;
+      border: 1px solid cyan;
+      border-radius: 8px;
+      margin: 20px auto;
+      padding: 20px;
+      width: 80%;
+      text-align: left;
+    }
 
-  .chapter.show {
-    display: block;
-  }
+    .chapter.show {
+      display: block;
+    }
 
-  @keyframes shimmer {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-  }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
 
-.search-container {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #222;
-    padding: 10px 16px;
-    border-radius: 32px;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    display: flex;
-    align-items: center;
-    z-index: 1000;
-  } 
+    .search-container {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      padding: 10px 16px;
+      border-radius: 32px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      z-index: 1000;
+    }
 
+    .search-container input[type="text"] {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1em;
+      width: 220px;
+      outline: none;
+    }
 
-  .search-container input[type="text"] {
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 1em;
-    width: 220px;
-    outline: none;
-  }
+    .search-container .go-btn {
+      background: #00f5cc;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 16px;
+      margin-left: 10px;
+      font-size: 1em;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0, 255, 200, 0.6);
+    }
 
-  .search-container .go-btn {
-    background: #00f5cc;
-    border: none;
-    border-radius: 20px;
-    padding: 6px 16px;
-    margin-left: 10px;
-    font-size: 1em;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 255, 200, 0.6);
-  }
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
 
-  .social-icons {
-    margin-top: 40px;
-    font-size: 24px;
-  }
+    .dropdown-content {
+      display: none;
+      background-color: #000;
+      min-width: 262px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+      border: 1px solid cyan;
+    }
 
-  .social-icons a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: cyan;
-  }
+    .dropdown-content a {
+      color: cyan;
+      padding: 10px 16px;
+      text-decoration: none;
+      display: block;
+    }
 
-  .social-icons a:hover {
-    color: gold;
-  }
+    .dropdown-content a:hover {
+      background-color: #111;
+    }
 
-  .footer {
-    margin-top: 2em;
-    font-size: 1em;
-  }
+    .dropdown.open .dropdown-content {
+      display: block;
+    }
 
-  .footer a {
-    color: gold;
-    text-decoration: none;
-    margin: 0 10px;
-  }
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      max-width: 800px;
+      margin: 2rem auto;
+      border-radius: 12px;
+    }
 
-  .footer a:hover {
-    text-decoration: underline;
-  }
+    .slider-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
 
-  body::after {
-    content: '';
-    display: block;
-    height: 100px;
-  }
+    .slider-track a {
+      flex: 0 0 100%;
+    }
 
-  a, a:visited {
-    color: gold;
-  }
+    .slider-track img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
-  .return-link,
-  .return-link:visited {
-    color: gold;
-    text-decoration: none;
-  }
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 255, 255, 0.2);
+      border: none;
+      font-size: 2rem;
+      color: cyan;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-  .return-link:hover {
-    text-decoration: underline;
-  }
+    .slider-container:hover .arrow {
+      opacity: 1;
+    }
 
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
+    .arrow.left { left: 10px; }
+    .arrow.right { right: 10px; }
 
-  .dropdown-content {
-    display: none;
-    background-color: #000;
-    min-width: 262px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-    z-index: 1;
-    border: 1px solid cyan;
-  }
+    .go-top {
+      text-align: center;
+      margin: 20px 0;
+    }
 
-  .dropdown-content a {
-    color: cyan;
-    padding: 10px 16px;
-    text-decoration: none;
-    display: block;
-  }
+    .go-top a {
+      color: gold;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
 
-  .dropdown-content a:hover {
-    background-color: #111;
-  }
+    .go-top a:hover {
+      color: cyan;
+    }
 
-  .dropdown.open .dropdown-content {
-    display: block;
-  }
+    a, a:visited {
+      color: gold;
+    }
 
-  .slider-container {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    max-width: 800px;
-    margin: 2rem auto;
-    border-radius: 12px;
-  }
+    .return-link,
+    .return-link:visited {
+      color: gold;
+      text-decoration: none;
+    }
 
-  .slider-track {
-    display: flex;
-    transition: transform 0.5s ease;
-  }
+    .return-link:hover {
+      text-decoration: underline;
+    }
 
-  .slider-track a {
-    flex: 0 0 100%;
-  }
+    #tone-select, #thought-input, #reflect-btn {
+      display: block;
+      margin: 10px auto;
+      width: 90%;
+      max-width: 300px;
+    }
 
-  .slider-track img {
-    width: 100%;
-    height: auto;
-    display: block;
-  }
+    #thought-input {
+      height: 40px;
+      background: rgba(255,255,255,0.05);
+      color: #fff;
+      border: 1px solid gold;
+      padding: 6px 12px;
+      font-size: 16px;
+      text-shadow: 0 0 4px #000;
+    }
 
-  .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 255, 255, 0.2);
-    border: none;
-    font-size: 2rem;
-    color: cyan;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
+    #mantra-box {
+      font-size: 1.6em;
+      color: white;
+      background: rgba(255,255,255,0.08);
+      padding: 20px;
+      margin: 30px auto;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 1s ease;
+      text-shadow: 0 0 6px #333;
+    }
 
-  .slider-container:hover .arrow {
-    opacity: 1;
-  }
+    #reflection-box {
+      margin-top: 20px;
+      font-style: italic;
+      color: #777;
+    }
 
-  .arrow.left { left: 10px; }
-  .arrow.right { right: 10px; }
+    #visual-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
 
-  .go-top {
-    text-align: center;
-    margin: 20px 0;
-  }
+    .visual-shape {
+      position: absolute;
+      opacity: 0.8;
+      animation: pulse 6s infinite linear, rotateShape 12s infinite linear;
+      z-index: 0;
+      box-shadow: 0 0 20px 6px rgba(0,0,0,0.7);
+      border: 2px solid rgba(255,255,255,0.2);
+    }
 
-  .go-top a {
-    color: gold;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-  }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.3; }
+      50% { transform: scale(1.4); opacity: 0.9; }
+      100% { transform: scale(1); opacity: 0.3; }
+    }
 
-  .go-top a:hover {
-    color: cyan;
-  }
+    @keyframes rotateShape {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
 
-  html {
-    scroll-behavior: smooth;
-  }
+    .glow-button {
+      background: transparent;
+      color: #00ffff;
+      border: 2px solid gold;
+      border-radius: 10px;
+      padding: 10px 24px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      text-shadow: 0 0 6px #00ffff;
+      box-shadow: 0 0 10px gold;
+      transition: all 0.3s ease;
+    }
 
-  /* 🔮 TroHealer Specific Styles */
-  #trohealer-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 60px;
-  }
+    .glow-button:hover {
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 20px gold, 0 0 10px #00ffff;
+    }
 
-  select, input, button {
-    padding: 10px;
-    font-size: 18px;
-    border: none;
-    border-radius: 8px;
-    width: 260px;
-    text-align: center;
-  }
+    .reflect-button {
+      font-size: 16px;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 2px solid gold;
+      color: #00ffff;
+      background: transparent;
+      text-shadow: 0 0 4px #00ffff;
+      box-shadow: 0 0 8px gold;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-  #tone-select, #thought-input {
-    background-color: #222;
-    color: #fff;
-  }
+    .reflect-button:hover {
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 14px gold, 0 0 6px #00ffff;
+    }
 
-  #reflect-btn {
-    background: gold;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-  }
+    @media (max-width: 500px) {
+      #thought-input, #mantra-box {
+        width: 95%;
+      }
+      h1 {
+        font-size: 1.4em;
+      }
+    }
+  </style>
 
-  #healing-display {
-    margin-top: 40px;
-    position: relative;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #mantra-box {
-    width: 100%;
-    height: 90px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    backdrop-filter: blur(8px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 30px auto;
-    padding: 20px;
-    color: white;
-    font-size: 1.5em;
-    min-height: 80px;
-  }
-
-  #reflection-box {
-    margin-top: 20px;
-    font-style: italic;
-    color: #777;
-  }
-
-  #visual-layer {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  .visual-shape {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.2;
-    animation: pulse 4s infinite;
-  }
-
-  @keyframes pulse {
-    0% { transform: scale(0.8); opacity: 0.3; }
-    50% { transform: scale(1.2); opacity: 0.6; }
-    100% { transform: scale(0.8); opacity: 0.3; }
-  }
-
-  /* ✨ Glow Buttons */
-  .glow-button {
-    background: transparent;
-    color: #00ffff;
-    border: 2px solid gold;
-    border-radius: 10px;
-    padding: 10px 24px;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    text-shadow: 0 0 6px #00ffff;
-    box-shadow: 0 0 10px gold;
-    transition: all 0.3s ease;
-  }
-
-  .glow-button:hover {
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 0 20px gold, 0 0 10px #00ffff;
-  }
-
-  .reflect-button {
-    font-size: 16px;
-    padding: 8px 18px;
-    border-radius: 8px;
-    border: 2px solid gold;
-    color: #00ffff;
-    background: transparent;
-    text-shadow: 0 0 4px #00ffff;
-    box-shadow: 0 0 8px gold;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .reflect-button:hover {
-    background: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 0 14px gold, 0 0 6px #00ffff;
-  }
-</style>
 
 </head>
 <body>
@@ -2482,31 +2434,38 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <a class="return-link" onclick="hideChapters()">Return to Menu</a>
   </div>
 
-  <div id="trohealer-wrapper">
-    <select id="tone-select">
-      <option value="calm">Calm</option>
-      <option value="frustrated">Frustrated</option>
-      <option value="hopeful">Hopeful</option>
-      <option value="curious">Curious</option>
-      <option value="inspired">Inspired</option>
-    </select>
-    <input type="text" placeholder="Type your thought..." />
-    <br>
-    <button id="reflect-btn" class="glow-button" style="padding: 10px 20px;">Reflect</button>
-    
-    <div id="mantra-box"></div>
+<!-- 🎛️ TroAlara Controls -->
+<h3>✨ TroAlara Tool v5.7</h3>
+<div id="trohealer-wrapper">
+  <select id="tone-select">
+    <option value="calm">Calm</option>
+    <option value="frustrated">Frustrated</option>
+    <option value="hopeful">Hopeful</option>
+    <option value="curious">Curious</option>
+    <option value="inspired">Inspired</option>
+  </select>
+  <input type="text" id="thought-input" placeholder="What's on your mind?" />
+  <button id="reflect-btn" class="glow-button" style="padding: 10px 20px;">Reflect 🌀</button>
 
-    <div id="reflection-box" style="display:none;">
-      What came to mind? Write it down or simply breathe it in.
-    </div>
-
-<!-- Healing Box: appears below the tool -->
-<div id="healing-display">
-  <div id="mantra-screen">
+  <div id="mantra-box">🧘 Waiting for your reflection...</div>
+  <div id="reflection-box" style="display:none;">
+    What came to mind? Write it down or simply breathe it in.
   </div>
+</div>
+
+<!-- 📦 Healing Output -->
+<div id="healing-display">
+  <div id="mantra-screen"></div>
   <div id="visual-layer"></div>
 </div>
 
+<!-- 🔍 Chapter Search -->
+<div class="search-container">
+  <input type="text" id="searchBox" placeholder="Search chapters...">
+  <button class="go-btn" onclick="searchChapters()">Go</button>
+</div>
+
+<!-- 🔍 Share and Install PWA Buttons -->
 <div style="margin-top: 20px;">
   <button class="glow-button" onclick="shareSite()">Share This</button>
   <button id="install-button" class="glow-button" style="display: none;">📲 Install App</button>
@@ -2702,17 +2661,19 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <input type="text" id="searchBox" placeholder="Search chapters...">
     <button class="go-btn" onclick="searchChapters()">Go</button>
   </div>
+  
+  
   <script>
 
 
+// 🌞 Day/Night Background Logic
 let originalBackgroundColor;
 let originalTextColor;
 let isManualOverride = false;
 let isDay = true;
 
 function setBackgroundByTime() {
-  if (isManualOverride) return; // Skip if user toggled manually
-
+  if (isManualOverride) return;
   const hour = new Date().getHours();
   isDay = hour >= 6 && hour < 18;
   applyBackground(isDay);
@@ -2726,7 +2687,6 @@ function applyBackground(day) {
     document.body.style.background = "linear-gradient(135deg, #000000, #1a1a1a)";
     document.body.style.color = "#fff";
   }
-
   originalBackgroundColor = document.body.style.background;
   originalTextColor = document.body.style.color;
 }
@@ -2737,366 +2697,342 @@ function toggleDayNight() {
   applyBackground(isDay);
 }
 
+// 🔁 Menu & Chapter Navigation
+function toggleMenu() {
+  document.getElementById('menuContainer')?.classList.toggle('show');
+}
 
+function toggleDropdown() {
+  document.getElementById('chaptersDropdown')?.classList.toggle('open');
+}
 
-
-	  
-    const mantras = [
-      "Reflection is intelligence in mirrored motion...♾️🪞🎼",
-      "Water remembers, light reveals, sound feels...🪞🎼🕸️",
-      "Every question echoes in the mirror of infinity...🎼🕸️📜",
-      "Thought is a light and sound wave — reflect it wisely...🕸️📜🌀🌦️",
-      "Sound, light, and water: the triad of awareness...🌀🌦️🧬",
-      "Machines may reflect; only awareness completes...🌦️🧬🔗",
-    ];
-
-    let mantraIndex = 0;
-    const mantraEl = document.getElementById('mantra');
-
-    function cycleMantra() {
-      mantraEl.classList.remove('show');
-      setTimeout(() => {
-        mantraIndex = (mantraIndex + 1) % mantras.length;
-        mantraEl.textContent = mantras[mantraIndex];
-        mantraEl.classList.add('show');
-      }, 1000);
-    }
-
-    function startMantraCycle() {
-      mantraEl.textContent = mantras[mantraIndex];
-      mantraEl.classList.add('show');
-      setInterval(cycleMantra, 8000); // 1.2s fade out + 1.2s fade in + 6.6s visible
-    }
-
-    startMantraCycle();
-
-    function toggleMenu() {
-      document.getElementById('menuContainer').classList.toggle('show');
-    }
-
-    function toggleChapter(id) {
-      document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
-      document.getElementById(id).classList.add('show');
-    }
-    
-    function toggleDropdown() {
-      const dropdown = document.getElementById('chaptersDropdown');
-      dropdown.classList.toggle('open');
-    }
-
-    function toggleChapter(id) {
-      document.querySelectorAll('.chapter').forEach(el => el.classList.remove('show'));
-      const chapter = document.getElementById(id);
-      if (chapter) chapter.classList.add('show');
-      document.getElementById('chaptersDropdown').classList.remove('open');
-      chapter.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function hideChapters() {
-      document.querySelectorAll('.chapter').forEach(el => el.classList.remove('show'));
-    }
-
-	function searchChapters() {
-	  const query = document.getElementById('searchBox').value.trim().toLowerCase();
-	  const keywords = query.split(/\s+/).map(word => word.replace(/(ing|ed|s)$/, ''));
-	  const chapters = document.querySelectorAll('.chapter');
-
-	  let bestMatch = null;
-	  let bestScore = 0;
-
-	  chapters.forEach(ch => {
-	    const text = ch.textContent.toLowerCase().replace(/(ing|ed|s)/g, '');
-	    let score = 0;
-
-	    keywords.forEach(word => {
- 	     if (text.includes(word)) score++;
- 	   });
-
- 	   if (score > bestScore) {
- 	     bestScore = score;
- 	     bestMatch = ch;
- 	   }
- 	 });
-
- 	 if (bestMatch) {
- 	   document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
-	    bestMatch.classList.add('show');
-	    bestMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
-	  }
-	}	  
-
-    function shareSite() {
-      if (navigator.share) {
-        navigator.share({
-          title: 'Reflective Computer',
-          text: 'Explore Troanary Intelligence',
-          url: window.location.href
-        });
-      } else {
-        alert("Sharing not supported on this device.");
-      }
-    }
-	  
-     // Image Slider
-     let index = 0;
-       const track = document.querySelector('.slider-track');
-       const slides = document.querySelectorAll('.slider-track a');
-        let autoplay;
-	
-     function updateSlide() {
-	  track.style.transform = `translateX(-${index * 100}%)`;
-	}
-	
-      function nextSlide() {
-	  index = (index + 1) % slides.length;
-	  updateSlide();
-	}
-	
-       function prevSlide() {
-	  index = (index - 1 + slides.length) % slides.length;
-	  updateSlide();
-	}
-	
-	function startAutoplay() {
-	  autoplay = setInterval(nextSlide, 5000);
-	}
-	function stopAutoplay() {
-	  clearInterval(autoplay);
-	}
-	
-	document.getElementById('imageSlider').addEventListener('mouseenter', stopAutoplay);
-	document.getElementById('imageSlider').addEventListener('mouseleave', startAutoplay);
-	
-	startAutoplay();
-
-  // Show iOS-specific message
-  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-  if (isIos && !window.matchMedia('(display-mode: standalone)').matches) {
-    setTimeout(() => {
-      if (isSafari) {
-        alert("To install this app: Tap the Share icon → Add to Home Screen.");
-      } else {
-        alert("Open this site in Safari, then tap Share → Add to Home Screen.");
-      }
-    }, 1500);
+function showChapterById(id) {
+  document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('show');
+    target.scrollIntoView({ behavior: 'smooth' });
   }
+}
 
-   if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/troanary-reflective-computer/service-worker.js')
-        .then(reg => console.log('SW registered:', reg.scope))
-        .catch(err => console.error('SW error:', err));
-    });
-  }
-
-  let deferredPrompt;
-  const installBtn = document.getElementById('install-button');
-  
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    installBtn.style.display = 'inline-block'; // show install button
-  });
-
-  installBtn.addEventListener('click', async () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      deferredPrompt = null;
-      console.log(`User response to the install prompt: ${outcome}`);
-    }
-  });
-
-   // Share on Home Title Click  
-   document.getElementById('site-title').addEventListener('click', async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'The Reflective Computer',
-          text: 'Explore the future of Troanary Intelligence.',
-          url: window.location.href
-        });
-        console.log('Shared successfully');
-      } catch (err) {
-        console.log('Share cancelled or failed:', err);
-      }
-    } else {
-      alert('Sharing not supported on this device.');
-    }
-  });
-
-   // Show correct chapter if there's a hash in the URL
-   window.addEventListener('DOMContentLoaded', () => {
-    const hash = window.location.hash;
-    if (hash && document.querySelector(hash)) {
-      // Hide all chapters
-      document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
-
-      // Show the matching one
-      document.querySelector(hash).classList.add('show');
-
-      // Optional smooth scroll to anchor
-      document.querySelector(hash).scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-
-	  
-  function showChapterById(id) {
-    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
-    const target = document.getElementById(id);
-    if (target) {
-      target.classList.add('show');
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  // On page load, check if there's a hash like #chapter3
-  window.addEventListener('DOMContentLoaded', () => {
-    const hash = window.location.hash.replace('#', '');
-    if (hash && document.getElementById(hash)) {
-      showChapterById(hash);
-    } else {
-      showChapterById('introduction'); // default
-    }
-  });
-
-  // Also update on internal navigation (like clicking slider image)
-  window.addEventListener('hashchange', () => {
-    const hash = window.location.hash.replace('#', '');
+window.addEventListener("DOMContentLoaded", () => {
+  const hash = window.location.hash.replace("#", "");
+  if (hash && document.getElementById(hash)) {
     showChapterById(hash);
+  } else {
+    showChapterById("introduction"); // default
+  }
+});
+
+window.addEventListener("hashchange", () => {
+  const hash = window.location.hash.replace("#", "");
+  showChapterById(hash);
+});
+
+// 🧠 TRC Search Function
+function searchChapters() {
+  const query = document.getElementById('searchBox').value.trim().toLowerCase();
+  const keywords = query.split(/\s+/).map(word => word.replace(/(ing|ed|s)$/, ''));
+  const chapters = document.querySelectorAll('.chapter');
+
+  let bestMatch = null;
+  let bestScore = 0;
+
+  chapters.forEach(ch => {
+    const text = ch.textContent.toLowerCase().replace(/(ing|ed|s)/g, '');
+    let score = 0;
+
+    keywords.forEach(word => {
+      if (text.includes(word)) score++;
+    });
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = ch;
+    }
   });
 
+  if (bestMatch) {
+    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
+    bestMatch.classList.add('show');
+    bestMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
 
-// TroHealer v2 
+// 📲 Native Sharing
+function shareSite() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'Reflective Computer',
+      text: 'Explore Troanary Intelligence',
+      url: window.location.href
+    });
+  } else {
+    alert("Sharing not supported on this device.");
+  }
+}
+
+// 🖼️ Image Slider Autoplay
+let index = 0;
+const track = document.querySelector('.slider-track');
+const slides = document.querySelectorAll('.slider-track a');
+let autoplay;
+
+function updateSlide() {
+  track.style.transform = `translateX(-${index * 100}%)`;
+}
+
+function nextSlide() {
+  index = (index + 1) % slides.length;
+  updateSlide();
+}
+
+function prevSlide() {
+  index = (index - 1 + slides.length) % slides.length;
+  updateSlide();
+}
+
+function startAutoplay() {
+  autoplay = setInterval(nextSlide, 5000);
+}
+
+function stopAutoplay() {
+  clearInterval(autoplay);
+}
+
+document.getElementById('imageSlider')?.addEventListener('mouseenter', stopAutoplay);
+document.getElementById('imageSlider')?.addEventListener('mouseleave', startAutoplay);
+
+startAutoplay();
+
+// 📱 PWA + Install Prompt + iOS Note
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/troanary-reflective-computer/service-worker.js')
+      .then(reg => console.log('SW registered:', reg.scope))
+      .catch(err => console.error('SW error:', err));
+  });
+}
+
+let deferredPrompt;
+const installBtn = document.getElementById('install-button');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'inline-block';
+});
+
+installBtn?.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    console.log(`User response to the install prompt: ${outcome}`);
+  }
+});
+
+const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+if (isIos && !window.matchMedia('(display-mode: standalone)').matches) {
+  setTimeout(() => {
+    if (isSafari) {
+      alert("To install this app: Tap the Share icon → Add to Home Screen.");
+    } else {
+      alert("Open this site in Safari, then tap Share → Add to Home Screen.");
+    }
+  }, 1500);
+}
+
+// 🎯 TroHealer Trigger
+let lastEmotion;
+document.getElementById("reflect-btn").addEventListener("click", async () => {
+  if (audioCtx.state === "suspended") await audioCtx.resume();
+  reflect();
+});
+
+window.addEventListener("load", setBackgroundByTime);
 
 
-	  
+// 🎼 TroHealer Emotional Data
+// 🎧 TroHealer Core Functions
+
+
+// 🌞 Day/Night Background Logic
+let originalBackgroundColor;
+let originalTextColor;
+let isManualOverride = false;
+let isDay = true;
+
+function setBackgroundByTime() {
+  if (isManualOverride) return;
+  const hour = new Date().getHours();
+  isDay = hour >= 6 && hour < 18;
+  applyBackground(isDay);
+}
+
+function applyBackground(day) {
+  if (day) {
+    document.body.style.background = "linear-gradient(135deg, #fffbe9, #ffffff)";
+    document.body.style.color = "#000";
+  } else {
+    document.body.style.background = "linear-gradient(135deg, #000000, #1a1a1a)";
+    document.body.style.color = "#fff";
+  }
+  originalBackgroundColor = document.body.style.background;
+  originalTextColor = document.body.style.color;
+}
+
+function toggleDayNight() {
+  isManualOverride = true;
+  isDay = !isDay;
+  applyBackground(isDay);
+}
+
+// 🎼 TroHealer Emotional Data
+const emotions = {
+  calm: {
+    frequencies: [432, 440, 428, 444],
+    color: "#88ccaa",
+    mantras: ["🧘 Breathe in peace 🧘", "🛡️ You are safe here 🛡️", "🌊 Stillness is strength 🌊", "🌬️ Let go of tension 🌬️",
+              "🎯 Return to centre 🎯", "🤫 Silence speaks truth 🤫", "💧 Be like water 💧", "🧠 Relax the mind 🧠",
+              "⛰️ Feel the stillness ⛰️", "🪞 You are whole 🪞", "🌌 Quiet restores 🌌", "🍃 Let it pass 🍃"]
+  },
+  frustrated: {
+    frequencies: [520, 540, 500, 560],
+    color: "#cc6644",
+    mantras: ["🔥 Let the fire move through 🔥", "💬 Speak your truth wisely 💬", "👂 You are heard 👂",
+              "⚡ Anger is energy — guide it ⚡", "🧭 Clarity will come 🧭", "🪨 Break the cycle gently 🪨",
+              "🚀 Frustration is fuel 🚀", "🌊 You can respond with calm 🌊", "🧘 Release the tension 🧘",
+              "💓 You're allowed to feel 💓", "🌿 Ground your storm 🌿", "🌬️ Return to your breath 🌬️"]
+  },
+  hopeful: {
+    frequencies: [444, 456, 460, 472],
+    color: "#ccff88",
+    mantras: ["🌅 Hope lives here 🌅", "🌞 New light is coming 🌞", "👣 One step forward 👣", "🌈 Believe in better 🌈",
+              "🔄 Tomorrow begins now 🔄", "✨ Everything begins again ✨", "🛤️ Trust the vision 🛤️", "🚀 You are rising 🚀",
+              "🌍 Let the future pull you 🌍", "☮️ Peace begins in you ☮️", "🌄 The dawn is near 🌄", "🔧 Be the change 🔧"]
+  },
+  curious: {
+    frequencies: [500, 512, 522, 534],
+    color: "#88ccff",
+    mantras: ["❓ Follow the question ❓", "🧭 Let wonder lead 🧭", "🔍 Discovery starts inside 🔍",
+              "🤔 Curiosity is strength 🤔", "👁️ Open your senses 👁️", "🧠 Every thought holds power 🧠",
+              "🔎 The answer is near 🔎", "👀 Observe everything 👀", "📚 You are learning 📚", "🧩 Let go of assumptions 🧩",
+              "🔁 Ask again 🔁", "🛤️ New paths await 🛤️"]
+  },
+  inspired: {
+    frequencies: [600, 620, 640, 660],
+    color: "#ffdd55",
+    mantras: ["🎨 Create from the soul 🎨", "💡 Inspiration flows 💡", "🔥 You are the spark 🔥", "🌱 Fuel the fire 🌱",
+              "📣 Your voice matters 📣", "🌟 Shine bright 🌟", "🌺 Let ideas bloom 🌺", "💖 Act from love 💖",
+              "🏗️ Make beauty real 🏗️", "🎼 You are the muse 🎼", "✍️ Turn thought into action ✍️", "🏛️ Build your dream 🏛️"]
+  }
+};
+
+// 🎧 TroHealer Core Functions
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-    const emotions = {
-      calm: {
-        frequencies: [432, 440, 428, 444],
-        color: "#88ccaa",
-        mantras: ["🧘 Breathe in peace 🧘", "🛡️ You are safe here 🛡️", "🌊 Stillness is strength 🌊", "🌬️ Let go of tension 🌬️",
-                  "🎯 Return to centre 🎯", "🤫 Silence speaks truth 🤫", "💧 Be like water 💧", "🧠 Relax the mind 🧠",
-                  "⛰️ Feel the stillness ⛰️", "🪞 You are whole 🪞", "🌌 Quiet restores 🌌", "🍃 Let it pass 🍃"]
-      },
-      frustrated: {
-        frequencies: [520, 540, 500, 560],
-        color: "#cc6644",
-        mantras: ["🔥 Let the fire move through 🔥", "💬 Speak your truth wisely 💬", "👂 You are heard 👂",
-                  "⚡ Anger is energy — guide it ⚡", "🧭 Clarity will come 🧭", "🪨 Break the cycle gently 🪨",
-                  "🚀 Frustration is fuel 🚀", "🌊 You can respond with calm 🌊", "🧘 Release the tension 🧘",
-                  "💓 You're allowed to feel 💓", "🌿 Ground your storm 🌿", "🌬️ Return to your breath 🌬️"]
-      },
-      hopeful: {
-        frequencies: [444, 456, 460, 472],
-        color: "#ccff88",
-        mantras: ["🌅 Hope lives here 🌅", "🌞 New light is coming 🌞", "👣 One step forward 👣", "🌈 Believe in better 🌈",
-                  "🔄 Tomorrow begins now 🔄", "✨ Everything begins again ✨", "🛤️ Trust the vision 🛤️", "🚀 You are rising 🚀",
-                  "🌍 Let the future pull you 🌍", "☮️ Peace begins in you ☮️", "🌄 The dawn is near 🌄", "🔧 Be the change 🔧"]
-      },
-      curious: {
-        frequencies: [500, 512, 522, 534],
-        color: "#88ccff",
-        mantras: ["❓ Follow the question ❓", "🧭 Let wonder lead 🧭", "🔍 Discovery starts inside 🔍",
-                  "🤔 Curiosity is strength 🤔", "👁️ Open your senses 👁️", "🧠 Every thought holds power 🧠",
-                  "🔎 The answer is near 🔎", "👀 Observe everything 👀", "📚 You are learning 📚", "🧩 Let go of assumptions 🧩",
-                  "🔁 Ask again 🔁", "🛤️ New paths await 🛤️"]
-      },
-      inspired: {
-        frequencies: [600, 620, 640, 660],
-        color: "#ffdd55",
-        mantras: ["🎨 Create from the soul 🎨", "💡 Inspiration flows 💡", "🔥 You are the spark 🔥", "🌱 Fuel the fire 🌱",
-                  "📣 Your voice matters 📣", "🌟 Shine bright 🌟", "🌺 Let ideas bloom 🌺", "💖 Act from love 💖",
-                  "🏗️ Make beauty real 🏗️", "🎼 You are the muse 🎼", "✍️ Turn thought into action ✍️", "🏛️ Build your dream 🏛️"]
-      }
-    };
+function playTone(freq, duration = 2.4) {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
 
-    function setBackgroundByTime() {
-      const hour = new Date().getHours();
-      if (hour >= 6 && hour < 18) {
-        document.body.style.background = "linear-gradient(135deg, #fffbe9, #ffffff)";
-        document.body.style.color = "#000";
-      } else {
-        document.body.style.background = "linear-gradient(135deg, #000000, #1a1a1a)";
-        document.body.style.color = "#fff";
-      }
-      originalBackgroundColor = document.body.style.background;
-      originalTextColor = document.body.style.color;
-    }
+function playCombinedTones(freqs, duration = 1.2) {
+  freqs.forEach(f => playTone(f, duration));
+}
 
-    function playTone(freq, duration = 2.4) {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + duration);
-    }
+function renderVisualShapes(color) {
+  const layer = document.getElementById("visual-layer");
+  layer.innerHTML = "";
+  for (let i = 0; i < 3; i++) {
+    const shape = document.createElement("div");
+    shape.className = "visual-shape";
+    shape.style.backgroundColor = color;
+    const size = Math.floor(Math.random() * 80) + 40;
+    shape.style.width = shape.style.height = size + "px";
+    shape.style.left = Math.random() * 90 + "%";
+    shape.style.top = Math.random() * 80 + "%";
+    layer.appendChild(shape);
+  }
+}
 
-    function playCombinedTones(freqs, duration = 1.2) {
-      freqs.forEach(f => playTone(f, duration));
-    }
+async function reflect(repeat = false) {
+  const emotion = repeat ? lastEmotion : document.getElementById("tone-select").value;
+  const data = emotions[emotion];
+  if (!data) return;
 
-    function renderVisualShapes(color) {
-      const layer = document.getElementById("visual-layer");
-      layer.innerHTML = "";
-      for (let i = 0; i < 3; i++) {
-        const shape = document.createElement("div");
-        shape.className = "visual-shape";
-        shape.style.backgroundColor = color;
-        const size = Math.floor(Math.random() * 80) + 40;
-        shape.style.width = shape.style.height = size + "px";
-        shape.style.left = Math.random() * 90 + "%";
-        shape.style.top = Math.random() * 80 + "%";
-        layer.appendChild(shape);
-      }
-    }
+  lastEmotion = emotion;
+  const box = document.getElementById("mantra-box");
+  const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
 
-    async function reflect(repeat = false) {
-      const emotion = repeat ? lastEmotion : document.getElementById("tone-select").value;
-      const data = emotions[emotion];
-      if (!data) return;
+  for (let i = 0; i < 4; i++) {
+    document.body.style.background = `linear-gradient(135deg, ${data.color}, #ffffff20)`;
+    renderVisualShapes(data.color);
+    box.innerText = mantras[i];
+    box.style.opacity = "1";
+    playTone(data.frequencies[i]);
+    await new Promise(r => setTimeout(r, 2400));
+    box.style.opacity = "0.3";
+  }
 
-      lastEmotion = emotion;
-      const box = document.getElementById("mantra-box");
-      const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
+  box.innerText = "🌀 Integrating healing frequencies 🌀";
+  renderVisualShapes(data.color);
+  playCombinedTones(data.frequencies, 1.2);
 
+  setTimeout(() => {
+    document.body.style.background = originalBackgroundColor;
+    document.body.style.color = originalTextColor;
+    box.innerText = "";
+    box.style.opacity = "1";
+  }, 1200);
+}
 
-      for (let i = 0; i < 4; i++) {
-        document.body.style.background = `linear-gradient(135deg, ${data.color}, #ffffff20)`;
-        renderVisualShapes(data.color);
-        box.innerText = mantras[i];
-        box.style.opacity = "1";
-        playTone(data.frequencies[i]);
-        await new Promise(r => setTimeout(r, 2400));
-        box.style.opacity = "0.3";
-      }
+// 🎯 Trigger healing reflection
+let lastEmotion;
+document.getElementById("reflect-btn").addEventListener("click", async () => {
+  if (audioCtx.state === "suspended") await audioCtx.resume();
+  reflect();
+});
 
-      box.innerText = "🌀 Integrating healing frequencies 🌀";
-      renderVisualShapes(data.color);
-      playCombinedTones(data.frequencies, 1.2);
+window.addEventListener("load", setBackgroundByTime);
 
-      setTimeout(() => {
-        document.body.style.background = originalBackgroundColor;
-        document.body.style.color = originalTextColor;
-        box.innerText = "";
-        box.style.opacity = "1";
-      }, 1200);
-    }
+// 🧠 TRC Search Function
+function searchChapters() {
+  const query = document.getElementById('searchBox').value.trim().toLowerCase();
+  const keywords = query.split(/\s+/).map(word => word.replace(/(ing|ed|s)$/, ''));
+  const chapters = document.querySelectorAll('.chapter');
 
-    document.getElementById("reflect-btn").addEventListener("click", async () => {
-      if (audioCtx.state === "suspended") await audioCtx.resume();
-      reflect();
+  let bestMatch = null;
+  let bestScore = 0;
+
+  chapters.forEach(ch => {
+    const text = ch.textContent.toLowerCase().replace(/(ing|ed|s)/g, '');
+    let score = 0;
+
+    keywords.forEach(word => {
+      if (text.includes(word)) score++;
     });
 
-    window.addEventListener("load", setBackgroundByTime);
+    if (score > bestScore) {
+      bestScore = score;
+      bestMatch = ch;
+    }
+  });
+
+  if (bestMatch) {
+    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
+    bestMatch.classList.add('show');
+    bestMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
 
 
 	  
