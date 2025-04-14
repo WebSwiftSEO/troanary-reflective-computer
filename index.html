@@ -162,7 +162,7 @@
   }
 
   .social-icons {
-    margin-top: 40px;
+    margin-top: 6px;
     font-size: 24px;
   }
 
@@ -177,7 +177,7 @@
   }
 
   .footer {
-    margin-top: 2em;
+    margin-top: 0em;
     font-size: 1em;
   }
 
@@ -194,7 +194,7 @@
   body::after {
     content: '';
     display: block;
-    height: 100px;
+    height: 60px;
   }
 
   a, a:visited {
@@ -462,8 +462,6 @@ input[type="text"],
     box-shadow: 0 0 14px gold, 0 0 6px #00ffff;
   }
   
-  
-  
   #install-button,
 #share-button,
 .glow-button,
@@ -489,7 +487,6 @@ input[type="text"],
   box-shadow: 0 0 18px gold, 0 0 10px cyan;
 }
 
-
   @media (max-width: 500px) {
     #thought-input, #mantra-box {
       width: 95%;
@@ -505,11 +502,55 @@ input[type="text"],
   font-weight: bold;
 }
 
+.popup-tip {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 40px 20px;
+}
+
+.popup-tip.hidden {
+  display: none;
+}
+
+.popup-content {
+  max-width: 600px;
+  background: #111;
+  color: cyan;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 0 30px gold;
+  text-align: left;
+  position: relative;
+}
+
+.popup-content h2 {
+  color: gold;
+  margin-top: 0;
+}
+
+.popup-content a {
+  color: #00ffff;
+  text-decoration: underline;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px; right: 14px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: gold;
+  cursor: pointer;
+}
 
 </style>
-
-
-
 </head>
 <body>
   <a id="top"></a>
@@ -2587,12 +2628,43 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <button class="go-btn" onclick="searchChapters()">Go</button>
 </div>
 
-<!-- 🔍 Share and Install PWA Buttons -->
-<div style="margin-top: 20px;">
-  <button class="glow-button" onclick="shareSite()">Share This</button>
+<!-- 🔍 Share, Info, and Install PWA Buttons -->
+<div style="margin-top: 12px;">
+  <button class="glow-button" onclick="shareSite()">📲 Share This</button>
+  <button class="glow-button" onclick="toggleTip()">💡 Info?</button> 
   <button id="install-button" class="glow-button" style="display: none;">📲 Install App</button>
 </div>
 
+<div id="popup-tip" class="popup-tip hidden">
+  <div class="popup-content">
+    <button class="close-btn" onclick="toggleTip()">✖</button>
+    <h2>🧠 What is the Reflective Computer?</h2>
+
+    <p><strong>🌐 Troanary Websites</strong></p>
+    <ul>
+      <li><a href="https://mirrorthesis.github.io" target="_blank">🪞 Mirror Thesis</a></li>
+      <li><a href="https://troanary.wordpress.com" target="_blank">📚 Troanary WordPress</a></li>
+      <li><a href="#" target="_blank">🎛️ TroEqualizer Coming Soon)</a></li>
+    </ul>
+
+    <p><strong>🎛️ TroAlara Healing Tool</strong></p>
+    <p>The TroAlara tool lets you type how you feel and instantly receive a wave of tone, colour, and mantra based on your selected emotional state. Each emotion generates a healing sequence using frequency, shape, and light — designed to guide you back to balance.</p>
+
+    <p><strong>💻 Troanary Reflective Computer</strong></p>
+    <p>This app is part of a larger project exploring how computation might evolve beyond binary. It introduces the idea of reflective, adaptive intelligence using light, water, and sound — and includes healing tools, rotating quotes, and an expandable ebook format.</p>
+
+    <p><strong>📲 PWA + Sharing</strong></p>
+    <p>This site can be installed as a Progressive Web App (PWA). Just tap “Install App” on supported devices. You can also use the Share button to tell others about the project instantly.</p>
+
+    <p><strong>🔗 Everything Is Connected</strong></p>
+    <p>All tools, books, and websites are open-source and part of a growing Troanary ecosystem. You are invited to reflect, explore, and evolve with us.</p>
+  </div>
+</div>
+
+
+
+<h2>✨Reflective Computers✨</h2>
+<h3>✨Chapters✨</h3>
 	<!-- Image Slider -->
 <div class="slider-container" id="imageSlider">
   <div class="slider-track">
@@ -2776,8 +2848,10 @@ It’s about creating wiser systems — and remembering that life itself is alre
       <a href="https://troanary.wordpress.com/books/" target="_blank" class="glow-link">📚Books</a> |
       <a href="https://troanary.wordpress.com" target="_blank" class="glow-link">Blog</a> |
       <a href="https://github.com/WebSwiftSEO" target="_blank" class="glow-link">GitHub</a> |
-      <a href="https://webswiftseo.github.io/Troanary-Computing-Mirror-Thesis/" target="_blank" class="glow-link">Mirror Thesis</a>
-      <a href="https://webswiftseo.github.io/troanary-reflective-computer/" class="glow-link">Home🏠</a>
+      <a href="https://webswiftseo.github.io/Troanary-Computing-Mirror-Thesis/" target="_blank" class="glow-link">Mirror Thesis📖</a>
+    </p>
+    <p>
+      <a href="https://webswiftseo.github.io/troanary-reflective-computer/" class="glow-link">🏠🪞Home🪞🏠</a>
     </p>
     <p>© Troanary Project</p>
   </div>
