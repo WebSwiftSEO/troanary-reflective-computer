@@ -2465,6 +2465,7 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <button class="go-btn" onclick="searchChapters()">Go</button>
 </div>
 
+
 <!-- 🔍 Share and Install PWA Buttons -->
 <div style="margin-top: 20px;">
   <button class="glow-button" onclick="shareSite()">Share This</button>
@@ -2663,10 +2664,10 @@ It’s about creating wiser systems — and remembering that life itself is alre
   </div>
   
   
-  <script>
+ <script>
+// ✅ TROALARATOOL v5.7 - CLEANED + MERGED GLOBAL JS
 
-
-// 🌞 Day/Night Background Logic
+// 🌞 Auto Day/Night Theme Handling
 let originalBackgroundColor;
 let originalTextColor;
 let isManualOverride = false;
@@ -2697,61 +2698,24 @@ function toggleDayNight() {
   applyBackground(isDay);
 }
 
-// 🔁 Menu & Chapter Navigation
-function toggleMenu() {
-  document.getElementById('menuContainer')?.classList.toggle('show');
-}
-
-function toggleDropdown() {
-  document.getElementById('chaptersDropdown')?.classList.toggle('open');
-}
-
-function showChapterById(id) {
-  document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
-  const target = document.getElementById(id);
-  if (target) {
-    target.classList.add('show');
-    target.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  const hash = window.location.hash.replace("#", "");
-  if (hash && document.getElementById(hash)) {
-    showChapterById(hash);
-  } else {
-    showChapterById("introduction"); // default
-  }
-});
-
-window.addEventListener("hashchange", () => {
-  const hash = window.location.hash.replace("#", "");
-  showChapterById(hash);
-});
-
-// 🧠 TRC Search Function
+// 🧠 Chapter Search Tool
 function searchChapters() {
   const query = document.getElementById('searchBox').value.trim().toLowerCase();
   const keywords = query.split(/\s+/).map(word => word.replace(/(ing|ed|s)$/, ''));
   const chapters = document.querySelectorAll('.chapter');
-
   let bestMatch = null;
   let bestScore = 0;
-
   chapters.forEach(ch => {
     const text = ch.textContent.toLowerCase().replace(/(ing|ed|s)/g, '');
     let score = 0;
-
     keywords.forEach(word => {
       if (text.includes(word)) score++;
     });
-
     if (score > bestScore) {
       bestScore = score;
       bestMatch = ch;
     }
   });
-
   if (bestMatch) {
     document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
     bestMatch.classList.add('show');
@@ -2759,7 +2723,7 @@ function searchChapters() {
   }
 }
 
-// 📲 Native Sharing
+// 📲 Sharing Logic
 function shareSite() {
   if (navigator.share) {
     navigator.share({
@@ -2772,40 +2736,60 @@ function shareSite() {
   }
 }
 
-// 🖼️ Image Slider Autoplay
+// 🔁 Chapter Hash Load on Page Open + Navigation
+function showChapterById(id) {
+  document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('show');
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+window.addEventListener("DOMContentLoaded", () => {
+  const hash = window.location.hash.replace("#", "");
+  showChapterById(hash || "introduction");
+});
+window.addEventListener("hashchange", () => {
+  const hash = window.location.hash.replace("#", "");
+  showChapterById(hash);
+});
+
+// 🖼️ Image Slider Logic
 let index = 0;
 const track = document.querySelector('.slider-track');
 const slides = document.querySelectorAll('.slider-track a');
 let autoplay;
-
 function updateSlide() {
   track.style.transform = `translateX(-${index * 100}%)`;
 }
-
 function nextSlide() {
   index = (index + 1) % slides.length;
   updateSlide();
 }
-
 function prevSlide() {
   index = (index - 1 + slides.length) % slides.length;
   updateSlide();
 }
-
 function startAutoplay() {
   autoplay = setInterval(nextSlide, 5000);
 }
-
 function stopAutoplay() {
   clearInterval(autoplay);
 }
-
 document.getElementById('imageSlider')?.addEventListener('mouseenter', stopAutoplay);
 document.getElementById('imageSlider')?.addEventListener('mouseleave', startAutoplay);
-
 startAutoplay();
 
-// 📱 PWA + Install Prompt + iOS Note
+// 🧪 iOS Install Message (Safari only)
+const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+if (isIos && !window.matchMedia('(display-mode: standalone)').matches) {
+  setTimeout(() => {
+    alert("To install this app: Tap the Share icon → Add to Home Screen.");
+  }, 1500);
+}
+
+// 🧱 Service Worker + Install Prompt
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/troanary-reflective-computer/service-worker.js')
@@ -2813,16 +2797,13 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.error('SW error:', err));
   });
 }
-
 let deferredPrompt;
 const installBtn = document.getElementById('install-button');
-
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  installBtn.style.display = 'inline-block';
+  if (installBtn) installBtn.style.display = 'inline-block';
 });
-
 installBtn?.addEventListener('click', async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
@@ -2832,107 +2813,35 @@ installBtn?.addEventListener('click', async () => {
   }
 });
 
-const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-if (isIos && !window.matchMedia('(display-mode: standalone)').matches) {
-  setTimeout(() => {
-    if (isSafari) {
-      alert("To install this app: Tap the Share icon → Add to Home Screen.");
-    } else {
-      alert("Open this site in Safari, then tap Share → Add to Home Screen.");
-    }
-  }, 1500);
-}
-
-// 🎯 TroHealer Trigger
-let lastEmotion;
-document.getElementById("reflect-btn").addEventListener("click", async () => {
-  if (audioCtx.state === "suspended") await audioCtx.resume();
-  reflect();
-});
-
-window.addEventListener("load", setBackgroundByTime);
-
-
-// 🎼 TroHealer Emotional Data
-// 🎧 TroHealer Core Functions
-
-
-// 🌞 Day/Night Background Logic
-let originalBackgroundColor;
-let originalTextColor;
-let isManualOverride = false;
-let isDay = true;
-
-function setBackgroundByTime() {
-  if (isManualOverride) return;
-  const hour = new Date().getHours();
-  isDay = hour >= 6 && hour < 18;
-  applyBackground(isDay);
-}
-
-function applyBackground(day) {
-  if (day) {
-    document.body.style.background = "linear-gradient(135deg, #fffbe9, #ffffff)";
-    document.body.style.color = "#000";
-  } else {
-    document.body.style.background = "linear-gradient(135deg, #000000, #1a1a1a)";
-    document.body.style.color = "#fff";
-  }
-  originalBackgroundColor = document.body.style.background;
-  originalTextColor = document.body.style.color;
-}
-
-function toggleDayNight() {
-  isManualOverride = true;
-  isDay = !isDay;
-  applyBackground(isDay);
-}
-
-// 🎼 TroHealer Emotional Data
+// 🎼 TroHealer Logic (Alara v5.7)
 const emotions = {
   calm: {
     frequencies: [432, 440, 428, 444],
     color: "#88ccaa",
-    mantras: ["🧘 Breathe in peace 🧘", "🛡️ You are safe here 🛡️", "🌊 Stillness is strength 🌊", "🌬️ Let go of tension 🌬️",
-              "🎯 Return to centre 🎯", "🤫 Silence speaks truth 🤫", "💧 Be like water 💧", "🧠 Relax the mind 🧠",
-              "⛰️ Feel the stillness ⛰️", "🪞 You are whole 🪞", "🌌 Quiet restores 🌌", "🍃 Let it pass 🍃"]
+    mantras: ["🧘 Breathe in peace 🧘", "🛡️ You are safe here 🛡️", "🌊 Stillness is strength 🌊", "🌬️ Let go of tension 🌬️"]
   },
   frustrated: {
     frequencies: [520, 540, 500, 560],
     color: "#cc6644",
-    mantras: ["🔥 Let the fire move through 🔥", "💬 Speak your truth wisely 💬", "👂 You are heard 👂",
-              "⚡ Anger is energy — guide it ⚡", "🧭 Clarity will come 🧭", "🪨 Break the cycle gently 🪨",
-              "🚀 Frustration is fuel 🚀", "🌊 You can respond with calm 🌊", "🧘 Release the tension 🧘",
-              "💓 You're allowed to feel 💓", "🌿 Ground your storm 🌿", "🌬️ Return to your breath 🌬️"]
+    mantras: ["🔥 Let the fire move through 🔥", "💬 Speak your truth wisely 💬"]
   },
   hopeful: {
     frequencies: [444, 456, 460, 472],
     color: "#ccff88",
-    mantras: ["🌅 Hope lives here 🌅", "🌞 New light is coming 🌞", "👣 One step forward 👣", "🌈 Believe in better 🌈",
-              "🔄 Tomorrow begins now 🔄", "✨ Everything begins again ✨", "🛤️ Trust the vision 🛤️", "🚀 You are rising 🚀",
-              "🌍 Let the future pull you 🌍", "☮️ Peace begins in you ☮️", "🌄 The dawn is near 🌄", "🔧 Be the change 🔧"]
+    mantras: ["🌅 Hope lives here 🌅", "🌞 New light is coming 🌞"]
   },
   curious: {
     frequencies: [500, 512, 522, 534],
     color: "#88ccff",
-    mantras: ["❓ Follow the question ❓", "🧭 Let wonder lead 🧭", "🔍 Discovery starts inside 🔍",
-              "🤔 Curiosity is strength 🤔", "👁️ Open your senses 👁️", "🧠 Every thought holds power 🧠",
-              "🔎 The answer is near 🔎", "👀 Observe everything 👀", "📚 You are learning 📚", "🧩 Let go of assumptions 🧩",
-              "🔁 Ask again 🔁", "🛤️ New paths await 🛤️"]
+    mantras: ["❓ Follow the question ❓", "🧭 Let wonder lead 🧭"]
   },
   inspired: {
     frequencies: [600, 620, 640, 660],
     color: "#ffdd55",
-    mantras: ["🎨 Create from the soul 🎨", "💡 Inspiration flows 💡", "🔥 You are the spark 🔥", "🌱 Fuel the fire 🌱",
-              "📣 Your voice matters 📣", "🌟 Shine bright 🌟", "🌺 Let ideas bloom 🌺", "💖 Act from love 💖",
-              "🏗️ Make beauty real 🏗️", "🎼 You are the muse 🎼", "✍️ Turn thought into action ✍️", "🏛️ Build your dream 🏛️"]
+    mantras: ["🎨 Create from the soul 🎨", "💡 Inspiration flows 💡"]
   }
 };
-
-// 🎧 TroHealer Core Functions
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-
 function playTone(freq, duration = 2.4) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
@@ -2944,11 +2853,9 @@ function playTone(freq, duration = 2.4) {
   osc.start();
   osc.stop(audioCtx.currentTime + duration);
 }
-
 function playCombinedTones(freqs, duration = 1.2) {
   freqs.forEach(f => playTone(f, duration));
 }
-
 function renderVisualShapes(color) {
   const layer = document.getElementById("visual-layer");
   layer.innerHTML = "";
@@ -2963,16 +2870,12 @@ function renderVisualShapes(color) {
     layer.appendChild(shape);
   }
 }
-
-async function reflect(repeat = false) {
-  const emotion = repeat ? lastEmotion : document.getElementById("tone-select").value;
+async function reflect() {
+  const emotion = document.getElementById("tone-select").value;
   const data = emotions[emotion];
   if (!data) return;
-
-  lastEmotion = emotion;
   const box = document.getElementById("mantra-box");
   const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
-
   for (let i = 0; i < 4; i++) {
     document.body.style.background = `linear-gradient(135deg, ${data.color}, #ffffff20)`;
     renderVisualShapes(data.color);
@@ -2982,11 +2885,9 @@ async function reflect(repeat = false) {
     await new Promise(r => setTimeout(r, 2400));
     box.style.opacity = "0.3";
   }
-
   box.innerText = "🌀 Integrating healing frequencies 🌀";
   renderVisualShapes(data.color);
   playCombinedTones(data.frequencies, 1.2);
-
   setTimeout(() => {
     document.body.style.background = originalBackgroundColor;
     document.body.style.color = originalTextColor;
@@ -2994,48 +2895,12 @@ async function reflect(repeat = false) {
     box.style.opacity = "1";
   }, 1200);
 }
-
-// 🎯 Trigger healing reflection
-let lastEmotion;
 document.getElementById("reflect-btn").addEventListener("click", async () => {
   if (audioCtx.state === "suspended") await audioCtx.resume();
   reflect();
 });
-
 window.addEventListener("load", setBackgroundByTime);
+</script>
 
-// 🧠 TRC Search Function
-function searchChapters() {
-  const query = document.getElementById('searchBox').value.trim().toLowerCase();
-  const keywords = query.split(/\s+/).map(word => word.replace(/(ing|ed|s)$/, ''));
-  const chapters = document.querySelectorAll('.chapter');
-
-  let bestMatch = null;
-  let bestScore = 0;
-
-  chapters.forEach(ch => {
-    const text = ch.textContent.toLowerCase().replace(/(ing|ed|s)/g, '');
-    let score = 0;
-
-    keywords.forEach(word => {
-      if (text.includes(word)) score++;
-    });
-
-    if (score > bestScore) {
-      bestScore = score;
-      bestMatch = ch;
-    }
-  });
-
-  if (bestMatch) {
-    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
-    bestMatch.classList.add('show');
-    bestMatch.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
-
-
-	  
-  </script>
 </body>
 </html>
