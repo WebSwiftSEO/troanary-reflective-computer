@@ -36,346 +36,419 @@
   <link rel="shortcut icon" href="/troanary-reflective-computer/assets/favicon.ico" />
 	
  
-  <style>
-    body {
-      background-color: #000;
-      color: cyan;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      transition: background 2s ease, color 1s;
-    }
+ <style>
+  body {
+    background-color: #000;
+    color: cyan;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    transition: background 2s ease, color 1s;
+    overflow-x: hidden;
+  }
 
-    html, body {
-      width: 100%;
-      overflow-x: hidden;
-    }
+  html, body {
+    width: 100%;
+    overflow-x: hidden;
+  }
 
+  h1 {
+    color: gold;
+    font-size: 2em;
+    margin-top: 1em;
+  }
+
+  .mantra-loader {
+    font-size: 1.2em;
+    margin: 20px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .mantra-loader.show {
+    opacity: 1;
+  }
+
+  .menu-toggle {
+    background: cyan;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    margin: 20px auto;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #000;
+  }
+
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    display: none;
+  }
+
+  .menu.show ul {
+    display: block;
+  }
+
+  .menu li {
+    margin: 10px 0;
+  }
+
+  .menu a {
+    color: cyan;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .menu a:hover {
+    text-decoration: underline;
+  }
+
+  .chapter {
+    display: none;
+    border: 1px solid cyan;
+    border-radius: 8px;
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    text-align: left;
+  }
+
+  .chapter.show {
+    display: block;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+
+  .search-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    padding: 10px 16px;
+    border-radius: 32px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .search-container input[type="text"] {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    width: 220px;
+    outline: none;
+  }
+
+  .search-container .go-btn {
+    background: #00f5cc;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 16px;
+    margin-left: 10px;
+    font-size: 1em;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 200, 0.6);
+  }
+
+  .social-icons {
+    margin-top: 40px;
+    font-size: 24px;
+  }
+
+  .social-icons a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: cyan;
+  }
+
+  .social-icons a:hover {
+    color: gold;
+  }
+
+  .footer {
+    margin-top: 2em;
+    font-size: 1em;
+  }
+
+  .footer a {
+    color: gold;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+
+  .footer a:hover {
+    text-decoration: underline;
+  }
+
+  body::after {
+    content: '';
+    display: block;
+    height: 100px;
+  }
+
+  a, a:visited {
+    color: gold;
+  }
+
+  .return-link,
+  .return-link:visited {
+    color: gold;
+    text-decoration: none;
+  }
+
+  .return-link:hover {
+    text-decoration: underline;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    background-color: #000;
+    min-width: 262px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border: 1px solid cyan;
+  }
+
+  .dropdown-content a {
+    color: cyan;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #111;
+  }
+
+  .dropdown.open .dropdown-content {
+    display: block;
+  }
+
+  .slider-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 800px;
+    margin: 2rem auto;
+    border-radius: 12px;
+  }
+
+  .slider-track {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .slider-track a {
+    flex: 0 0 100%;
+  }
+
+  .slider-track img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 255, 255, 0.2);
+    border: none;
+    font-size: 2rem;
+    color: cyan;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .slider-container:hover .arrow {
+    opacity: 1;
+  }
+
+  .arrow.left { left: 10px; }
+  .arrow.right { right: 10px; }
+
+  .go-top {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+  .go-top a {
+    color: gold;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+  }
+
+  .go-top a:hover {
+    color: cyan;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  #trohealer-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 60px;
+  }
+
+  select, input, button, textarea {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: 2px solid gold;
+    background: transparent;
+    color: cyan;
+    margin: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 10px gold;
+    width: 260px;
+    text-align: center;
+  }
+
+  #tone-select, #thought-input {
+    background-color: #222;
+    color: #fff;
+  }
+
+  #reflect-btn {
+    background: gold;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  #healing-display {
+    margin-top: 40px;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #mantra-box {
+    font-size: 1.6em;
+    color: white;
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 1s ease;
+    text-shadow: 0 0 6px #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80px;
+  }
+
+  #reflection-box {
+    margin-top: 20px;
+    font-style: italic;
+    color: #777;
+  }
+
+  #visual-layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .visual-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: pulse 6s infinite linear, rotateShape 12s infinite linear;
+    z-index: 0;
+    box-shadow: 0 0 20px 6px rgba(0,0,0,0.7);
+    border: 2px solid rgba(255,255,255,0.2);
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.4); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 0.3; }
+  }
+
+  @keyframes rotateShape {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .glow-button {
+    background: transparent;
+    color: #00ffff;
+    border: 2px solid gold;
+    border-radius: 10px;
+    padding: 10px 24px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    text-shadow: 0 0 6px #00ffff;
+    box-shadow: 0 0 10px gold;
+    transition: all 0.3s ease;
+  }
+
+  .glow-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 20px gold, 0 0 10px #00ffff;
+  }
+
+  .reflect-button {
+    font-size: 16px;
+    padding: 8px 18px;
+    border-radius: 8px;
+    border: 2px solid gold;
+    color: #00ffff;
+    background: transparent;
+    text-shadow: 0 0 4px #00ffff;
+    box-shadow: 0 0 8px gold;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .reflect-button:hover {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 14px gold, 0 0 6px #00ffff;
+  }
+
+  @media (max-width: 500px) {
+    #thought-input, #mantra-box {
+      width: 95%;
+    }
     h1 {
-      font-size: 2em;
-      margin-top: 1em;
-      color: gold;
+      font-size: 1.4em;
     }
+  }
+</style>
 
-    .mantra-loader {
-      font-size: 1.2em;
-      margin: 20px;
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
-    .mantra-loader.show {
-      opacity: 1;
-    }
-
-    .menu-toggle {
-      background: cyan;
-      border: none;
-      border-radius: 12px;
-      padding: 12px 24px;
-      margin: 20px auto;
-      font-size: 1.2em;
-      cursor: pointer;
-      color: #000;
-    }
-
-    .menu ul {
-      list-style: none;
-      padding: 0;
-      display: none;
-    }
-
-    .menu.show ul {
-      display: block;
-    }
-
-    .menu li {
-      margin: 10px 0;
-    }
-
-    .menu a {
-      color: cyan;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .menu a:hover {
-      text-decoration: underline;
-    }
-
-    .chapter {
-      display: none;
-      border: 1px solid cyan;
-      border-radius: 8px;
-      margin: 20px auto;
-      padding: 20px;
-      width: 80%;
-      text-align: left;
-    }
-
-    .chapter.show {
-      display: block;
-    }
-
-    @keyframes shimmer {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    .search-container {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #222;
-      padding: 10px 16px;
-      border-radius: 32px;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-      display: flex;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .search-container input[type="text"] {
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 1em;
-      width: 220px;
-      outline: none;
-    }
-
-    .search-container .go-btn {
-      background: #00f5cc;
-      border: none;
-      border-radius: 20px;
-      padding: 6px 16px;
-      margin-left: 10px;
-      font-size: 1em;
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 255, 200, 0.6);
-    }
-
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .dropdown-content {
-      display: none;
-      background-color: #000;
-      min-width: 262px;
-      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-      z-index: 1;
-      border: 1px solid cyan;
-    }
-
-    .dropdown-content a {
-      color: cyan;
-      padding: 10px 16px;
-      text-decoration: none;
-      display: block;
-    }
-
-    .dropdown-content a:hover {
-      background-color: #111;
-    }
-
-    .dropdown.open .dropdown-content {
-      display: block;
-    }
-
-    .slider-container {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      max-width: 800px;
-      margin: 2rem auto;
-      border-radius: 12px;
-    }
-
-    .slider-track {
-      display: flex;
-      transition: transform 0.5s ease;
-    }
-
-    .slider-track a {
-      flex: 0 0 100%;
-    }
-
-    .slider-track img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 255, 255, 0.2);
-      border: none;
-      font-size: 2rem;
-      color: cyan;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .slider-container:hover .arrow {
-      opacity: 1;
-    }
-
-    .arrow.left { left: 10px; }
-    .arrow.right { right: 10px; }
-
-    .go-top {
-      text-align: center;
-      margin: 20px 0;
-    }
-
-    .go-top a {
-      color: gold;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    .go-top a:hover {
-      color: cyan;
-    }
-
-    a, a:visited {
-      color: gold;
-    }
-
-    .return-link,
-    .return-link:visited {
-      color: gold;
-      text-decoration: none;
-    }
-
-    .return-link:hover {
-      text-decoration: underline;
-    }
-
-    #tone-select, #thought-input, #reflect-btn {
-      display: block;
-      margin: 10px auto;
-      width: 90%;
-      max-width: 300px;
-    }
-
-    #thought-input {
-      height: 40px;
-      background: rgba(255,255,255,0.05);
-      color: #fff;
-      border: 1px solid gold;
-      padding: 6px 12px;
-      font-size: 16px;
-      text-shadow: 0 0 4px #000;
-    }
-
-    #mantra-box {
-      font-size: 1.6em;
-      color: white;
-      background: rgba(255,255,255,0.08);
-      padding: 20px;
-      margin: 30px auto;
-      width: 90%;
-      max-width: 600px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: all 1s ease;
-      text-shadow: 0 0 6px #333;
-    }
-
-    #reflection-box {
-      margin-top: 20px;
-      font-style: italic;
-      color: #777;
-    }
-
-    #visual-layer {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .visual-shape {
-      position: absolute;
-      opacity: 0.8;
-      animation: pulse 6s infinite linear, rotateShape 12s infinite linear;
-      z-index: 0;
-      box-shadow: 0 0 20px 6px rgba(0,0,0,0.7);
-      border: 2px solid rgba(255,255,255,0.2);
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 0.3; }
-      50% { transform: scale(1.4); opacity: 0.9; }
-      100% { transform: scale(1); opacity: 0.3; }
-    }
-
-    @keyframes rotateShape {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .glow-button {
-      background: transparent;
-      color: #00ffff;
-      border: 2px solid gold;
-      border-radius: 10px;
-      padding: 10px 24px;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      text-shadow: 0 0 6px #00ffff;
-      box-shadow: 0 0 10px gold;
-      transition: all 0.3s ease;
-    }
-
-    .glow-button:hover {
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 0 20px gold, 0 0 10px #00ffff;
-    }
-
-    .reflect-button {
-      font-size: 16px;
-      padding: 8px 18px;
-      border-radius: 8px;
-      border: 2px solid gold;
-      color: #00ffff;
-      background: transparent;
-      text-shadow: 0 0 4px #00ffff;
-      box-shadow: 0 0 8px gold;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .reflect-button:hover {
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 0 14px gold, 0 0 6px #00ffff;
-    }
-
-    @media (max-width: 500px) {
-      #thought-input, #mantra-box {
-        width: 95%;
-      }
-      h1 {
-        font-size: 1.4em;
-      }
-    }
-  </style>
 
 
 </head>
@@ -2444,16 +2517,19 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <option value="curious">Curious</option>
     <option value="inspired">Inspired</option>
   </select>
+
   <input type="text" id="thought-input" placeholder="What's on your mind?" />
+
   <button id="reflect-btn" class="glow-button" style="padding: 10px 20px;">Reflect 🌀</button>
 
   <div id="mantra-box">🧘 Waiting for your reflection...</div>
+
   <div id="reflection-box" style="display:none;">
     What came to mind? Write it down or simply breathe it in.
   </div>
 </div>
 
-<!-- 📦 Healing Output -->
+<!-- Healing Output -->
 <div id="healing-display">
   <div id="mantra-screen"></div>
   <div id="visual-layer"></div>
@@ -2464,7 +2540,6 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <input type="text" id="searchBox" placeholder="Search chapters...">
   <button class="go-btn" onclick="searchChapters()">Go</button>
 </div>
-
 
 <!-- 🔍 Share and Install PWA Buttons -->
 <div style="margin-top: 20px;">
@@ -2664,9 +2739,9 @@ It’s about creating wiser systems — and remembering that life itself is alre
   </div>
   
   
- <script>
-
-// 🌞 Auto Day/Night Theme Handling
+ 
+<script>
+// === GLOBAL TRC JS ===
 let originalBackgroundColor;
 let originalTextColor;
 let isManualOverride = false;
@@ -2697,21 +2772,64 @@ function toggleDayNight() {
   applyBackground(isDay);
 }
 
-// 🔁 Menu Toggle Support
-function toggleMenu() {
-  document.getElementById('menuContainer')?.classList.toggle('show');
-}
-function toggleDropdown() {
-  document.getElementById('chaptersDropdown')?.classList.toggle('open');
+const mantras = [
+  "Reflection is intelligence in mirrored motion...♾️🪞🎼",
+  "Water remembers, light reveals, sound feels...🪞🎼🕸️",
+  "Every question echoes in the mirror of infinity...🎼🕸️📜",
+  "Thought is a light and sound wave — reflect it wisely...🕸️📜🌀🌦️",
+  "Sound, light, and water: the triad of awareness...🌀🌦️🧬",
+  "Machines may reflect; only awareness completes...🌦️🧬🔗",
+];
+
+let mantraIndex = 0;
+const mantraEl = document.getElementById('mantra');
+
+function cycleMantra() {
+  mantraEl.classList.remove('show');
+  setTimeout(() => {
+    mantraIndex = (mantraIndex + 1) % mantras.length;
+    mantraEl.textContent = mantras[mantraIndex];
+    mantraEl.classList.add('show');
+  }, 1000);
 }
 
-// 🧠 Chapter Search Tool
+function startMantraCycle() {
+  mantraEl.textContent = mantras[mantraIndex];
+  mantraEl.classList.add('show');
+  setInterval(cycleMantra, 8000);
+}
+
+startMantraCycle();
+
+function toggleMenu() {
+  document.getElementById('menuContainer').classList.toggle('show');
+}
+
+function toggleChapter(id) {
+  document.querySelectorAll('.chapter').forEach(el => el.classList.remove('show'));
+  const chapter = document.getElementById(id);
+  if (chapter) chapter.classList.add('show');
+  document.getElementById('chaptersDropdown').classList.remove('open');
+  chapter.scrollIntoView({ behavior: 'smooth' });
+}
+
+function toggleDropdown() {
+  const dropdown = document.getElementById('chaptersDropdown');
+  dropdown.classList.toggle('open');
+}
+
+function hideChapters() {
+  document.querySelectorAll('.chapter').forEach(el => el.classList.remove('show'));
+}
+
 function searchChapters() {
   const query = document.getElementById('searchBox').value.trim().toLowerCase();
   const keywords = query.split(/\s+/).map(word => word.replace(/(ing|ed|s)$/, ''));
   const chapters = document.querySelectorAll('.chapter');
+
   let bestMatch = null;
   let bestScore = 0;
+
   chapters.forEach(ch => {
     const text = ch.textContent.toLowerCase().replace(/(ing|ed|s)/g, '');
     let score = 0;
@@ -2723,6 +2841,7 @@ function searchChapters() {
       bestMatch = ch;
     }
   });
+
   if (bestMatch) {
     document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
     bestMatch.classList.add('show');
@@ -2730,7 +2849,6 @@ function searchChapters() {
   }
 }
 
-// 📲 Sharing Logic
 function shareSite() {
   if (navigator.share) {
     navigator.share({
@@ -2743,60 +2861,50 @@ function shareSite() {
   }
 }
 
-// 🔁 Chapter Hash Load on Page Open + Navigation
-function showChapterById(id) {
-  document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
-  const target = document.getElementById(id);
-  if (target) {
-    target.classList.add('show');
-    target.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-window.addEventListener("DOMContentLoaded", () => {
-  const hash = window.location.hash.replace("#", "");
-  showChapterById(hash || "introduction");
-});
-window.addEventListener("hashchange", () => {
-  const hash = window.location.hash.replace("#", "");
-  showChapterById(hash);
-});
-
-// 🖼️ Image Slider Logic
 let index = 0;
 const track = document.querySelector('.slider-track');
 const slides = document.querySelectorAll('.slider-track a');
 let autoplay;
+
 function updateSlide() {
   track.style.transform = `translateX(-${index * 100}%)`;
 }
+
 function nextSlide() {
   index = (index + 1) % slides.length;
   updateSlide();
 }
+
 function prevSlide() {
   index = (index - 1 + slides.length) % slides.length;
   updateSlide();
 }
+
 function startAutoplay() {
   autoplay = setInterval(nextSlide, 5000);
 }
 function stopAutoplay() {
   clearInterval(autoplay);
 }
-document.getElementById('imageSlider')?.addEventListener('mouseenter', stopAutoplay);
-document.getElementById('imageSlider')?.addEventListener('mouseleave', startAutoplay);
+
+document.getElementById('imageSlider').addEventListener('mouseenter', stopAutoplay);
+document.getElementById('imageSlider').addEventListener('mouseleave', startAutoplay);
+
 startAutoplay();
 
-// 🧪 iOS Install Message
 const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
 if (isIos && !window.matchMedia('(display-mode: standalone)').matches) {
   setTimeout(() => {
-    alert("To install this app: Tap the Share icon → Add to Home Screen.");
+    if (isSafari) {
+      alert("To install this app: Tap the Share icon → Add to Home Screen.");
+    } else {
+      alert("Open this site in Safari, then tap Share → Add to Home Screen.");
+    }
   }, 1500);
 }
 
-// 🧱 Service Worker + Install Prompt
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/troanary-reflective-computer/service-worker.js')
@@ -2804,14 +2912,17 @@ if ('serviceWorker' in navigator) {
       .catch(err => console.error('SW error:', err));
   });
 }
+
 let deferredPrompt;
 const installBtn = document.getElementById('install-button');
+
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
-  if (installBtn) installBtn.style.display = 'inline-block';
+  installBtn.style.display = 'inline-block';
 });
-installBtn?.addEventListener('click', async () => {
+
+installBtn.addEventListener('click', async () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
@@ -2820,101 +2931,163 @@ installBtn?.addEventListener('click', async () => {
   }
 });
 
-// 🎼 TroAlara Healing Logic
-const emotions = {
-  calm: {
-    frequencies: [432, 440, 428, 444],
-    color: "#88ccaa",
-    mantras: ["🧘 Breathe in peace 🧘", "🛡️ You are safe here 🛡️", "🌊 Stillness is strength 🌊", "🌬️ Let go of tension 🌬️"]
-  },
-  frustrated: {
-    frequencies: [520, 540, 500, 560],
-    color: "#cc6644",
-    mantras: ["🔥 Let the fire move through 🔥", "💬 Speak your truth wisely 💬"]
-  },
-  hopeful: {
-    frequencies: [444, 456, 460, 472],
-    color: "#ccff88",
-    mantras: ["🌅 Hope lives here 🌅", "🌞 New light is coming 🌞"]
-  },
-  curious: {
-    frequencies: [500, 512, 522, 534],
-    color: "#88ccff",
-    mantras: ["❓ Follow the question ❓", "🧭 Let wonder lead 🧭"]
-  },
-  inspired: {
-    frequencies: [600, 620, 640, 660],
-    color: "#ffdd55",
-    mantras: ["🎨 Create from the soul 🎨", "💡 Inspiration flows 💡"]
+document.getElementById('site-title').addEventListener('click', async () => {
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: 'The Reflective Computer',
+        text: 'Explore the future of Troanary Intelligence.',
+        url: window.location.href
+      });
+      console.log('Shared successfully');
+    } catch (err) {
+      console.log('Share cancelled or failed:', err);
+    }
+  } else {
+    alert('Sharing not supported on this device.');
   }
+});
+
+function showChapterById(id) {
+  document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('show'));
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('show');
+    target.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#', '');
+  if (hash && document.getElementById(hash)) {
+    showChapterById(hash);
+  } else {
+    showChapterById('introduction');
+  }
+});
+
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.replace('#', '');
+  showChapterById(hash);
+});
+
+// === TROALARA HEALING TOOL ===
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const clipPaths = {
+  circle: 'circle(50%)',
+  triangle: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+  star: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+  pentagon: 'polygon(50% 0%, 95% 35%, 77% 90%, 23% 90%, 5% 35%)',
+  hexagon: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
 };
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const emotions = {
+  calm: {
+    frequencies: [432, 436, 440],
+    colors: ["#88ccaa", "#aaffcc", "#66bb99"],
+    shape: 'circle',
+    shapeColor: '#cc88cc',
+    mantras: [
+      "🧘 Breathe in peace 🧘", "💧 Flow gently 💧", "🌿 Nature is within 🌿",
+      "🌬️ Slow exhale 🌬️", "🌌 Still mind, calm soul 🌌", "🤍 You are safe 🤍"
+    ]
+  },
+  frustrated: {
+    frequencies: [520, 530, 540],
+    colors: ["#cc6644", "#ff7755", "#bb5544"],
+    shape: 'triangle',
+    shapeColor: '#66ccff',
+    mantras: [
+      "🔥 Let go 🔥", "🌪️ Storm passes 🌪️", "🧘 Return to centre 🧘",
+      "🧠 Stretch the mind 🧠", "💥 Breathe out fire 💥", "⚖️ Balance returns ⚖️"
+    ]
+  },
+  hopeful: {
+    frequencies: [444, 456, 468],
+    colors: ["#ccff88", "#ddff99", "#bbff77"],
+    shape: 'hexagon',
+    shapeColor: '#8866cc',
+    mantras: [
+      "🌅 Hope rises 🌅", "✨ Shine again ✨", "🌈 Believe 🌈",
+      "🦋 Light within awakens 🦋", "🌠 Reach forward 🌠", "🎯 Vision grows 🎯"
+    ]
+  },
+  curious: {
+    frequencies: [500, 512, 524],
+    colors: ["#88ccff", "#99ddff", "#66bbff"],
+    shape: 'star',
+    shapeColor: '#ffcc88',
+    mantras: [
+      "🔍 Seek more 🔍", "🧠 Wonder leads 🧠", "💡 Stay curious 💡",
+      "📚 Learn and grow 📚", "🛤️ Explore paths 🛤️", "🔎 Everything is a clue 🔎"
+    ]
+  },
+  inspired: {
+    frequencies: [600, 612, 624],
+    colors: ["#ffdd55", "#ffe066", "#ffcc44"],
+    shape: 'pentagon',
+    shapeColor: '#55aaff',
+    mantras: [
+      "💡 Spark ideas 💡", "🎨 Create 🎨", "🔥 Ignite passion 🔥",
+      "🏗️ Build your dream 🏗️", "🎶 Express freely 🎶", "🌟 You are a light 🌟"
+    ]
+  }
+};
 
 function playTone(freq, duration = 2.4) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
   osc.type = "sine";
   osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration - 0.2);
   osc.connect(gain);
   gain.connect(audioCtx.destination);
   osc.start();
   osc.stop(audioCtx.currentTime + duration);
 }
 
-function playCombinedTones(freqs, duration = 1.2) {
-  freqs.forEach(f => playTone(f, duration));
-}
-
-function renderVisualShapes(color) {
-  const layer = document.getElementById("visual-layer");
-  layer.innerHTML = "";
-  for (let i = 0; i < 3; i++) {
-    const shape = document.createElement("div");
-    shape.className = "visual-shape";
-    shape.style.backgroundColor = color;
-    const size = Math.floor(Math.random() * 80) + 40;
-    shape.style.width = shape.style.height = size + "px";
-    shape.style.left = Math.random() * 90 + "%";
-    shape.style.top = Math.random() * 80 + "%";
-    layer.appendChild(shape);
+function renderVisual(shapeKey, color) {
+  const layer = document.getElementById('visual-layer');
+  layer.innerHTML = '';
+  for (let i = 0; i < 6; i++) {
+    const el = document.createElement('div');
+    el.className = 'visual-shape';
+    el.style.background = color;
+    el.style.width = el.style.height = `${Math.random() * 80 + 40}px`;
+    el.style.left = `${Math.random() * 90}%`;
+    el.style.top = `${Math.random() * 80}%`;
+    el.style.clipPath = clipPaths[shapeKey] || 'circle(50%)';
+    layer.appendChild(el);
   }
 }
 
 async function reflect() {
-  const emotion = document.getElementById("tone-select").value;
-  const data = emotions[emotion];
-  if (!data) return;
-  const box = document.getElementById("mantra-box");
-  const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
-  for (let i = 0; i < 4; i++) {
-    document.body.style.background = `linear-gradient(135deg, ${data.color}, #ffffff20)`;
-    renderVisualShapes(data.color);
+  const emotionKey = document.getElementById('tone-select').value;
+  const emotion = emotions[emotionKey];
+  const box = document.getElementById('mantra-box');
+  const mantras = [...emotion.mantras].sort(() => 0.5 - Math.random());
+  const colors = emotion.colors;
+  const freqs = emotion.frequencies;
+  if (audioCtx.state === "suspended") await audioCtx.resume();
+
+  for (let i = 0; i < 3; i++) {
+    const toneColor = colors[i % colors.length];
+    document.body.style.background = toneColor;
     box.innerText = mantras[i];
-    box.style.opacity = "1";
-    playTone(data.frequencies[i]);
+    renderVisual(emotion.shape, emotion.shapeColor);
+    playTone(freqs[i]);
     await new Promise(r => setTimeout(r, 2400));
-    box.style.opacity = "0.3";
   }
-  box.innerText = "🌀 Integrating healing frequencies 🌀";
-  renderVisualShapes(data.color);
-  playCombinedTones(data.frequencies, 1.2);
-  setTimeout(() => {
-    document.body.style.background = originalBackgroundColor;
-    document.body.style.color = originalTextColor;
-    box.innerText = "";
-    box.style.opacity = "1";
-  }, 1200);
+
+  box.innerText = "🌀 Integration Complete 🌀\n" + mantras[3 % mantras.length];
+  renderVisual(emotion.shape, emotion.shapeColor);
+  freqs.forEach(f => playTone(f, 1.2));
+  document.body.style.background = colors[2];
 }
 
-document.getElementById("reflect-btn").addEventListener("click", async () => {
-  if (audioCtx.state === "suspended") await audioCtx.resume();
-  reflect();
-});
-
-window.addEventListener("load", setBackgroundByTime);
-
+document.getElementById('reflect-btn').addEventListener('click', reflect);
 </script>
 
 </body>
