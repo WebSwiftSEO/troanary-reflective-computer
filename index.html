@@ -2666,16 +2666,6 @@ It’s about creating wiser systems — and remembering that life itself is alre
   
  <script>
 
-	 // 📂 Toggle Mobile Menu Dropdown
-function toggleMenu() {
-  const menu = document.getElementById("menuContainer");
-  if (menu) {
-    menu.classList.toggle("show");
-  }
-}
-
-// ✅ TROALARATOOL v5.7 - CLEANED + MERGED GLOBAL JS
-
 // 🌞 Auto Day/Night Theme Handling
 let originalBackgroundColor;
 let originalTextColor;
@@ -2705,6 +2695,14 @@ function toggleDayNight() {
   isManualOverride = true;
   isDay = !isDay;
   applyBackground(isDay);
+}
+
+// 🔁 Menu Toggle Support
+function toggleMenu() {
+  document.getElementById('menuContainer')?.classList.toggle('show');
+}
+function toggleDropdown() {
+  document.getElementById('chaptersDropdown')?.classList.toggle('open');
 }
 
 // 🧠 Chapter Search Tool
@@ -2789,7 +2787,7 @@ document.getElementById('imageSlider')?.addEventListener('mouseenter', stopAutop
 document.getElementById('imageSlider')?.addEventListener('mouseleave', startAutoplay);
 startAutoplay();
 
-// 🧪 iOS Install Message (Safari only)
+// 🧪 iOS Install Message
 const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 if (isIos && !window.matchMedia('(display-mode: standalone)').matches) {
@@ -2822,7 +2820,7 @@ installBtn?.addEventListener('click', async () => {
   }
 });
 
-// 🎼 TroHealer Logic (Alara v5.7)
+// 🎼 TroAlara Healing Logic
 const emotions = {
   calm: {
     frequencies: [432, 440, 428, 444],
@@ -2850,7 +2848,9 @@ const emotions = {
     mantras: ["🎨 Create from the soul 🎨", "💡 Inspiration flows 💡"]
   }
 };
+
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
 function playTone(freq, duration = 2.4) {
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
@@ -2862,9 +2862,11 @@ function playTone(freq, duration = 2.4) {
   osc.start();
   osc.stop(audioCtx.currentTime + duration);
 }
+
 function playCombinedTones(freqs, duration = 1.2) {
   freqs.forEach(f => playTone(f, duration));
 }
+
 function renderVisualShapes(color) {
   const layer = document.getElementById("visual-layer");
   layer.innerHTML = "";
@@ -2879,6 +2881,7 @@ function renderVisualShapes(color) {
     layer.appendChild(shape);
   }
 }
+
 async function reflect() {
   const emotion = document.getElementById("tone-select").value;
   const data = emotions[emotion];
@@ -2904,11 +2907,14 @@ async function reflect() {
     box.style.opacity = "1";
   }, 1200);
 }
+
 document.getElementById("reflect-btn").addEventListener("click", async () => {
   if (audioCtx.state === "suspended") await audioCtx.resume();
   reflect();
 });
+
 window.addEventListener("load", setBackgroundByTime);
+
 </script>
 
 </body>
