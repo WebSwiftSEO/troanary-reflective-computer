@@ -310,6 +310,8 @@
     align-items: center;
     gap: 1rem;
     margin-top: 60px;
+    position: relative;
+    z-index: 1;
   }
 
   select, input, button, textarea {
@@ -370,14 +372,15 @@
     font-style: italic;
     color: #777;
   }
-
+  
   #visual-layer {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0; /* ensure it's behind text but within wrapper */
   }
 
   .visual-shape {
@@ -2816,7 +2819,16 @@ function toggleChapter(id) {
 function toggleDropdown() {
   const dropdown = document.getElementById('chaptersDropdown');
   dropdown.classList.toggle('open');
+
+  // NEW: ensure each link inside dropdown collapses the menu after click
+  const links = dropdown.querySelectorAll('a');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      dropdown.classList.remove('open');
+    }, { once: true }); // attach only once to prevent duplicate listeners
+  });
 }
+
 
 function hideChapters() {
   document.querySelectorAll('.chapter').forEach(el => el.classList.remove('show'));
