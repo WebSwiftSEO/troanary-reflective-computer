@@ -375,27 +375,23 @@
   }
   
 
-#visual-layer {
+  #visual-layer {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0; /* Behind tool UI */
+  width: 100%;
+  height: 100%;
   pointer-events: none;
-  overflow: hidden;
-}
-
-
-  .visual-shape {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: pulse 6s infinite linear, rotateShape 12s infinite linear;
-    z-index: 0;
-    box-shadow: 0 0 20px 6px rgba(0,0,0,0.7);
-    border: 2px solid rgba(255,255,255,0.2);
+  z-index: 0; /* make sure it's *under* all UI */
   }
+
+.visual-shape {
+  position: absolute;
+  opacity: 0.2;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  }
+
 
   @keyframes pulse {
     0% { transform: scale(1); opacity: 0.3; }
@@ -2988,64 +2984,52 @@ window.addEventListener('hashchange', () => {
 });
 
 // === TROALARA HEALING TOOL ===
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const clipPaths = {
-  circle: 'circle(50%)',
-  triangle: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-  star: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
-  pentagon: 'polygon(50% 0%, 95% 35%, 77% 90%, 23% 90%, 5% 35%)',
-  hexagon: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
-};
-
 const emotions = {
   calm: {
-    frequencies: [432, 436, 440],
-    colors: ["#88ccaa", "#aaffcc", "#66bb99"],
-    shape: 'circle',
-    shapeColor: '#cc88cc',
+    frequencies: [432, 440, 428, 444],
+    color: "#88ccaa",
     mantras: [
-      "🧘 Breathe in peace 🧘", "💧 Flow gently 💧", "🌿 Nature is within 🌿",
-      "🌬️ Slow exhale 🌬️", "🌌 Still mind, calm soul 🌌", "🤍 You are safe 🤍"
+      "🧘 Breathe in peace 🧘", "🛡️ You are safe here 🛡️", "🌊 Stillness is strength 🌊", "🌬️ Let go of tension 🌬️",
+      "🎯 Return to centre 🎯", "🤫 Silence speaks truth 🤫", "💧 Be like water 💧", "🧠 Relax the mind 🧠",
+      "⛰️ Feel the stillness ⛰️", "🪞 You are whole 🪞", "🌌 Quiet restores 🌌", "🍃 Let it pass 🍃"
     ]
   },
   frustrated: {
-    frequencies: [520, 530, 540],
-    colors: ["#cc6644", "#ff7755", "#bb5544"],
-    shape: 'triangle',
-    shapeColor: '#66ccff',
+    frequencies: [520, 540, 500, 560],
+    color: "#cc6644",
     mantras: [
-      "🔥 Let go 🔥", "🌪️ Storm passes 🌪️", "🧘 Return to centre 🧘",
-      "🧠 Stretch the mind 🧠", "💥 Breathe out fire 💥", "⚖️ Balance returns ⚖️"
+      "🔥 Let the fire move through 🔥", "💬 Speak your truth wisely 💬", "👂 You are heard 👂",
+      "⚡ Anger is energy — guide it ⚡", "🧭 Clarity will come 🧭", "🪨 Break the cycle gently 🪨",
+      "🚀 Frustration is fuel 🚀", "🌊 You can respond with calm 🌊", "🧘 Release the tension 🧘",
+      "💓 You're allowed to feel 💓", "🌿 Ground your storm 🌿", "🌬️ Return to your breath 🌬️"
     ]
   },
   hopeful: {
-    frequencies: [444, 456, 468],
-    colors: ["#ccff88", "#ddff99", "#bbff77"],
-    shape: 'hexagon',
-    shapeColor: '#8866cc',
+    frequencies: [444, 456, 460, 472],
+    color: "#ccff88",
     mantras: [
-      "🌅 Hope rises 🌅", "✨ Shine again ✨", "🌈 Believe 🌈",
-      "🦋 Light within awakens 🦋", "🌠 Reach forward 🌠", "🎯 Vision grows 🎯"
+      "🌅 Hope lives here 🌅", "🌞 New light is coming 🌞", "👣 One step forward 👣", "🌈 Believe in better 🌈",
+      "🔄 Tomorrow begins now 🔄", "✨ Everything begins again ✨", "🛤️ Trust the vision 🛤️", "🚀 You are rising 🚀",
+      "🌍 Let the future pull you 🌍", "☮️ Peace begins in you ☮️", "🌄 The dawn is near 🌄", "🔧 Be the change 🔧"
     ]
   },
   curious: {
-    frequencies: [500, 512, 524],
-    colors: ["#88ccff", "#99ddff", "#66bbff"],
-    shape: 'star',
-    shapeColor: '#ffcc88',
+    frequencies: [500, 512, 522, 534],
+    color: "#88ccff",
     mantras: [
-      "🔍 Seek more 🔍", "🧠 Wonder leads 🧠", "💡 Stay curious 💡",
-      "📚 Learn and grow 📚", "🛤️ Explore paths 🛤️", "🔎 Everything is a clue 🔎"
+      "❓ Follow the question ❓", "🧭 Let wonder lead 🧭", "🔍 Discovery starts inside 🔍",
+      "🤔 Curiosity is strength 🤔", "👁️ Open your senses 👁️", "🧠 Every thought holds power 🧠",
+      "🔎 The answer is near 🔎", "👀 Observe everything 👀", "📚 You are learning 📚", "🧩 Let go of assumptions 🧩",
+      "🔁 Ask again 🔁", "🛤️ New paths await 🛤️"
     ]
   },
   inspired: {
-    frequencies: [600, 612, 624],
-    colors: ["#ffdd55", "#ffe066", "#ffcc44"],
-    shape: 'pentagon',
-    shapeColor: '#55aaff',
+    frequencies: [600, 620, 640, 660],
+    color: "#ffdd55",
     mantras: [
-      "💡 Spark ideas 💡", "🎨 Create 🎨", "🔥 Ignite passion 🔥",
-      "🏗️ Build your dream 🏗️", "🎶 Express freely 🎶", "🌟 You are a light 🌟"
+      "🎨 Create from the soul 🎨", "💡 Inspiration flows 💡", "🔥 You are the spark 🔥", "🌱 Fuel the fire 🌱",
+      "📣 Your voice matters 📣", "🌟 Shine bright 🌟", "🌺 Let ideas bloom 🌺", "💖 Act from love 💖",
+      "🏗️ Make beauty real 🏗️", "🎼 You are the muse 🎼", "✍️ Turn thought into action ✍️", "🏛️ Build your dream 🏛️"
     ]
   }
 };
@@ -3063,6 +3047,27 @@ function playTone(freq, duration = 2.4) {
   osc.start();
   osc.stop(audioCtx.currentTime + duration);
 }
+
+
+
+function renderVisual(color) {
+  const layer = document.getElementById('visual-layer');
+  layer.innerHTML = '';
+  for (let i = 0; i < 6; i++) {
+    const el = document.createElement('div');
+    el.className = 'visual-shape';
+    el.style.background = color;
+    el.style.width = el.style.height = `${Math.random() * 80 + 40}px`;
+    el.style.left = `${Math.random() * 90}%`;
+    el.style.top = `${Math.random() * 80}%`;
+    el.style.position = 'absolute';
+    el.style.clipPath = 'circle(50%)'; // or use a shapeKey system if desired
+    layer.appendChild(el);
+  }
+}
+
+
+
 
 function renderVisual(shapeKey, color) {
   const layer = document.getElementById('visual-layer');
@@ -3092,6 +3097,7 @@ async function reflect() {
     const toneColor = colors[i % colors.length];
     document.body.style.background = toneColor;
     box.innerText = mantras[i];
+    renderVisual(emotion.color);
     renderVisual(emotion.shape, emotion.shapeColor);
     playTone(freqs[i]);
     await new Promise(r => setTimeout(r, 2400));
