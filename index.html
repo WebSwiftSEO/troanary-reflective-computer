@@ -2983,16 +2983,118 @@ window.addEventListener('hashchange', () => {
 // === TROALARA HEALING TOOL ===
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-const emotions = { ... }; // unchanged from your working version
+const emotions = {
+  calm: {
+    frequencies: [432, 440, 428, 444],
+    color: "#88ccaa",
+    mantras: [
+      "🧘 Breathe in peace 🧘", "🛡️ You are safe here 🛡️", "🌊 Stillness is strength 🌊", "🌬️ Let go of tension 🌬️",
+      "🎯 Return to centre 🎯", "🤫 Silence speaks truth 🤫", "💧 Be like water 💧", "🧠 Relax the mind 🧠",
+      "⛰️ Feel the stillness ⛰️", "🪞 You are whole 🪞", "🌌 Quiet restores 🌌", "🍃 Let it pass 🍃"
+    ]
+  },
+  frustrated: {
+    frequencies: [520, 540, 500, 560],
+    color: "#cc6644",
+    mantras: [
+      "🔥 Let the fire move through 🔥", "💬 Speak your truth wisely 💬", "👂 You are heard 👂",
+      "⚡ Anger is energy — guide it ⚡", "🧭 Clarity will come 🧭", "🪨 Break the cycle gently 🪨",
+      "🚀 Frustration is fuel 🚀", "🌊 You can respond with calm 🌊", "🧘 Release the tension 🧘",
+      "💓 You're allowed to feel 💓", "🌿 Ground your storm 🌿", "🌬️ Return to your breath 🌬️"
+    ]
+  },
+  hopeful: {
+    frequencies: [444, 456, 460, 472],
+    color: "#ccff88",
+    mantras: [
+      "🌅 Hope lives here 🌅", "🌞 New light is coming 🌞", "👣 One step forward 👣", "🌈 Believe in better 🌈",
+      "🔄 Tomorrow begins now 🔄", "✨ Everything begins again ✨", "🛤️ Trust the vision 🛤️", "🚀 You are rising 🚀",
+      "🌍 Let the future pull you 🌍", "☮️ Peace begins in you ☮️", "🌄 The dawn is near 🌄", "🔧 Be the change 🔧"
+    ]
+  },
+  curious: {
+    frequencies: [500, 512, 522, 534],
+    color: "#88ccff",
+    mantras: [
+      "❓ Follow the question ❓", "🧭 Let wonder lead 🧭", "🔍 Discovery starts inside 🔍",
+      "🤔 Curiosity is strength 🤔", "👁️ Open your senses 👁️", "🧠 Every thought holds power 🧠",
+      "🔎 The answer is near 🔎", "👀 Observe everything 👀", "📚 You are learning 📚", "🧩 Let go of assumptions 🧩",
+      "🔁 Ask again 🔁", "🛤️ New paths await 🛤️"
+    ]
+  },
+  inspired: {
+    frequencies: [600, 620, 640, 660],
+    color: "#ffdd55",
+    mantras: [
+      "🎨 Create from the soul 🎨", "💡 Inspiration flows 💡", "🔥 You are the spark 🔥", "🌱 Fuel the fire 🌱",
+      "📣 Your voice matters 📣", "🌟 Shine bright 🌟", "🌺 Let ideas bloom 🌺", "💖 Act from love 💖",
+      "🏗️ Make beauty real 🏗️", "🎼 You are the muse 🎼", "✍️ Turn thought into action ✍️", "🏛️ Build your dream 🏛️"
+    ]
+  }
+};
 
-function playTone(...) { ... }  // unchanged
-function playCombinedTones(...) { ... }  // unchanged
-function renderVisualShapes(...) { ... }  // unchanged
+function playTone(freq, duration = 2.4) {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
+
+function playCombinedTones(freqs, duration = 1.2) {
+  freqs.forEach(f => playTone(f, duration));
+}
+
+function renderVisualShapes(color) {
+  const layer = document.getElementById("visual-layer");
+  layer.innerHTML = "";
+  for (let i = 0; i < 3; i++) {
+    const shape = document.createElement("div");
+    shape.className = "visual-shape";
+    shape.style.backgroundColor = color;
+    const size = Math.floor(Math.random() * 80) + 40;
+    shape.style.width = shape.style.height = size + "px";
+    shape.style.left = Math.random() * 90 + "%";
+    shape.style.top = Math.random() * 80 + "%";
+    layer.appendChild(shape);
+  }
+}
 
 let lastEmotion = null;
 
 async function reflect(repeat = false) {
-  ... // unchanged healing logic
+  const emotion = repeat ? lastEmotion : document.getElementById("tone-select").value;
+  const data = emotions[emotion];
+  if (!data) return;
+
+  lastEmotion = emotion;
+  const box = document.getElementById("mantra-box");
+  const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
+
+  for (let i = 0; i < 4; i++) {
+    document.body.style.background = `linear-gradient(135deg, ${data.color}, #ffffff20)`;
+    renderVisualShapes(data.color);
+    box.innerText = mantras[i];
+    box.style.opacity = "1";
+    playTone(data.frequencies[i]);
+    await new Promise(r => setTimeout(r, 2400));
+    box.style.opacity = "0.3";
+  }
+
+  box.innerText = "🌀 Integrating healing frequencies 🌀";
+  renderVisualShapes(data.color);
+  playCombinedTones(data.frequencies, 1.2);
+
+  setTimeout(() => {
+    document.body.style.background = originalBackgroundColor;
+    document.body.style.color = originalTextColor;
+    box.innerText = "";
+    box.style.opacity = "1";
+  }, 1200);
 }
 
 document.getElementById("reflect-btn").addEventListener("click", async () => {
@@ -3001,6 +3103,7 @@ document.getElementById("reflect-btn").addEventListener("click", async () => {
 });
 
 window.addEventListener("load", setBackgroundByTime);
+
 </script>
 
 
