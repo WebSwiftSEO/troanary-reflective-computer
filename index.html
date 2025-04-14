@@ -2982,8 +2982,18 @@ window.addEventListener('hashchange', () => {
   const hash = window.location.hash.replace('#', '');
   showChapterById(hash);
 });
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 // === TROALARA HEALING TOOL ===
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
 const emotions = {
   calm: {
     frequencies: [432, 440, 428, 444],
@@ -3039,77 +3049,79 @@ function playTone(freq, duration = 2.4) {
   const gain = audioCtx.createGain();
   osc.type = "sine";
   osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.05);
-  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration - 0.2);
+  gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
   osc.connect(gain);
   gain.connect(audioCtx.destination);
   osc.start();
   osc.stop(audioCtx.currentTime + duration);
 }
 
-
-
-function renderVisual(color) {
-  const layer = document.getElementById('visual-layer');
-  layer.innerHTML = '';
-  for (let i = 0; i < 6; i++) {
-    const el = document.createElement('div');
-    el.className = 'visual-shape';
-    el.style.background = color;
-    el.style.width = el.style.height = `${Math.random() * 80 + 40}px`;
-    el.style.left = `${Math.random() * 90}%`;
-    el.style.top = `${Math.random() * 80}%`;
-    el.style.position = 'absolute';
-    el.style.clipPath = 'circle(50%)'; // or use a shapeKey system if desired
-    layer.appendChild(el);
-  }
+function playCombinedTones(freqs, duration = 1.2) {
+  freqs.forEach(f => playTone(f, duration));
 }
 
-
-
-
-function renderVisual(shapeKey, color) {
-  const layer = document.getElementById('visual-layer');
-  layer.innerHTML = '';
-  for (let i = 0; i < 6; i++) {
-    const el = document.createElement('div');
-    el.className = 'visual-shape';
-    el.style.background = color;
-    el.style.width = el.style.height = `${Math.random() * 80 + 40}px`;
-    el.style.left = `${Math.random() * 90}%`;
-    el.style.top = `${Math.random() * 80}%`;
-    el.style.clipPath = clipPaths[shapeKey] || 'circle(50%)';
-    layer.appendChild(el);
-  }
-}
-
-async function reflect() {
-  const emotionKey = document.getElementById('tone-select').value;
-  const emotion = emotions[emotionKey];
-  const box = document.getElementById('mantra-box');
-  const mantras = [...emotion.mantras].sort(() => 0.5 - Math.random());
-  const colors = emotion.colors;
-  const freqs = emotion.frequencies;
-  if (audioCtx.state === "suspended") await audioCtx.resume();
-
+function renderVisualShapes(color) {
+  const layer = document.getElementById("visual-layer");
+  layer.innerHTML = "";
   for (let i = 0; i < 3; i++) {
-    const toneColor = colors[i % colors.length];
-    document.body.style.background = toneColor;
-    box.innerText = mantras[i];
-    renderVisual(emotion.color);
-    renderVisual(emotion.shape, emotion.shapeColor);
-    playTone(freqs[i]);
-    await new Promise(r => setTimeout(r, 2400));
+    const shape = document.createElement("div");
+    shape.className = "visual-shape";
+    shape.style.backgroundColor = color;
+    const size = Math.floor(Math.random() * 80) + 40;
+    shape.style.width = shape.style.height = size + "px";
+    shape.style.left = Math.random() * 90 + "%";
+    shape.style.top = Math.random() * 80 + "%";
+    layer.appendChild(shape);
   }
-
-  box.innerText = "🌀 Integration Complete 🌀\n" + mantras[3 % mantras.length];
-  renderVisual(emotion.shape, emotion.shapeColor);
-  freqs.forEach(f => playTone(f, 1.2));
-  document.body.style.background = colors[2];
 }
 
-document.getElementById('reflect-btn').addEventListener('click', reflect);
+let lastEmotion = null;
+
+async function reflect(repeat = false) {
+  const emotion = repeat ? lastEmotion : document.getElementById("tone-select").value;
+  const data = emotions[emotion];
+  if (!data) return;
+
+  lastEmotion = emotion;
+  const box = document.getElementById("mantra-box");
+  const mantras = [...data.mantras].sort(() => 0.5 - Math.random()).slice(0, 4);
+
+  for (let i = 0; i < 4; i++) {
+    document.body.style.background = `linear-gradient(135deg, ${data.color}, #ffffff20)`;
+    renderVisualShapes(data.color);
+    box.innerText = mantras[i];
+    box.style.opacity = "1";
+    playTone(data.frequencies[i]);
+    await new Promise(r => setTimeout(r, 2400));
+    box.style.opacity = "0.3";
+  }
+
+  box.innerText = "🌀 Integrating healing frequencies 🌀";
+  renderVisualShapes(data.color);
+  playCombinedTones(data.frequencies, 1.2);
+
+  setTimeout(() => {
+    document.body.style.background = originalBackgroundColor;
+    document.body.style.color = originalTextColor;
+    box.innerText = "";
+    box.style.opacity = "1";
+  }, 1200);
+}
+
+document.getElementById("reflect-btn").addEventListener("click", async () => {
+  if (audioCtx.state === "suspended") await audioCtx.resume();
+  reflect();
+});
+
+window.addEventListener("load", setBackgroundByTime);
+
+  
+  
+  
+  
+  
+  
+  
 </script>
 
 </body>
