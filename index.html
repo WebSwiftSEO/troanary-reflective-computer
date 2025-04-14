@@ -100,6 +100,7 @@
     color: cyan;
     text-decoration: none;
     font-weight: bold;
+    font-size: 24px;
   }
 
   .menu a:hover {
@@ -548,6 +549,44 @@ input[type="text"],
   font-size: 22px;
   color: gold;
   cursor: pointer;
+}
+
+
+
+
+
+.ios-popup {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111;
+  color: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(255,255,255,0.3);
+  text-align: center;
+  z-index: 9999;
+  width: 90%;
+  max-width: 320px;
+  font-size: 1rem;
+}
+.ios-popup img {
+  vertical-align: middle;
+  margin: 0 4px;
+}
+.ios-popup button {
+  margin-top: 12px;
+  background: gold;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.hidden {
+  display: none;
 }
 
 </style>
@@ -2663,8 +2702,23 @@ It’s about creating wiser systems — and remembering that life itself is alre
 
 
 
-<h2>✨Reflective Computers✨</h2>
-<h3>✨Chapters✨</h3>
+<!-- 📱 Custom iOS PWA Install Tip -->
+<div id="ios-install-popup" class="ios-popup hidden">
+  <p><strong>To install the TRC app</strong>:</p>
+  <p>
+    Tap the 
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAABUQKXIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA60lEQVR4nO3VQUoDQRBF0RdmwARbQKIo+grZgAlUAEXUCuxDCDIByAImIk1HEiey77x8Nte5fjxP48IABFixYoUKFCiQp8fFF5f5zMdBe+pBPHwWJeAMiD78G7ocdA2mjA4rP9oCNUKYkYFJGYRpeEGlg5F0T+iCZEl5JRIonFLEKcWMLUn5IykIUl46T5UBM0h3+R1UpXEjLa5WiYmQEq9gz+TeRJmWa2U+xuAhSpUqFCxYsWKFC1ugDHwbubUGZEu6cAAAAASUVORK5CYII=" width="28" height="28" alt="Share Icon" />
+    then
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAABFUlEQVR4nO2WT0rDQBBF38AAU5iCEYlUocUEFKJxSQUpoKj8AVBzgAIciTKYyOdWdOrqfd7T8/4N7uNm/NxqgAcVXZq9pT30AnvAqZ1cSpjNBa4xDWdlL+6rsbEW0i0kE6AV0qPIwhErzRt/5jgaBQEQEkRgX4Q+6ZYOcJ2Qjme8h2YQJcwiTH0dZLUoIsccgOYV3Fl3p74wvW3DG3gEo7U4FC8YrQqjoS7cJkLzU79fcy2DXrGiU6wFosDGHGmKqS3D7RAehDk6uSEPLiixk6sWEqpjVy39qXvvCOIGv8QnxqbnWngV5mIkWi3DpsAAAAASUVORK5CYII=" width="28" height="28" alt="Add to Home Icon" />
+    Add to Home Screen
+  </p>
+  <button onclick="closeIosPopup()">OK</button>
+</div>
+
+
+
+
+
 	<!-- Image Slider -->
 <div class="slider-container" id="imageSlider">
   <div class="slider-track">
@@ -3242,8 +3296,34 @@ function cycleTitleColor() {
 
 setInterval(cycleTitleColor, 9900); // every 9.9 seconds
 
+
+// === Info button popup === 
     
-    
+  function toggleTip() {
+  const popup = document.getElementById('popup-tip');
+  popup.classList.toggle('hidden');
+}
+
+// === Pwa button popup === 
+
+function closeIosPopup() {
+  document.getElementById('ios-install-popup').classList.add('hidden');
+  localStorage.setItem('iosInstallDismissed', 'true');
+}
+
+window.addEventListener('load', () => {
+  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const hasDismissed = localStorage.getItem('iosInstallDismissed');
+
+  if (isIos && isSafari && !window.matchMedia('(display-mode: standalone)').matches && !hasDismissed) {
+    setTimeout(() => {
+      document.getElementById('ios-install-popup').classList.remove('hidden');
+    }, 12000);
+  }
+});
+
+
     
 
 </script>
