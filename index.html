@@ -492,31 +492,6 @@ input[type="text"],
   box-shadow: 0 0 18px gold, 0 0 10px cyan;
 }
 
-@media (max-width: 500px) {
-  .arrow {
-    font-size: 1.4rem;
-    padding: 0.4rem 0.6rem;
-  }
-
-  .arrow.left {
-    left: 4px;
-  }
-
-  .arrow.right {
-    right: 4px;
-  }
-
-  .slider-container {
-    max-width: 100%;
-  }
-
-  .slider-track {
-    flex-direction: row;
-    overflow: hidden;
-  }
-}
-
-
 
   @media (max-width: 500px) {
     #thought-input, #mantra-box {
@@ -526,6 +501,12 @@ input[type="text"],
       font-size: 1.4em;
     }
   }
+  
+  #site-title {
+  transition: color 2s ease, opacity 2s ease;
+}
+
+
 </style>
 
 
@@ -3177,6 +3158,31 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
 
     document.getElementById('reflect-btn').addEventListener('click', reflect);
+    
+    
+    
+    
+    
+// === Healing Title Colours ===    
+    
+const healingColors = ["#88ccaa", "#ccff88", "#88ccff", "#ffdd55", "#ffcc44", "#aaddff", "#ffe066", "#cc6644"];
+const siteTitle = document.getElementById("site-title");
+
+function cycleTitleColor() {
+  const newColor = healingColors[Math.floor(Math.random() * healingColors.length)];
+  siteTitle.style.transition = "color 2s ease, opacity 2s ease";
+  siteTitle.style.opacity = "0";
+  setTimeout(() => {
+    siteTitle.style.color = newColor;
+    siteTitle.style.opacity = "1";
+  }, 2000);
+}
+
+setInterval(cycleTitleColor, 9900); // every 9.9 seconds
+
+    
+    
+    
 
 </script>
 
