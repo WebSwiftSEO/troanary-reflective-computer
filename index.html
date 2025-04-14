@@ -3049,7 +3049,7 @@ function playCombinedTones(freqs, duration = 1.2) {
   freqs.forEach(f => playTone(f, duration));
 }
 
-function renderVisualShapes(color) {
+function renderVisualShapes(shapeType, color) {
   const layer = document.getElementById("visual-layer");
   layer.innerHTML = "";
   for (let i = 0; i < 3; i++) {
@@ -3060,9 +3060,22 @@ function renderVisualShapes(color) {
     shape.style.width = shape.style.height = size + "px";
     shape.style.left = Math.random() * 90 + "%";
     shape.style.top = Math.random() * 80 + "%";
+    shape.style.clipPath = getClipPath(shapeType);
     layer.appendChild(shape);
   }
 }
+
+function getClipPath(type) {
+  const clipPaths = {
+    circle: 'circle(50%)',
+    triangle: 'polygon(50% 0%, 0% 100%, 100% 100%)',
+    star: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+    pentagon: 'polygon(50% 0%, 95% 35%, 77% 90%, 23% 90%, 5% 35%)',
+    hexagon: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
+  };
+  return clipPaths[type] || clipPaths.circle;
+}
+
 
 let lastEmotion = null;
 
@@ -3078,7 +3091,7 @@ async function reflect(repeat = false) {
   for (let i = 0; i < 4; i++) {
     const toneColor = `hsl(${Math.floor(Math.random() * 360)}, 60%, 70%)`; // new dynamic color
     document.body.style.background = `linear-gradient(135deg, ${toneColor}, #ffffff20)`;
-    renderVisualShapes(toneColor);
+    renderVisualShapes(data.shape, toneColor);
     renderVisualShapes(data.color);
     box.innerText = mantras[i];
     box.style.opacity = "1";
