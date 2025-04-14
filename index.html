@@ -314,6 +314,22 @@
     z-index: 1;
     padding-bottom: 80px; /* adjust to ensure enough space for shapes */
   }
+  
+  /* Mobile fit fix */
+input[type="text"],
+#mantra-box,
+#searchBox {
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto 12px;
+  display: block;
+  box-sizing: border-box;
+}
+#mantra-box {
+  padding: 12px;
+  text-align: center;
+  border-radius: 12px;
+}
 
   select, input, button, textarea {
     padding: 10px;
