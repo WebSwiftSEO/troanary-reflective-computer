@@ -3241,43 +3241,48 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
     };
 
-    function playTone(freq, duration = 2.4) {
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.05);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration - 0.2);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + duration);
-    }
+let audioCtx; // Create only when needed
 
-    function renderVisual(shapeKey, color) {
-      const layer = document.getElementById('visual-layer');
-      layer.innerHTML = '';
-      for (let i = 0; i < 6; i++) {
-        const el = document.createElement('div');
-        el.className = 'visual-shape';
-        el.style.background = color;
-        el.style.width = el.style.height = `${Math.random() * 80 + 40}px`;
-        el.style.left = `${Math.random() * 90}%`;
-        el.style.top = `${Math.random() * 80}%`;
-        el.style.clipPath = clipPaths[shapeKey] || 'circle(50%)';
-        layer.appendChild(el);
-      }
-    }
+function playTone(freq, duration = 2.4) {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
 
-  async function reflect() {
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+  gain.gain.setValueAtTime(0.001, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.2, audioCtx.currentTime + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration - 0.2);
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + duration);
+}
+
+function renderVisual(shapeKey, color) {
+  const layer = document.getElementById('visual-layer');
+  layer.innerHTML = '';
+  for (let i = 0; i < 6; i++) {
+    const el = document.createElement('div');
+    el.className = 'visual-shape';
+    el.style.background = color;
+    el.style.width = el.style.height = `${Math.random() * 80 + 40}px`;
+    el.style.left = `${Math.random() * 90}%`;
+    el.style.top = `${Math.random() * 80}%`;
+    el.style.clipPath = clipPaths[shapeKey] || 'circle(50%)';
+    layer.appendChild(el);
+  }
+}
+
+async function reflect() {
   const emotionKey = document.getElementById('tone-select').value;
   const emotion = emotions[emotionKey];
   const box = document.getElementById('mantra-box');
   const mantras = [...emotion.mantras].sort(() => 0.5 - Math.random());
   const colors = emotion.colors;
   const freqs = emotion.frequencies;
-  if (audioCtx.state === "suspended") await audioCtx.resume();
 
   for (let i = 0; i < 3; i++) {
     const toneColor = colors[i % colors.length];
@@ -3288,19 +3293,21 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     await new Promise(r => setTimeout(r, 2400));
   }
 
-box.innerText = "🌀🔺Integration🔺🌀\n" + mantras[3 % mantras.length];
-renderVisual(emotion.shape, emotion.shapeColor);
-freqs.forEach(f => playTone(f, 1.2));
+  box.innerText = "🌀🔺Integration🔺🌀\n" + mantras[3 % mantras.length];
+  renderVisual(emotion.shape, emotion.shapeColor);
+  freqs.forEach(f => playTone(f, 1.2));
 
-// ✅ Reset background and text to original (supports day/night)
-document.body.style.background = originalBackgroundColor || "#000";
-document.body.style.color = originalTextColor || "cyan";
+  // ✅ Reset background and text after healing
+  document.body.style.background = originalBackgroundColor || "#000";
+  document.body.style.color = originalTextColor || "cyan";
 }
 
-// ✅ MOVE THIS OUTSIDE reflect()
-// document.getElementById('reflect-btn').addEventListener('click', reflect);
+// ✅ Button logic with safe audio resume
+document.getElementById('reflect-btn').addEventListener('click', async () => {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
 
-  document.getElementById('reflect-btn').addEventListener('click', async () => {
   if (audioCtx.state === "suspended") {
     try {
       await audioCtx.resume();
@@ -3310,8 +3317,9 @@ document.body.style.color = originalTextColor || "cyan";
     }
   }
 
-  reflect(); // continue with your healing sequence
+  reflect();
 });
+
 
     
     
