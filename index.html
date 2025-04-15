@@ -2930,7 +2930,7 @@ It’s about creating wiser systems — and remembering that life itself is alre
   </div>
   <div class="search-container">
     <span>🔍 </span>
-    <input type="text" id="searchBox" placeholder="Search chapters...">
+    <input type="text" id="searchBox" placeholder="Search...">
     <button class="go-btn" onclick="searchChapters()">Go</button>
   </div>
   
@@ -3243,9 +3243,6 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 
 function playTone(freq, duration = 2.4) {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
 
   const osc = audioCtx.createOscillator();
   const gain = audioCtx.createGain();
@@ -3303,9 +3300,6 @@ async function reflect() {
 
 // ✅ Button logic with safe audio resume
 document.getElementById('reflect-btn').addEventListener('click', async () => {
-  if (!audioCtx) {
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  }
 
   if (audioCtx.state === "suspended") {
     try {
