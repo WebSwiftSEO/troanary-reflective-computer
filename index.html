@@ -606,7 +606,8 @@ input[type="text"],
   <div class="menu" id="menuContainer">
     <ul>
 
-  <li><a href="#introduction">Introduction</a></li>
+  <li><a href="#" onclick="toggleTip()">💡 Info</a></li>
+  <li><a href="#introduction">Introduction🧠</a></li>
 
   <li class="dropdown" id="chaptersDropdown">
   <a href="javascript:void(0);" onclick="toggleDropdown()">Chapters ▼</a>
@@ -633,7 +634,8 @@ input[type="text"],
     </div>
     </li>
 
-    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#conclusion">Conclusion 🌀</a></li>
+    <li><a href="https://troanary.wordpress.com/books/" target="_blank">eBooks 🔺</a></li>
 	    
     </ul>
   </div>
@@ -3273,9 +3275,9 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   renderVisual(emotion.shape, emotion.shapeColor);
   freqs.forEach(f => playTone(f, 1.2));
 
-  // ✅ Reset background only (keep shapes)
-  document.body.style.backgroundColor = "#000";
-  }
+  // ✅ Reset background and text to original (supports day/night)
+  document.body.style.background = originalBackgroundColor || "#000";
+  document.body.style.color = originalTextColor || "cyan";
 
   document.getElementById('reflect-btn').addEventListener('click', reflect);
     
