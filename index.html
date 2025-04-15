@@ -39,6 +39,7 @@
 <style>
   body {
     background-color: #000;
+    transition: background-color 2s ease;
     color: cyan;
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
@@ -437,6 +438,8 @@ input[type="text"],
     text-shadow: 0 0 6px #00ffff;
     box-shadow: 0 0 10px gold;
     transition: all 0.3s ease;
+    margin: 12px auto; /* reduce default margin */
+    display: block;
   }
 
   .glow-button:hover {
@@ -534,7 +537,8 @@ input[type="text"],
 .close-btn {
   position: absolute;
   top: 12px;
-  right: 16px;
+  left: 50%;
+  transform: translateX(-50%);
   background: none;
   border: none;
   font-size: 26px;
@@ -3247,32 +3251,32 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
     }
 
-    async function reflect() {
-      const emotionKey = document.getElementById('tone-select').value;
-      const emotion = emotions[emotionKey];
-      const box = document.getElementById('mantra-box');
-      const mantras = [...emotion.mantras].sort(() => 0.5 - Math.random());
-      const colors = emotion.colors;
-      const freqs = emotion.frequencies;
-      if (audioCtx.state === "suspended") await audioCtx.resume();
+  async function reflect() {
+  const emotionKey = document.getElementById('tone-select').value;
+  const emotion = emotions[emotionKey];
+  const box = document.getElementById('mantra-box');
+  const mantras = [...emotion.mantras].sort(() => 0.5 - Math.random());
+  const colors = emotion.colors;
+  const freqs = emotion.frequencies;
+  if (audioCtx.state === "suspended") await audioCtx.resume();
 
-      for (let i = 0; i < 3; i++) {
-        const toneColor = colors[i % colors.length];
-        document.body.style.background = toneColor;
-        box.innerText = mantras[i];
-        renderVisual(emotion.shape, emotion.shapeColor);
-        playTone(freqs[i]);
-        await new Promise(r => setTimeout(r, 2400));
-      }
+  for (let i = 0; i < 3; i++) {
+    const toneColor = colors[i % colors.length];
+    document.body.style.background = toneColor;
+    box.innerText = mantras[i];
+    renderVisual(emotion.shape, emotion.shapeColor);
+    playTone(freqs[i]);
+    await new Promise(r => setTimeout(r, 2400));
+  }
 
-      box.innerText = "🌀🔺Integration🔺🌀\n" + mantras[3 % mantras.length];
-      renderVisual(emotion.shape, emotion.shapeColor);
-      freqs.forEach(f => playTone(f, 1.2));
-      document.body.style.background = colors[2];
-    }
+  box.innerText = "🌀🔺Integration🔺🌀\n" + mantras[3 % mantras.length];
+  renderVisual(emotion.shape, emotion.shapeColor);
+  freqs.forEach(f => playTone(f, 1.2));
 
-    document.getElementById('reflect-btn').addEventListener('click', reflect);
-    
+  // ✅ Reset background only (keep shapes)
+  document.body.style.backgroundColor = "#000";
+  }
+
     
     
     
@@ -3335,6 +3339,12 @@ window.addEventListener("load", () => {
 
 
 
+// Return to chapter fix?
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, 50);
+});
 
 
     
