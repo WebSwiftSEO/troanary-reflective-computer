@@ -2683,14 +2683,22 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <button class="glow-button" onclick="toggleTip()">💡 Info?</button> 
   <button id="install-button" class="glow-button" style="display: none;">📲 Install App</button>
 </div>
-<button class="glow-button" onclick="toggleiOSInstall()">📲 iOS App</button>
+<button class="glow-button" onclick="toggleiOSInstall()">🍏 iOS App</button>
+
+
+<!-- 📱 Custom iOS PWA Install Tip -->
 <div id="ios-install-popup" class="ios-popup hidden">
-  <p><strong>To install the TRC app:</strong></p>
-  <p>Tap the <img src="https://webswiftseo.github.io/troanary-reflective-computer/images/share-icon-ios.png" width="32" height="32" alt="Share Icon" />
-  then <img src="https://webswiftseo.github.io/troanary-reflective-computer/images/add-home-icon-ios-white.png" width="32" height="32" alt="Add to Home Icon" /> Add to Home Screen</p>
-  <button onclick="hideiOSInstall()" class="glow-button">OK</button>
+  <p><strong>Install TRC App📲</strong>:</p>
+  <p>
+    Tap<img src="https://webswiftseo.github.io/troanary-reflective-computer/images/share-icon-ios.png" width="32" height="32" alt="Share Icon" />then<img src="https://webswiftseo.github.io/troanary-reflective-computer/images/add-home-icon-ios-white.png" width="32" height="32" alt="Add to Home Icon" /><strong>Add to Home</strong>
+  </p>
+  <button onclick="closeIosPopup()">OK</button>
 </div>
 
+
+<button onclick="toggleDayNight()" style="margin: 12px auto; display: block;" class="glow-button">
+  🌗 Toggle Day/Night
+</button>
 
 <div id="popup-tip" class="popup-tip hidden">
   <div class="popup-content">
@@ -2719,22 +2727,6 @@ It’s about creating wiser systems — and remembering that life itself is alre
 </div>
 
 
-<!-- 📱 Custom iOS PWA Install Tip -->
-<div id="ios-install-popup" class="ios-popup hidden">
-  <p><strong>To install the TRC app</strong>:</p>
-  <p>
-    Tap the 
-    <img src="https://webswiftseo.github.io/troanary-reflective-computer/images/share-icon-ios.png" width="32" height="32" alt="Share Icon" /> then
-    <img src="https://webswiftseo.github.io/troanary-reflective-computer/images/add-home-icon-ios-white.png" width="32" height="32" alt="Add to Home Icon" />
-    <strong>Add to Home Screen</strong>
-  </p>
-  <button onclick="closeIosPopup()">OK</button>
-</div>
-
-
-<button onclick="toggleDayNight()" style="margin: 20px auto; display: block;" class="glow-button">
-  🌗 Toggle Day/Night
-</button>
 
 
 	<!-- Image Slider -->
