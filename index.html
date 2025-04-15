@@ -2681,9 +2681,11 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <button class="glow-button" onclick="shareSite()">📲 Share This</button>
   <button class="glow-button" onclick="toggleTip()">💡 Info?</button> 
   <button id="install-button" class="glow-button" style="display: none;">📲 Install App</button>
+  <button onclick="toggleDayNight()" style="margin: 12px auto; display: block;" class="glow-button">
+  🌗 Toggle Day/Night
+  </button>
+  <button class="glow-button" onclick="toggleiOSInstall()">🍏 iOS App</button>
 </div>
-<button class="glow-button" onclick="toggleiOSInstall()">🍏 iOS App</button>
-
 
 <!-- 📱 Custom iOS PWA Install Tip -->
 <div id="ios-install-popup" class="ios-popup hidden">
@@ -2694,10 +2696,6 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <button onclick="closeIosPopup()">OK</button>
 </div>
 
-
-<button onclick="toggleDayNight()" style="margin: 12px auto; display: block;" class="glow-button">
-  🌗 Toggle Day/Night
-</button>
 
 <div id="popup-tip" class="popup-tip hidden">
   <div class="popup-content">
