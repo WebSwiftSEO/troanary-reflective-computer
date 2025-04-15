@@ -288,7 +288,7 @@
 
   .go-top {
     text-align: center;
-    margin: 20px 0;
+    margin: 0px 0;
   }
 
   .go-top a {
@@ -2683,12 +2683,11 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <button class="glow-button" onclick="toggleTip()">💡 Info?</button> 
   <button id="install-button" class="glow-button" style="display: none;">📲 Install App</button>
 </div>
-
-<button class="glow-button" onclick="toggleiOSInstall()">📲 Install App</button>
+<button class="glow-button" onclick="toggleiOSInstall()">📲 iOS App</button>
 <div id="ios-install-popup" class="ios-popup hidden">
   <p><strong>To install the TRC app:</strong></p>
-  <p>Tap the <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAwCAYAAABvqLzvAAAACXBIWXMAAAsTAAALEwEAmpwYAAABb0lEQVR4nO2YQU7DMBBF3ySB0A5Azb0CdAGdApoBNECcgGZgF0gZwCJgDkrSgmI2V1RpyUkvROjU9sJJS+2uUXBOSJ1BLgA0UBq80QArYogWwRoTLDqD+bgZAfYAEXy/X/eqcWvL0ejXUeVYBJWgkRZzWpbqW1xgtZ2CRB6AhIuhmXkZ1Z2kp1IsKf4EW00KWhFzRCsLfERtkquWWoy2lJAY4BiQq9hiSCgUTWD4QlYUyJVR1RTPB5JITIE7Uby4PhHTQyVxMYj5vRyRsO9y1ZxBqCrIMpKsm5fH2E1tmiHRAVxvK6KuJS0ZAd5Hr+liQkMZty8XG3EN6rpTiZ0uv8HDpHXUuSpNLa68nB4PY9uIZLkv9D3g9q7Q6dn3eDu2Ye6XZOnAcgzMIqInK2bqnlAAAAAElFTkSuQmCC" alt="Share" style="height: 28px; vertical-align: middle;">
-  then <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAABc0lEQVR4nO2ZMU7DMBBG31kUQCOQCeQDugKdAJ3AE4AqQA3IDiQDugHdAlFZLpPPqZDbubFN62xUrM2MbM9CSLsEAPWbEGjAzWgh4C2iEsO1Ai2QLCVnS8Dd5kFsAIW8VRWVRw1EKxXBvVuVVTbUg5SyxytXckGJN2mJlfEuTgdrFZXtFE7cHJEEdHsm3Od9ln1cQ91COgBg0V7LIJrXU0kFxzLgV3h0pEAb4JWzFSv1xObo2taFrS+xiNoMb1hUmugEpDJQR9uURRUYN2m1Sssy+aemJgGsGFguNiEjD+I8NfFgU4SBQv4GkbRPdsQjYZHK0FV3lj+IggFZPh3K6i4Yq4I9chNn3pv3oMWwYjDU8r7alYq4yztaN0q2j+2aTYp0uwsWaHXiF5Ul6tbT6fD6Xp9lL+Cb06sZC3rP9kAAAAASUVORK5CYII=" alt="Add" style="height: 28px; vertical-align: middle;"> Add to Home Screen</p>
+  <p>Tap the <img src="troanary-reflective-computer/images/share-icon.png" width="28" height="28" alt="Share Icon" />
+  then <img src="troanary-reflective-computer/images/add-home-icon.png" width="28" height="28" alt="Add to Home Icon" /> Add to Home Screen</p>
   <button onclick="hideiOSInstall()" class="glow-button">OK</button>
 </div>
 
@@ -2726,9 +2725,9 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <p><strong>To install the TRC app</strong>:</p>
   <p>
     Tap the 
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAABUQKXIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA60lEQVR4nO3VQUoDQRBF0RdmwARbQKIo+grZgAlUAEXUCuxDCDIByAImIk1HEiey77x8Nte5fjxP48IABFixYoUKFCiQp8fFF5f5zMdBe+pBPHwWJeAMiD78G7ocdA2mjA4rP9oCNUKYkYFJGYRpeEGlg5F0T+iCZEl5JRIonFLEKcWMLUn5IykIUl46T5UBM0h3+R1UpXEjLa5WiYmQEq9gz+TeRJmWa2U+xuAhSpUqFCxYsWKFC1ugDHwbubUGZEu6cAAAAASUVORK5CYII=" width="28" height="28" alt="Share Icon" />
+    <img src="troanary-reflective-computer/images/share-icon.png" width="28" height="28" alt="Share Icon" />
     then
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAABFUlEQVR4nO2WT0rDQBBF38AAU5iCEYlUocUEFKJxSQUpoKj8AVBzgAIciTKYyOdWdOrqfd7T8/4N7uNm/NxqgAcVXZq9pT30AnvAqZ1cSpjNBa4xDWdlL+6rsbEW0i0kE6AV0qPIwhErzRt/5jgaBQEQEkRgX4Q+6ZYOcJ2Qjme8h2YQJcwiTH0dZLUoIsccgOYV3Fl3p74wvW3DG3gEo7U4FC8YrQqjoS7cJkLzU79fcy2DXrGiU6wFosDGHGmKqS3D7RAehDk6uSEPLiixk6sWEqpjVy39qXvvCOIGv8QnxqbnWngV5mIkWi3DpsAAAAASUVORK5CYII=" width="28" height="28" alt="Add to Home Icon" />
+    <img src="troanary-reflective-computer/images/add-home-icon.png" width="28" height="28" alt="Add to Home Icon" />
     <strong>Add to Home Screen</strong>
   </p>
   <button onclick="closeIosPopup()">OK</button>
@@ -2919,13 +2918,10 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <!-- 📚 Troanary Navigation Footer - Links -->
   <div class="footer">
     <p>
-      <a href="https://troanary.wordpress.com/books/" target="_blank" class="glow-link">📚Books</a> |
-      <a href="https://troanary.wordpress.com" target="_blank" class="glow-link">Blog</a> |
-      <a href="https://github.com/WebSwiftSEO" target="_blank" class="glow-link">GitHub</a> |
-      <a href="https://webswiftseo.github.io/Troanary-Computing-Mirror-Thesis/" target="_blank" class="glow-link">Mirror Thesis📖</a>
+      <a href="https://troanary.wordpress.com/books/" target="_blank" class="glow-link">📚Books</a>|<a href="https://troanary.wordpress.com" target="_blank" class="glow-link">Blog</a>|<a href="https://github.com/WebSwiftSEO" target="_blank" class="glow-link">GitHub</a>|<a href="https://webswiftseo.github.io/Troanary-Computing-Mirror-Thesis/" target="_blank" class="glow-link">Mirror Thesis📖</a>
     </p>
     <p>
-      <a href="https://webswiftseo.github.io/troanary-reflective-computer/" class="glow-link">🏠🪞Home🪞🏠</a>
+      <a href="https://webswiftseo.github.io/troanary-reflective-computer/" class="glow-link">🪞Home🪞</a>
     </p>
     <p>© Troanary Project</p>
   </div>
@@ -3326,48 +3322,21 @@ setInterval(cycleTitleColor, 9900); // every 9.9 seconds
   popup.classList.toggle('hidden');
 }
 
-// === Pwa button popup === 
+
+
+
+
+
+
+// === iOS PWA Install Tip ===
 
 function closeIosPopup() {
   document.getElementById('ios-install-popup').classList.add('hidden');
-  localStorage.setItem('iosInstallDismissed', 'true');
+  localStorage.setItem('trc_ios_tip_seen', Date.now().toString());
 }
-
-window.addEventListener('load', () => {
-  const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-  const hasDismissed = localStorage.getItem('iosInstallDismissed');
-
-  if (isIos && isSafari && !window.matchMedia('(display-mode: standalone)').matches && !hasDismissed) {
-    setTimeout(() => {
-      document.getElementById('ios-install-popup').classList.remove('hidden');
-    }, 12000);
-  }
-});
-
-
-// === iOS Pwa button popup === 
 
 function toggleiOSInstall() {
   document.getElementById('ios-install-popup').classList.remove('hidden');
-}
-
-function hideiOSInstall() {
-  document.getElementById('ios-install-popup').classList.add('hidden');
-}
-
-
-
-
-
-
-
-// === ???iOS Pwa button popup ===
-
-
-function closeIosPopup() {
-  document.getElementById("ios-install-popup").classList.add("hidden");
-  localStorage.setItem("trc_ios_tip_seen", "true");
 }
 
 // Show only on iPhone Safari and only once every 7 days
@@ -3377,11 +3346,10 @@ window.addEventListener("load", () => {
   const lastSeen = localStorage.getItem("trc_ios_tip_seen");
   const daysSince = lastSeen ? (Date.now() - parseInt(lastSeen)) / (1000 * 60 * 60 * 24) : Infinity;
 
-  if (isIos && isSafari && daysSince > 7) {
+  if (isIos && isSafari && daysSince > 7 && !window.matchMedia('(display-mode: standalone)').matches) {
     setTimeout(() => {
-      document.getElementById("ios-install-popup").classList.remove("hidden");
-      localStorage.setItem("trc_ios_tip_seen", Date.now().toString());
-    }, 1500);
+      toggleiOSInstall();
+    }, 2000); // You can change this delay if needed
   }
 });
 
