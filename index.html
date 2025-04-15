@@ -266,26 +266,39 @@
     display: block;
   }
 
+ /* Default (desktop/tablet) */
+.arrow {
+  position: absolute;
+  top: 85%; /* problematic on mobile */
+  transform: translateY(-50%);
+  background: rgba(0, 255, 255, 0.2);
+  border: none;
+  font-size: 3rem;
+  color: cyan;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover to show arrows */
+.slider-container:hover .arrow {
+  opacity: 1;
+}
+
+/* Left and right */
+.arrow.left { left: 10px; }
+.arrow.right { right: 10px; }
+
+/* ✅ Mobile Fix */
+@media (max-width: 500px) {
   .arrow {
-    position: absolute;
-    top: 85%;
+    top: 50%; /* center vertically on mobile */
     transform: translateY(-50%);
-    background: rgba(0, 255, 255, 0.2);
-    border: none;
-    font-size: 3rem;
-    color: cyan;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    font-size: 2.4rem;
+    padding: 0.4rem 0.8rem;
   }
-
-  .slider-container:hover .arrow {
-    opacity: 1;
-  }
-
-  .arrow.left { left: 10px; }
-  .arrow.right { right: 10px; }
+}
 
   .go-top {
     text-align: center;
