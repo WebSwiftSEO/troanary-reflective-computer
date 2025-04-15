@@ -3298,9 +3298,21 @@ document.body.style.color = originalTextColor || "cyan";
 }
 
 // ✅ MOVE THIS OUTSIDE reflect()
-document.getElementById('reflect-btn').addEventListener('click', reflect);
+// document.getElementById('reflect-btn').addEventListener('click', reflect);
 
-    
+  document.getElementById('reflect-btn').addEventListener('click', async () => {
+  if (audioCtx.state === "suspended") {
+    try {
+      await audioCtx.resume();
+      console.log("AudioContext resumed ✅");
+    } catch (e) {
+      console.warn("AudioContext resume failed ❌", e);
+    }
+  }
+
+  reflect(); // continue with your healing sequence
+});
+
     
     
 // === Healing Title Colours ===    
