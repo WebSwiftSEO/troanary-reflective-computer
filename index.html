@@ -3271,15 +3271,18 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     await new Promise(r => setTimeout(r, 2400));
   }
 
-  box.innerText = "🌀🔺Integration🔺🌀\n" + mantras[3 % mantras.length];
-  renderVisual(emotion.shape, emotion.shapeColor);
-  freqs.forEach(f => playTone(f, 1.2));
+box.innerText = "🌀🔺Integration🔺🌀\n" + mantras[3 % mantras.length];
+renderVisual(emotion.shape, emotion.shapeColor);
+freqs.forEach(f => playTone(f, 1.2));
 
-  // ✅ Reset background and text to original (supports day/night)
-  document.body.style.background = originalBackgroundColor || "#000";
-  document.body.style.color = originalTextColor || "cyan";
+// ✅ Reset background and text to original (supports day/night)
+document.body.style.background = originalBackgroundColor || "#000";
+document.body.style.color = originalTextColor || "cyan";
+}
 
-  document.getElementById('reflect-btn').addEventListener('click', reflect);
+// ✅ MOVE THIS OUTSIDE reflect()
+document.getElementById('reflect-btn').addEventListener('click', reflect);
+
     
     
     
