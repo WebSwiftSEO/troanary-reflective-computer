@@ -490,7 +490,7 @@ input[type="text"],
 
   @media (max-width: 500px) {
     #thought-input, #mantra-box {
-      width: 95%;
+      width: 69%;
     }
     h1 {
       font-size: 1.4em;
@@ -588,6 +588,36 @@ input[type="text"],
 .hidden {
   display: none;
 }
+
+
+
+
+
+.ios-popup {
+  background: rgba(0, 0, 0, 0.92);
+  color: white;
+  border: 2px solid gold;
+  border-radius: 12px;
+  padding: 20px;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  width: 90%;
+  max-width: 320px;
+  box-shadow: 0 0 20px gold;
+  text-align: center;
+}
+
+.ios-popup img {
+  margin: 0 5px;
+}
+
+.hidden {
+  display: none;
+}
+
 
 </style>
 </head>
@@ -2674,6 +2704,15 @@ It’s about creating wiser systems — and remembering that life itself is alre
   <button id="install-button" class="glow-button" style="display: none;">📲 Install App</button>
 </div>
 
+<button class="glow-button" onclick="toggleiOSInstall()">📲 Install App</button>
+<div id="ios-install-popup" class="ios-popup hidden">
+  <p><strong>To install the TRC app:</strong></p>
+  <p>Tap the <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAwCAYAAABvqLzvAAAACXBIWXMAAAsTAAALEwEAmpwYAAABb0lEQVR4nO2YQU7DMBBF3ySB0A5Azb0CdAGdApoBNECcgGZgF0gZwCJgDkrSgmI2V1RpyUkvROjU9sJJS+2uUXBOSJ1BLgA0UBq80QArYogWwRoTLDqD+bgZAfYAEXy/X/eqcWvL0ejXUeVYBJWgkRZzWpbqW1xgtZ2CRB6AhIuhmXkZ1Z2kp1IsKf4EW00KWhFzRCsLfERtkquWWoy2lJAY4BiQq9hiSCgUTWD4QlYUyJVR1RTPB5JITIE7Uby4PhHTQyVxMYj5vRyRsO9y1ZxBqCrIMpKsm5fH2E1tmiHRAVxvK6KuJS0ZAd5Hr+liQkMZty8XG3EN6rpTiZ0uv8HDpHXUuSpNLa68nB4PY9uIZLkv9D3g9q7Q6dn3eDu2Ye6XZOnAcgzMIqInK2bqnlAAAAAElFTkSuQmCC" alt="Share" style="height: 28px; vertical-align: middle;">
+  then <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAqCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAABc0lEQVR4nO2ZMU7DMBBG31kUQCOQCeQDugKdAJ3AE4AqQA3IDiQDugHdAlFZLpPPqZDbubFN62xUrM2MbM9CSLsEAPWbEGjAzWgh4C2iEsO1Ai2QLCVnS8Dd5kFsAIW8VRWVRw1EKxXBvVuVVTbUg5SyxytXckGJN2mJlfEuTgdrFZXtFE7cHJEEdHsm3Od9ln1cQ91COgBg0V7LIJrXU0kFxzLgV3h0pEAb4JWzFSv1xObo2taFrS+xiNoMb1hUmugEpDJQR9uURRUYN2m1Sssy+aemJgGsGFguNiEjD+I8NfFgU4SBQv4GkbRPdsQjYZHK0FV3lj+IggFZPh3K6i4Yq4I9chNn3pv3oMWwYjDU8r7alYq4yztaN0q2j+2aTYp0uwsWaHXiF5Ul6tbT6fD6Xp9lL+Cb06sZC3rP9kAAAAASUVORK5CYII=" alt="Add" style="height: 28px; vertical-align: middle;"> Add to Home Screen</p>
+  <button onclick="hideiOSInstall()" class="glow-button">OK</button>
+</div>
+
+
 <div id="popup-tip" class="popup-tip hidden">
   <div class="popup-content">
     <button class="close-btn" onclick="toggleTip()">✖</button>
@@ -3322,6 +3361,18 @@ window.addEventListener('load', () => {
     }, 12000);
   }
 });
+
+
+// === iOS Pwa button popup === 
+
+function toggleiOSInstall() {
+  document.getElementById('ios-install-popup').classList.remove('hidden');
+}
+
+function hideiOSInstall() {
+  document.getElementById('ios-install-popup').classList.add('hidden');
+}
+
 
 
     
