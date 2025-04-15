@@ -265,20 +265,23 @@
     height: auto;
     display: block;
   }
+  
+  
 
- /* Default (desktop/tablet) */
 .arrow {
   position: absolute;
-  top: 85%; /* problematic on mobile */
-  transform: translateY(-50%);
+  bottom: 10px; /* 👈 keep arrows near bottom */
+  top: auto;
+  transform: none;
   background: rgba(0, 255, 255, 0.2);
   border: none;
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: cyan;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1rem;
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 2;
 }
 
 /* Hover to show arrows */
@@ -286,19 +289,22 @@
   opacity: 1;
 }
 
-/* Left and right */
-.arrow.left { left: 10px; }
-.arrow.right { right: 10px; }
+.arrow.left {
+  left: 10px;
+}
 
-/* ✅ Mobile Fix */
+.arrow.right {
+  right: 10px;
+}
+
+/* ✅ Optional tweak for mobile if needed */
 @media (max-width: 500px) {
   .arrow {
-    top: 50%; /* center vertically on mobile */
-    transform: translateY(-50%);
-    font-size: 2.4rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 2rem;
+    padding: 0.3rem 0.8rem;
   }
 }
+
 
   .go-top {
     text-align: center;
