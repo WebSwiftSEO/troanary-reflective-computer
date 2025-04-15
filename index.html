@@ -369,12 +369,29 @@ input[type="text"],
     color: #fff;
   }
 
-  #reflect-btn {
-    background: gold;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-  }
+#reflect-btn {
+  font-size: 1.4em;
+  padding: 14px 30px;
+  background-color: #00ffff;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+  animation: pulse 2s infinite;
+  transition: transform 0.2s ease-in-out;
+}
+
+#reflect-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff; }
+  50%  { box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff; }
+  100% { box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff; }
+}
+
 
   #healing-display {
     margin-top: 40px;
