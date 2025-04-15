@@ -630,6 +630,47 @@ input[type="text"],
 }
 
 
+#star-background {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  background: transparent;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 2s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+#sun {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at center, #ffff88, #ffaa00);
+  border-radius: 50%;
+  box-shadow: 0 0 40px #ffaa00, 0 0 80px #ffcc00;
+  z-index: -1;
+  display: none; /* hidden by default */
+  animation: glow 6s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 40px #ffaa00, 0 0 80px #ffcc00; }
+  50% { box-shadow: 0 0 60px #ffcc00, 0 0 120px #ffee33; }
+}
+
 
 
 </style>
@@ -676,6 +717,10 @@ input[type="text"],
 	    
     </ul>
   </div>
+  
+  <div id="star-background"></div>
+  <div id="sun"></div>
+ 
   <div id="introduction" class="chapter">
     <h2 style="text-align: center;">Introduction: A Vision From Beyond the Circuit🔺</h2>
     <p>This vision did not emerge from textbooks or code, but from something deeper — a dream 💫. A moment where light travelled faster than thought, water remembered its purpose, and machines paused not just to compute, but to reflect.</p>
@@ -2983,9 +3028,19 @@ function applyBackground(day) {
 }
 
 function toggleDayNight() {
-  isManualOverride = true;
-  isDay = !isDay;
-  applyBackground(isDay);
+  const isDark = document.body.classList.toggle('night-mode');
+  const sun = document.getElementById('sun');
+  const stars = document.getElementById('star-background');
+
+  if (isDark) {
+    document.body.style.backgroundColor = "#000";
+    sun.style.display = "none";
+    stars.style.display = "block";
+  } else {
+    document.body.style.backgroundColor = "#eef7ff";
+    sun.style.display = "block";
+    stars.style.display = "none";
+  }
 }
 
 const mantras = [
@@ -3420,8 +3475,6 @@ window.addEventListener("load", () => {
   }
 });
 
-
-
 // Return to chapter fix?
 window.addEventListener('load', () => {
   setTimeout(() => {
@@ -3429,7 +3482,21 @@ window.addEventListener('load', () => {
   }, 50);
 });
 
+// Stars in night background?
+  const starLayer = document.getElementById("star-background");
+  const starCount = 80; // number of stars
 
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+    const size = Math.random() * 2 + 1; // small stars
+    star.style.width = `${size}px`;
+    star.style.height = `${size}px`;
+    star.style.top = `${Math.random() * 100}%`;
+    star.style.left = `${Math.random() * 100}%`;
+    star.style.animationDelay = `${Math.random() * 4}s`;
+    starLayer.appendChild(star);
+  }
     
 
 </script>
