@@ -3188,58 +3188,88 @@ const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       hexagon: 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
     };
 
-    const emotions = {
-      calm: {
-        frequencies: [432, 436, 440],
-        colors: ["#88ccaa", "#aaffcc", "#66bb99"],
-        shape: 'circle',
-        shapeColor: '#cc88cc',
-        mantras: [
-          "🧘 Breathe in peace 🧘", "💧 Flow gently 💧", "🌿 Nature is within 🌿",
-          "🌬️ Slow exhale 🌬️", "🌌 Still mind, calm soul 🌌", "🤍 You are safe 🤍"
-        ]
-      },
-      frustrated: {
-        frequencies: [520, 530, 540],
-        colors: ["#cc6644", "#ff7755", "#bb5544"],
-        shape: 'triangle',
-        shapeColor: '#66ccff',
-        mantras: [
-          "🔥 Let go 🔥", "🌪️ Storm passes 🌪️", "🧘 Return to centre 🧘",
-          "🧠 Stretch the mind 🧠", "💥 Breathe out fire 💥", "⚖️ Balance returns ⚖️"
-        ]
-      },
-      hopeful: {
-        frequencies: [444, 456, 468],
-        colors: ["#ccff88", "#ddff99", "#bbff77"],
-        shape: 'hexagon',
-        shapeColor: '#8866cc',
-        mantras: [
-          "🌅 Hope rises 🌅", "✨ Shine again ✨", "🌈 Believe 🌈",
-          "🦋 Light within awakens 🦋", "🌠 Reach forward 🌠", "🎯 Vision grows 🎯"
-        ]
-      },
-      curious: {
-        frequencies: [500, 512, 524],
-        colors: ["#88ccff", "#99ddff", "#66bbff"],
-        shape: 'star',
-        shapeColor: '#ffcc88',
-        mantras: [
-          "🔍 Seek more 🔍", "🧠 Wonder leads 🧠", "💡 Stay curious 💡",
-          "📚 Learn and grow 📚", "🛤️ Explore paths 🛤️", "🔎 Everything is a clue 🔎"
-        ]
-      },
-      inspired: {
-        frequencies: [600, 612, 624],
-        colors: ["#ffdd55", "#ffe066", "#ffcc44"],
-        shape: 'pentagon',
-        shapeColor: '#55aaff',
-        mantras: [
-          "💡 Spark ideas 💡", "🎨 Create 🎨", "🔥 Ignite passion 🔥",
-          "🏗️ Build your dream 🏗️", "🎶 Express freely 🎶", "🌟 You are a light 🌟"
-        ]
-      }
-    };
+const emotions = {
+  calm: {
+    frequencies: [432, 436, 440],
+    colors: ["#88ccaa", "#aaffcc", "#66bb99"],
+    shape: 'circle',
+    shapeColor: '#cc88cc',
+    mantras: [
+      "🧘 Breathe in peace", "💧 Flow gently", "🌿 Nature is within",
+      "🌬️ Slow exhale", "🌌 Still mind, calm soul", "🤍 You are safe",
+      "🦶 Ground yourself", "🛁 Soak in stillness", "🪵 Drift like wood",
+      "🌊 Wash away tension", "🐚 Hear the hush", "🍃 Float with ease",
+      "🫧 Let go softly", "🫁 Air is your friend", "🕊️ Rest in silence",
+      "🕯️ A single flame", "🌕 The moon is watching", "⛺ Return to centre",
+      "🎧 Gentle rhythm", "🪶 Soft as a feather", "🌫️ Fade your thoughts",
+      "🔄 Let stillness return", "🔉 Lower the volume", "🏞️ Peace surrounds you"
+    ]
+  },
+  frustrated: {
+    frequencies: [520, 530, 540],
+    colors: ["#cc6644", "#ff7755", "#bb5544"],
+    shape: 'triangle',
+    shapeColor: '#66ccff',
+    mantras: [
+      "🔥 Let go", "🌪️ Storm passes", "🧘 Return to centre",
+      "🧠 Stretch the mind", "💥 Breathe out fire", "⚖️ Balance returns",
+      "🪨 Heavy but strong", "💢 Exhale pressure", "🌋 Release the build",
+      "🌉 Bridge the gap", "🛠️ Reframe your power", "🪬 Calm the chaos",
+      "🏹 Refocus", "🗯️ Scream in silence", "⚡ Ground the charge",
+      "🚪 Step away briefly", "🧩 Accept the mess", "🌤️ Light breaks through",
+      "🧯 Cool the flame", "🧱 Wall becomes window", "🕳️ Drop the weight",
+      "🛸 Float above", "🕳️ Step back in", "🧷 Hold your shape"
+    ]
+  },
+  hopeful: {
+    frequencies: [444, 456, 468],
+    colors: ["#ccff88", "#ddff99", "#bbff77"],
+    shape: 'hexagon',
+    shapeColor: '#8866cc',
+    mantras: [
+      "🌅 Hope rises", "✨ Shine again", "🌈 Believe",
+      "🦋 Light within awakens", "🌠 Reach forward", "🎯 Vision grows",
+      "🚀 Rise beyond", "💫 Potential glows", "🔭 Look ahead",
+      "📈 Growth is near", "🎉 Light is coming", "🌻 Bloom again",
+      "🍀 It’s unfolding", "🎇 Spark of change", "🏔️ One step higher",
+      "🚪 New door opening", "🔓 Release old fears", "📬 A gift awaits",
+      "🪄 Magic exists", "🕊️ You’re not alone", "🗺️ Path ahead clear",
+      "🧭 Trust the compass", "🎒 Ready for the next", "🕰️ This too passes"
+    ]
+  },
+  curious: {
+    frequencies: [500, 512, 524],
+    colors: ["#88ccff", "#99ddff", "#66bbff"],
+    shape: 'star',
+    shapeColor: '#ffcc88',
+    mantras: [
+      "🔍 Seek more", "🧠 Wonder leads", "💡 Stay curious",
+      "📚 Learn and grow", "🛤️ Explore paths", "🔎 Everything is a clue",
+      "🧪 Try something new", "🧭 Follow unknown trails", "🪐 Explore new worlds",
+      "🧬 Decode the patterns", "📡 Listen closely", "🧠 Questions spark light",
+      "🛠️ Tinker and test", "📖 Find the hidden story", "📦 What’s inside?",
+      "🎮 Play with ideas", "📸 Notice details", "🧼 Clean your lens",
+      "💭 Think sideways", "🔓 Unlock surprise", "🌌 Let wonder in",
+      "🧳 Curiosity travels far", "🔗 Connect the dots", "🪞 What’s reflecting back?"
+    ]
+  },
+  inspired: {
+    frequencies: [600, 612, 624],
+    colors: ["#ffdd55", "#ffe066", "#ffcc44"],
+    shape: 'pentagon',
+    shapeColor: '#55aaff',
+    mantras: [
+      "💡 Spark ideas", "🎨 Create", "🔥 Ignite passion",
+      "🏗️ Build your dream", "🎶 Express freely", "🌟 You are a light",
+      "🪄 Let brilliance flow", "🚪 Open the gate", "🧠 Light up the mind",
+      "📣 Speak your truth", "🎯 Aim higher", "🕹️ Take control",
+      "🪞 Reflect brilliance", "📦 Think outside it", "🌈 Blend ideas",
+      "🛸 Jump dimensions", "🕯️ Light the way", "🗺️ Draw the path",
+      "💎 Cut through doubt", "🪶 Let it flow", "📐 Align your angles",
+      "🌬️ Inspire the world", "🪙 Value your voice", "📡 Broadcast the signal"
+    ]
+  }
+};
 
 
 function playTone(freq, duration = 2.4) {
