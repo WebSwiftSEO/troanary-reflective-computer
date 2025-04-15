@@ -672,6 +672,16 @@ input[type="text"],
 }
 
 
+.search-container {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.search-container.visible {
+  opacity: 1;
+}
+
+
 
 </style>
 
@@ -3497,6 +3507,24 @@ window.addEventListener('load', () => {
     star.style.animationDelay = `${Math.random() * 4}s`;
     starLayer.appendChild(star);
   }
+  
+  // Fade in search bar on scroll
+  window.addEventListener("scroll", () => {
+  const installBtn = document.getElementById("install-button");
+  const searchBar = document.querySelector(".search-container");
+
+  if (!installBtn || !searchBar) return;
+
+  const installBottom = installBtn.getBoundingClientRect().bottom;
+  const viewportHeight = window.innerHeight;
+
+  if (installBottom < viewportHeight - 50) {
+    searchBar.classList.add("visible");
+  } else {
+    searchBar.classList.remove("visible");
+  }
+});
+
     
 
 </script>
