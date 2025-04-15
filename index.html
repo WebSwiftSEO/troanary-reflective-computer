@@ -554,69 +554,49 @@ input[type="text"],
 
 
 
-
 .ios-popup {
   position: fixed;
-  bottom: 20px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   background: #111;
   color: white;
-  padding: 20px;
+  padding: 18px 20px;
+  border: 2px solid gold;
   border-radius: 16px;
-  box-shadow: 0 0 12px rgba(255,255,255,0.3);
-  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+  font-size: 1em;
   z-index: 9999;
-  width: 90%;
-  max-width: 320px;
-  font-size: 1rem;
+  max-width: 92%;
+  text-align: center;
+  line-height: 1.6;
 }
+
 .ios-popup img {
   vertical-align: middle;
-  margin: 0 4px;
+  margin: 0 6px;
+  width: 28px;
+  height: 28px;
 }
+
 .ios-popup button {
   margin-top: 12px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
   background: gold;
   color: black;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 10px;
-  cursor: pointer;
   font-weight: bold;
-}
-.hidden {
-  display: none;
-}
-
-
-
-
-
-.ios-popup {
-  background: rgba(0, 0, 0, 0.92);
-  color: white;
-  border: 2px solid gold;
-  border-radius: 12px;
-  padding: 20px;
-  position: fixed;
-  top: 20%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  width: 90%;
-  max-width: 320px;
-  box-shadow: 0 0 20px gold;
-  text-align: center;
-}
-
-.ios-popup img {
-  margin: 0 5px;
+  box-shadow: 0 0 12px gold;
+  cursor: pointer;
+  font-size: 1em;
 }
 
 .hidden {
   display: none;
 }
+
+
 
 
 </style>
@@ -2749,10 +2729,11 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAABUQKXIAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA60lEQVR4nO3VQUoDQRBF0RdmwARbQKIo+grZgAlUAEXUCuxDCDIByAImIk1HEiey77x8Nte5fjxP48IABFixYoUKFCiQp8fFF5f5zMdBe+pBPHwWJeAMiD78G7ocdA2mjA4rP9oCNUKYkYFJGYRpeEGlg5F0T+iCZEl5JRIonFLEKcWMLUn5IykIUl46T5UBM0h3+R1UpXEjLa5WiYmQEq9gz+TeRJmWa2U+xuAhSpUqFCxYsWKFC1ugDHwbubUGZEu6cAAAAASUVORK5CYII=" width="28" height="28" alt="Share Icon" />
     then
     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAABFUlEQVR4nO2WT0rDQBBF38AAU5iCEYlUocUEFKJxSQUpoKj8AVBzgAIciTKYyOdWdOrqfd7T8/4N7uNm/NxqgAcVXZq9pT30AnvAqZ1cSpjNBa4xDWdlL+6rsbEW0i0kE6AV0qPIwhErzRt/5jgaBQEQEkRgX4Q+6ZYOcJ2Qjme8h2YQJcwiTH0dZLUoIsccgOYV3Fl3p74wvW3DG3gEo7U4FC8YrQqjoS7cJkLzU79fcy2DXrGiU6wFosDGHGmKqS3D7RAehDk6uSEPLiixk6sWEqpjVy39qXvvCOIGv8QnxqbnWngV5mIkWi3DpsAAAAASUVORK5CYII=" width="28" height="28" alt="Add to Home Icon" />
-    Add to Home Screen
+    <strong>Add to Home Screen</strong>
   </p>
   <button onclick="closeIosPopup()">OK</button>
 </div>
+
 
 
 
@@ -3119,6 +3100,7 @@ startAutoplay();
 const isIos = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
+/*
 if (isIos && !window.matchMedia('(display-mode: standalone)').matches) {
   setTimeout(() => {
     if (isSafari) {
@@ -3128,6 +3110,7 @@ if (isIos && !window.matchMedia('(display-mode: standalone)').matches) {
     }
   }, 1500);
 }
+*/
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -3372,6 +3355,37 @@ function toggleiOSInstall() {
 function hideiOSInstall() {
   document.getElementById('ios-install-popup').classList.add('hidden');
 }
+
+
+
+
+
+
+
+// === ???iOS Pwa button popup ===
+
+
+function closeIosPopup() {
+  document.getElementById("ios-install-popup").classList.add("hidden");
+  localStorage.setItem("trc_ios_tip_seen", "true");
+}
+
+// Show only on iPhone Safari and only once every 7 days
+window.addEventListener("load", () => {
+  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const lastSeen = localStorage.getItem("trc_ios_tip_seen");
+  const daysSince = lastSeen ? (Date.now() - parseInt(lastSeen)) / (1000 * 60 * 60 * 24) : Infinity;
+
+  if (isIos && isSafari && daysSince > 7) {
+    setTimeout(() => {
+      document.getElementById("ios-install-popup").classList.remove("hidden");
+      localStorage.setItem("trc_ios_tip_seen", Date.now().toString());
+    }, 1500);
+  }
+});
+
+
 
 
 
