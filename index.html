@@ -53,6 +53,10 @@
     width: 100%;
     overflow-x: hidden;
   }
+  
+  body, p, h1, h2, h3, h4 {
+  text-shadow: 0 0 4px rgba(30, 30, 30, 0.6);
+  }
 
   h1 {
     color: gold;
@@ -370,7 +374,7 @@ input[type="text"],
   }
 
 #reflect-btn {
-  font-size: 1.4em;
+  font-size: 1.1em;
   padding: 14px 30px;
   background-color: #00ffff;
   color: #000;
@@ -382,13 +386,13 @@ input[type="text"],
 }
 
 #reflect-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+  transform: scale(1.01);
+  box-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
 }
 
 @keyframes pulse {
   0%   { box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff; }
-  50%  { box-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff; }
+  50%  { box-shadow: 0 0 23px #00ffff, 0 0 30px #00ffff; }
   100% { box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff; }
 }
 
@@ -2750,6 +2754,8 @@ It’s about creating wiser systems — and remembering that life itself is alre
 <!-- 🎛️ TroAlara Controls -->
 <h3>✨ TroAlara Tool v5.7</h3>
 <div id="trohealer-wrapper">
+  <div id="mantra-box">🧘 Waiting for your reflection...</div>
+  <div id="visual-layer"></div>
   <select id="tone-select">
     <option value="calm">Calm</option>
     <option value="frustrated">Frustrated</option>
@@ -2758,9 +2764,7 @@ It’s about creating wiser systems — and remembering that life itself is alre
     <option value="inspired">Inspired</option>
   </select>
   <input type="text" id="thought-input" placeholder="What's on your mind?" />
-  <button id="reflect-btn">Reflect 🌀</button>
-  <div id="mantra-box">🧘 Waiting for your reflection...</div>
-  <div id="visual-layer"></div>
+  <button id="reflect-btn">🌀Reflect🌀</button>
 
 <!-- 🔍 Chapter Search -->
 <div class="search-container">
